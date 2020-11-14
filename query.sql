@@ -1,0 +1,11 @@
+TRUNCATE TABLE incoming;
+TRUNCATE TABLE incoming_detail;
+TRUNCATE TABLE order_detail;
+TRUNCATE TABLE orders;
+TRUNCATE TABLE retur_in;
+TRUNCATE TABLE retur_in_detail;
+TRUNCATE TABLE retur_out;
+TRUNCATE TABLE retur_out_detail;
+TRUNCATE TABLE stock;
+TRUNCATE TABLE transfer;
+TRUNCATE TABLE transfer_detail;
