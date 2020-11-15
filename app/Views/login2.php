@@ -139,7 +139,7 @@
             </div>
         </nav>
     </header>
-    <section class="home" style="background-image: url(http://localhost:8181/assets_login/audit.jpg)">
+    <section class="home" style="background-image: url(<?= base_url('/assets_login/audit.jpg'); ?>)">
         <div class="cover-home" id="hg" style="">
             <div class="container">
                 <div class="pt-4 text-white">
