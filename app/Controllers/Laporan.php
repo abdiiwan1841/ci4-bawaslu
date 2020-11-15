@@ -13,6 +13,7 @@ class Laporan extends BaseController
 {
 
     protected $laporanModel;
+    protected $sessionTrackingModel;
 
     public function __construct()
     {
@@ -21,6 +22,32 @@ class Laporan extends BaseController
 
     public function index()
     {
+
+        $provinsi_options = array();
+
+        $provinsi = $this->laporanModel->getProvinsi();
+        foreach ($provinsi as $r) {
+            $provinsi_options[$r->id] = $r->nama_provinsi;
+        }
+
+        $data = [
+            'title' => 'Satuan Kerja',
+            'active' => 'laporan',
+            'provinsi_options' => $provinsi_options,
+        ];
+        return view('laporan/satuan_kerja', $data);
+    }
+
+    public function list($idWilayah)
+    {
+
+        session()->set('id_wilayah', $idWilayah);
+        session()->set('id_laporan', '');
+        session()->set('id_temuan', '');
+        session()->set('id_rekomendasi', '');
+        session()->set('id_tindak_lanjut', '');
+        session()->set('id_bukti', '');
+
         $data = [
             'title' => 'Laporan',
             'active' => 'laporan'
@@ -94,11 +121,9 @@ class Laporan extends BaseController
                 }
             ),
             array('db' => 'jenis_anggaran', 'dt' => 14),
-            array('db' => 'id_auditor', 'dt' => 15),
-            array('db' => 'id_satuan_kerja', 'dt' => 16),
             array(
                 'db'        => 'id',
-                'dt'        => 17,
+                'dt'        => 15,
                 'formatter' => function ($i, $row) {
                     $html = '
                     <center>
@@ -268,5 +293,11 @@ class Laporan extends BaseController
 
             return redirect()->to('/laporan');
         }
+    }
+
+    public function ajaxGetKabupatenByProvinsiId($idProvinsi)
+    {
+        $response['data'] = $this->laporanModel->getKabupaten($idProvinsi);
+        echo json_encode($response);
     }
 }

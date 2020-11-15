@@ -334,11 +334,6 @@ function input_select($field_name, $label, $options, $selected = '', $required =
     $req = ($required) ? '<font color="red"> * </font>' : '';
     $classRequired = ($required) ? 'required' : '';
 
-    $tmp = ['' => '--Please Select--'];
-
-    $options = array_merge($tmp, $options);
-
-
     echo '<div class="control-group ' . $hashError . '"">';
     echo '    <label class="control-label">' . $label . $hashRequired . '</label>';
     echo '    <div class="controls">';

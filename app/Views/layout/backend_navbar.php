@@ -17,7 +17,7 @@
         <?php if (in_array('laporan', session()->get('user_permissions'))) : ?>
             <li>
                 <a href="#" <?= (($active == 'laporan')) ? 'class="selected"' : ''; ?>>
-                    <span class="fs1" aria-hidden="true" data-icon="&#xe1c7;"></span> Laporan
+                    <span class="fs1" aria-hidden="true" data-icon="&#xe0b3;"></span> Laporan
                 </a>
                 <ul>
                     <?php if (in_array('laporan', session()->get('user_permissions'))) : ?>
@@ -28,112 +28,17 @@
                 </ul>
             </li>
         <?php endif; ?>
-        <?php if (in_array('returin', session()->get('user_permissions')) || in_array('returout', session()->get('user_permissions'))) : ?>
-            <li>
-                <a href="#" <?= (($active == 'returin') || ($active == 'retur_out')) ? 'class="selected"' : ''; ?>>
-                    <span class="fs1" aria-hidden="true" data-icon="&#xe12c;"></span> Retur Product
-                </a>
-                <ul>
-                    <?php if (in_array('returin', session()->get('user_permissions'))) : ?>
-                        <li>
-                            <a href="<?= base_url('/returin'); ?>">Retur IN</a>
-                        </li>
-                    <?php endif; ?>
-                    <?php if (in_array('returout', session()->get('user_permissions'))) : ?>
-                        <li>
-                            <a href="<?= base_url('/returout'); ?>">Retur OUT</a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-            </li>
-        <?php endif; ?>
         <?php if (
-            in_array('stock', session()->get('user_permissions')) ||
-            in_array('stock/in', session()->get('user_permissions')) ||
-            in_array('stock/out', session()->get('user_permissions')) ||
-            in_array('stock/tamim', session()->get('user_permissions')) ||
-            in_array('stock/returin', session()->get('user_permissions')) ||
-            in_array('stock/returout', session()->get('user_permissions'))
+            in_array('product1', session()->get('user_permissions'))
         ) : ?>
             <li>
-                <a href="#" <?= (
-                                ($active == 'stock') ||
-                                ($active == 'stock/in') ||
-                                ($active == 'stock/out') ||
-                                ($active == 'stock/tamim') ||
-                                ($active == 'stock/returin') ||
-                                ($active == 'stock/returout')) ? 'class="selected"' : ''; ?>>
-                    <span class="fs1" aria-hidden="true" data-icon="&#xe0b3;"></span> Stock
-                </a>
-                <ul>
-                    <?php if (in_array('stock/in', session()->get('user_permissions'))) : ?>
-                        <li>
-                            <a href="<?= base_url('/stock/in'); ?>">Stock In</a>
-                        </li>
-                    <?php endif; ?>
-                    <?php if (in_array('stock/tamim', session()->get('user_permissions'))) : ?>
-                        <li>
-                            <a href="<?= base_url('/stock/tamim'); ?>">Stock Tamim</a>
-                        </li>
-                    <?php endif; ?>
-                    <?php if (in_array('stock/out', session()->get('user_permissions'))) : ?>
-                        <li>
-                            <a href="<?= base_url('/stock/out'); ?>">Stock Out</a>
-                        </li>
-                    <?php endif; ?>
-                    <?php if (in_array('stock/returin', session()->get('user_permissions'))) : ?>
-                        <li>
-                            <a href="<?= base_url('/stock/returin'); ?>">Retur In</a>
-                        </li>
-                    <?php endif; ?>
-                    <?php if (in_array('stock/returout', session()->get('user_permissions'))) : ?>
-                        <li>
-                            <a href="<?= base_url('/stock/returout'); ?>">Retur Out</a>
-                        </li>
-                    <?php endif; ?>
-                    <?php if (in_array('stock', session()->get('user_permissions'))) : ?>
-                        <li>
-                            <a href="<?= base_url('/stock'); ?>">All Stock</a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-            </li>
-        <?php endif; ?>
-        <?php if (
-            in_array('product', session()->get('user_permissions')) ||
-            in_array('color', session()->get('user_permissions')) ||
-            in_array('unit', session()->get('user_permissions')) ||
-            in_array('category', session()->get('user_permissions')) ||
-            in_array('supplier', session()->get('user_permissions'))
-        ) : ?>
-            <li>
-                <a href="#" <?= (($active == 'product') || ($active == 'color') || ($active == 'unit') || ($active == 'category') || ($active == 'supplier')) ? 'class="selected"' : ''; ?>>
+                <a href="#" <?= (($active == 'product')) ? 'class="selected"' : ''; ?>>
                     <span class="fs1" aria-hidden="true" data-icon="&#xe020;"></span> Master Data
                 </a>
                 <ul>
                     <?php if (in_array('product', session()->get('user_permissions'))) : ?>
                         <li>
                             <a href="<?= base_url('/product'); ?>">Products</a>
-                        </li>
-                    <?php endif; ?>
-                    <?php if (in_array('color', session()->get('user_permissions'))) : ?>
-                        <li>
-                            <a href="<?= base_url('/color'); ?>">Fabric Colors</a>
-                        </li>
-                    <?php endif; ?>
-                    <?php if (in_array('unit', session()->get('user_permissions'))) : ?>
-                        <li>
-                            <a href="<?= base_url('/unit'); ?>">Unit</a>
-                        </li>
-                    <?php endif; ?>
-                    <?php if (in_array('category', session()->get('user_permissions'))) : ?>
-                        <li>
-                            <a href="<?= base_url('/category'); ?>">Categories</a>
-                        </li>
-                    <?php endif; ?>
-                    <?php if (in_array('supplier', session()->get('user_permissions'))) : ?>
-                        <li>
-                            <a href="<?= base_url('/supplier'); ?>">Suppliers</a>
                         </li>
                     <?php endif; ?>
                 </ul>

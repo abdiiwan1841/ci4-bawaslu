@@ -23,11 +23,22 @@
     <!-- Notifikasi -->
     <script src="<?= '/assets/js/bootstrap.js'; ?>"></script>
     <link rel="stylesheet" type="text/css" href="<?= '/assets/css/bootstrap-editable.css' ?>">
+    <style>
+        .bwizard-steps.clickable li:not(.active) {
+            cursor: unset;
+        }
+
+        .bwizard-steps .active a {
+            color: white;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
     <header>
-        <a href="<?= base_url('/'); ?>" class="logo">BAWASLU - SISTEM INFORMASI PEMANTAUAN TINDAK LANJUT</a>
+        <a href="<?= base_url('/'); ?>" class="logo"><img src="<?= '/images/icon.png'; ?>" style="width: 30px;" class="img-logo" alt=""></a>
+        <span style="color: #fff;font-size: 18px;padding-left: 5px;">BAWASLU - SISTEM INFORMASI PEMANTAUAN TINDAK LANJUT</span>
         <div id="mini-nav">
             <ul class="hidden-phone">
                 <li>
@@ -47,9 +58,6 @@
                         </div>
 
                     </div>
-                </li>
-                <li>
-                    <a href="<?= base_url('/faq') ?>"><span class="fs1" aria-hidden="true" data-icon="&#xe03b;"></span></a>
                 </li>
                 <li>
                     <a href="<?= base_url('/profile') ?>"><span class="fs1" aria-hidden="true" data-icon="&#xe090;"></span></a>

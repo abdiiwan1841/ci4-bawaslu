@@ -23,7 +23,7 @@
                  <div class="signin">
                      <h4 class="center-align-text" style="color: #fff;"><?php //echo $data->system_name; 
                                                                         ?></h4>
-                     <center><img src="<?= '#'; ?>" style="max-width: 260px;padding-bottom:10px;" /></center>
+                     <center><img src="<?= '/images/logo.png'; ?>" style="max-width: 260px;padding-bottom:10px;" /></center>
                      <div class="message failure">
 
                      </div>

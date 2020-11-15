@@ -21,6 +21,14 @@ class Rekomendasi extends BaseController
 
     public function index($idTemuan)
     {
+
+        // session()->set('id_wilayah', $idWilayah);
+        // session()->set('id_laporan', $idLaporan);
+        session()->set('id_temuan', $idTemuan);
+        session()->set('id_rekomendasi', '');
+        session()->set('id_tindak_lanjut', '');
+        session()->set('id_bukti', '');
+
         $data = [
             'title' => 'Rekomendasi',
             'active' => 'rekomendasi',

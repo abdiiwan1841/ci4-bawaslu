@@ -20,53 +20,52 @@
                 </div>
             </div>
             <div class="widget-body">
-                <div id="wizard" class="bwizard clearfix">
-                    <ol class="bwizard-steps clearfix clickable" role="tablist">
-                        <li role="tab" aria-selected="true" class="active" style="z-index: 4;"><span class="label badge-inverse">1</span><a href="<?= base_url('laporan') ?>" class="hidden-phone">Laporan</a></li>
-                        <li role="tab" aria-selected="false" style="z-index: 3;" class=""><span class="label">2</span><a href="#step2" class="hidden-phone">Temuan</a></li>
-                        <li role="tab" aria-selected="false" style="z-index: 2;" class=""><span class="label">3</span><a href="#step3" class="hidden-phone">Rekomendasi</a></li>
-                        <li role="tab" aria-selected="false" style="z-index: 1;" class=""><span class="label">4</span><a href="#step4" class="hidden-phone">Tindak Lanjut</a></li>
-                    </ol>
+                <ol class="bwizard-steps clearfix clickable" role="tablist">
+                    <li role="tab" aria-selected="true" class="active" style="z-index: 6;"><span class="label badge-inverse">1</span><a href="<?= base_url('laporan') ?>" class="hidden-phone">Satuan Kerja</a></li>
+                    <li role="tab" aria-selected="true" class="active" style="z-index: 5;"><span class="label badge-inverse">2</span><a href="<?= base_url('laporan/list/' . session()->get('id_wilayah')) ?>" class="hidden-phone">Laporan</a></li>
+                    <li role="tab" aria-selected="false" style="z-index: 4;" class=""><span class="label">3</span>Temuan</li>
+                    <li role="tab" aria-selected="false" style="z-index: 3;" class=""><span class="label">4</span>Rekomendasi</li>
+                    <li role="tab" aria-selected="false" style="z-index: 2;" class=""><span class="label">5</span>Tindak Lanjut</li>
+                    <li role="tab" aria-selected="false" style="z-index: 1;" class=""><span class="label">6</span>Bukti</li>
+                </ol>
 
-                    <div class="well">
+                <div class="well">
 
-                        <?php if (session()->getFlashData('messages')) : ?>
-                            <div class="alert alert-success" role="alert">
-                                <?= session()->getFlashData('messages') ?>
-                            </div>
-                        <?php endif; ?>
-                        <table id="datatables" class="table table-condensed table-bordered no-margin">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>No Laporan</th>
-                                    <th>Tanggal Laporan</th>
-                                    <th>Nama Laporan</th>
-                                    <th>No Surat Tugas</th>
-                                    <th>Tanggal Surat Tugas</th>
-                                    <th>Unit Pelaksana</th>
-                                    <th>NIP Pimpinan</th>
-                                    <th>Pimpinan Satuan Kerja</th>
-                                    <th>Nama Satuan Kerja</th>
-                                    <th>Tahun Anggaran</th>
-                                    <th>Nilai Anggaran</th>
-                                    <th>Realisasi Anggaran</th>
-                                    <th>Audit Anggaran</th>
-                                    <th>Jenis Anggaran</th>
-                                    <th>ID Auditor</th>
-                                    <th>ID Satuan Kerja</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                    <?php if (session()->getFlashData('messages')) : ?>
+                        <div class="alert alert-success" role="alert">
+                            <?= session()->getFlashData('messages') ?>
+                        </div>
+                    <?php endif; ?>
+                    <table id="datatables" class="table table-condensed table-bordered no-margin">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>No Laporan</th>
+                                <th>Tanggal Laporan</th>
+                                <th>Nama Laporan</th>
+                                <th>No Surat Tugas</th>
+                                <th>Tanggal Surat Tugas</th>
+                                <th>Unit Pelaksana</th>
+                                <th>NIP Pimpinan</th>
+                                <th>Pimpinan Satuan Kerja</th>
+                                <th>Nama Satuan Kerja</th>
+                                <th>Tahun Anggaran</th>
+                                <th>Nilai Anggaran</th>
+                                <th>Realisasi Anggaran</th>
+                                <th>Audit Anggaran</th>
+                                <th>Jenis Anggaran</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
 
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <script type="text/javascript" src="<?= '/assets/datatables/js/jquery.dataTables.min.js' ?>"></script>
@@ -92,9 +91,14 @@
             serverSide: true,
             responsive: true,
             columnDefs: [{
-                responsivePriority: 1,
-                targets: 17
-            }],
+                    responsivePriority: 1,
+                    targets: 15
+                },
+                {
+                    width: '100px',
+                    targets: 15
+                }
+            ],
             order: [
                 [1, "asc"]
             ],
@@ -112,7 +116,7 @@
                 $('td:eq(11)', nRow).css("text-align", "right");
                 $('td:eq(12)', nRow).css("text-align", "right");
                 $('td:eq(13)', nRow).css("text-align", "right");
-                $('td:eq(17)', nRow).css("text-align", "center");
+                $('td:eq(15)', nRow).css("text-align", "center");
                 return nRow;
             },
         });

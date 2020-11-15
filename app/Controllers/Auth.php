@@ -28,7 +28,7 @@ class Auth extends BaseController
                 'title' => 'Login',
                 'validation' => \Config\Services::validation()
             ];
-            return view('login', $data);
+            return view('login2', $data);
         } else {
             return redirect()->to('/' . session()->get('landing_page'));
         }

@@ -21,6 +21,14 @@ class Temuan extends BaseController
 
     public function index($idLaporan)
     {
+
+        // session()->set('id_wilayah', $idWilayah);
+        session()->set('id_laporan', $idLaporan);
+        session()->set('id_temuan', '');
+        session()->set('id_rekomendasi', '');
+        session()->set('id_tindak_lanjut', '');
+        session()->set('id_bukti', '');
+
         $data = [
             'title' => 'Temuan',
             'active' => 'temuan',

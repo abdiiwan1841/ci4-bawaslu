@@ -21,6 +21,14 @@ class Bukti extends BaseController
 
     public function index($idTindakLanjut)
     {
+
+        // session()->set('id_wilayah', $idWilayah);
+        // session()->set('id_laporan', $idLaporan);
+        // session()->set('id_temuan', $idTemuan);
+        // session()->set('id_rekomendasi', $idRekomendasi);
+        session()->set('id_tindak_lanjut', $idTindakLanjut);
+        session()->set('id_bukti', '');
+
         $data = [
             'title' => 'Bukti',
             'active' => 'bukti',
