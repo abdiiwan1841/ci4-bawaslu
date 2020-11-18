@@ -81,6 +81,9 @@ class Temuan extends BaseController
                     <a href="' . base_url('rekomendasi/index/' . $i) . '" class="btn btn-success btn-small" data-original-title="Edit">
                     Rekomendasi
                     </a>
+                    <a href="' . base_url('sebab/index/' . $i) . '" class="btn btn-danger btn-small" data-original-title="Edit">
+                    Sebab
+                    </a>
                     </center>';
                     return $html;
                 }

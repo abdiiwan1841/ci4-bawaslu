@@ -24,10 +24,10 @@
                     <ol class="bwizard-steps clearfix clickable" role="tablist">
                         <li role="tab" aria-selected="true" class="active" style="z-index: 6;"><span class="label badge-inverse">1</span><a href="<?= base_url('laporan') ?>" class="hidden-phone">Satuan Kerja</a></li>
                         <li role="tab" aria-selected="true" class="active" style="z-index: 5;"><span class="label badge-inverse">2</span><a href="<?= base_url('laporan/list/' . session()->get('id_wilayah')) ?>" class="hidden-phone">Laporan</a></li>
-                        <li role="tab" aria-selected="true" class="active" style="z-index: 4;"><span class="label badge-inverse">3</span><a href="<?= base_url('sebab/index/' . session()->get('id_laporan')) ?>" class="hidden-phone">Sebab</a></li>
-                        <li role="tab" aria-selected="false" style="z-index: 3;" class=""><span class="label">4</span>Rekomendasi</li>
-                        <li role="tab" aria-selected="false" style="z-index: 2;" class=""><span class="label">5</span>Tindak Lanjut</li>
-                        <li role="tab" aria-selected="false" style="z-index: 1;" class=""><span class="label">6</span>Bukti</li>
+                        <li role="tab" aria-selected="true" class="active" style="z-index: 4;"><span class="label badge-inverse">3</span><a href="<?= base_url('temuan/index/' . session()->get('id_laporan')) ?>" class="hidden-phone">Temuan</a></li>
+                        <li role="tab" aria-selected="false" class="active" style="z-index: 3;"><span class="label badge-inverse">4</span><a href="<?= base_url('sebab/index/' . session()->get('id_temuan')) ?>" class="hidden-phone">Sebab</a></li>
+                        <!-- <li role="tab" aria-selected="false" style="z-index: 2;" class=""><span class="label">5</span>Tindak Lanjut</li>
+                        <li role="tab" aria-selected="false" style="z-index: 1;" class=""><span class="label">6</span>Bukti</li> -->
                     </ol>
 
                     <div class="well">
@@ -43,8 +43,6 @@
                                     <th>No.</th>
                                     <th>No.Sebab</th>
                                     <th>Memo Sebab</th>
-                                    <th>Jenis Sebab</th>
-                                    <th>Nilai Sebab</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -73,7 +71,7 @@
                 <?php if (in_array('sebab/create', session()->get('user_permissions'))) : ?> {
                         text: 'Create New',
                         action: function(e, dt, node, config) {
-                            window.location.href = "<?= base_url('/sebab/create/' . $id_laporan); ?>";
+                            window.location.href = "<?= base_url('/sebab/create/' . $id_temuan); ?>";
                         }
                     }
                 <?php endif; ?>
@@ -83,7 +81,7 @@
             responsive: true,
             columnDefs: [{
                 responsivePriority: 1,
-                targets: 4
+                targets: 3
             }],
             order: [
                 [1, "asc"]
@@ -91,7 +89,7 @@
             search: {
                 "caseInsensitive": false
             },
-            ajax: "<?= base_url('sebab/datatables/' . $id_laporan); ?>",
+            ajax: "<?= base_url('sebab/datatables/' . $id_temuan); ?>",
             fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 var info = table.page.info();
                 var page = info.page;
@@ -100,8 +98,7 @@
                 $('td:first', nRow).html(index);
                 $('th').css("text-align", "center");
                 $('td:eq(1)', nRow).css("text-align", "left");
-                $('td:eq(4)', nRow).css("text-align", "right");
-                $('td:eq(5)', nRow).css("text-align", "center");
+                $('td:eq(3)', nRow).css("text-align", "center");
                 return nRow;
             },
         });

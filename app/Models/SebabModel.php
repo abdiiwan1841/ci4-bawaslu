@@ -21,9 +21,7 @@ class SebabModel extends Model
         'id',
         'no_sebab',
         'memo_sebab',
-        'jenis_sebab',
-        'nilai_sebab',
-        'id_laporan'
+        'id_temuan'
     ];
 
     protected $useTimestamps = true;
@@ -41,9 +39,7 @@ class SebabModel extends Model
         id,
         no_sebab,
         memo_sebab,
-        jenis_sebab,
-        nilai_sebab,
-        id_laporan');
+        id_temuan');
         $this->orderBy('no_sebab', 'ASC');
         $query = $this->get();
         $data = $query->getResult();
@@ -59,9 +55,7 @@ class SebabModel extends Model
         id,
         no_sebab,
         memo_sebab,
-        jenis_sebab,
-        nilai_sebab,
-        id_laporan');
+        id_temuan');
         $this->orderBy('no_sebab', 'ASC');
         $this->where('id', $id);
         $query = $this->get();

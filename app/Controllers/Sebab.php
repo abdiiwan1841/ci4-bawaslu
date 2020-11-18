@@ -19,25 +19,25 @@ class Sebab extends BaseController
         $this->sebabModel = new SebabModel();
     }
 
-    public function index($idLaporan)
+    public function index($idTemuan)
     {
 
         // session()->set('id_wilayah', $idWilayah);
-        session()->set('id_laporan', $idLaporan);
+        // session()->set('id_laporan', $idLaporan);
+        session()->set('id_temuan', $idTemuan);
         session()->set('id_sebab', '');
-        session()->set('id_rekomendasi', '');
         session()->set('id_tindak_lanjut', '');
         session()->set('id_bukti', '');
 
         $data = [
             'title' => 'Sebab',
             'active' => 'sebab',
-            'id_laporan' => $idLaporan
+            'id_temuan' => $idTemuan
         ];
         return view('sebab/index', $data);
     }
 
-    public function datatables($idLaporan)
+    public function datatables($idTemuan)
     {
         $table =
             "
@@ -46,12 +46,10 @@ class Sebab extends BaseController
                  a.id,
                  a.no_sebab,
                  a.memo_sebab,
-                 a.jenis_sebab,
-                 a.nilai_sebab,
-                 a.id_laporan 
+                 a.id_temuan 
                 FROM sebab a
                 WHERE a.deleted_at IS NULL 
-                AND a.id_laporan='" . $idLaporan . "'
+                AND a.id_temuan='" . $idTemuan . "'
                 ORDER BY a.no_sebab ASC
             ) temp
             ";
@@ -60,26 +58,14 @@ class Sebab extends BaseController
             array('db' => 'id', 'dt' => 0),
             array('db' => 'no_sebab', 'dt' => 1),
             array('db' => 'memo_sebab', 'dt' => 2),
-            array('db' => 'jenis_sebab', 'dt' => 3),
-            array(
-                'db'        => 'nilai_sebab',
-                'dt'        => 4,
-                'formatter' => function ($i, $row) {
-                    $html = format_number($i);
-                    return $html;
-                }
-            ),
             array(
                 'db'        => 'id',
-                'dt'        => 5,
+                'dt'        => 3,
                 'formatter' => function ($i, $row) {
                     $html = '
                     <center>
                     <a href="' . base_url('sebab/edit/' . $i) . '" class="btn btn-primary btn-small" data-original-title="Edit">
                     Edit
-                    </a>
-                    <a href="' . base_url('rekomendasi/index/' . $i) . '" class="btn btn-success btn-small" data-original-title="Edit">
-                    Rekomendasi
                     </a>
                     </center>';
                     return $html;
@@ -94,13 +80,13 @@ class Sebab extends BaseController
         tarkiman_datatables($table, $columns, $condition, $primaryKey);
     }
 
-    public function create($idLaporan)
+    public function create($idTemuan)
     {
 
         $data = [
             'title' => 'Buat Sebab Baru',
             'active' => 'sebab',
-            'id_laporan' => $idLaporan,
+            'id_temuan' => $idTemuan,
             'validation' => \Config\Services::validation()
         ];
         return view('sebab/create', $data);
@@ -108,7 +94,7 @@ class Sebab extends BaseController
 
     public function save()
     {
-        $idLaporan = $this->request->getVar('id_laporan');
+        $idTemuan = $this->request->getVar('id_temuan');
         if (!$this->validate([
             'no_sebab' => [
                 'rules' => 'required|is_unique[sebab.no_sebab]',
@@ -124,7 +110,7 @@ class Sebab extends BaseController
                 ]
             ]
         ])) {
-            return redirect()->to('/sebab/create/' . $idLaporan)->withInput();
+            return redirect()->to('/sebab/create/' . $idTemuan)->withInput();
         }
 
         try {
@@ -136,22 +122,20 @@ class Sebab extends BaseController
                 'id' => get_uuid(),
                 'no_sebab' => $this->request->getVar('no_sebab'),
                 'memo_sebab' => $this->request->getVar('memo_sebab'),
-                'jenis_sebab' => $this->request->getVar('jenis_sebab'),
-                'nilai_sebab' => $this->request->getVar('nilai_sebab'),
-                'id_laporan' => $this->request->getVar('id_laporan')
+                'id_temuan' => $this->request->getVar('id_temuan')
             ]);
 
             $db->transComplete();
             if ($db->transStatus() === FALSE) {
-                return redirect()->to('/sebab/create/' . $idLaporan)->withInput();
+                return redirect()->to('/sebab/create/' . $idTemuan)->withInput();
             } else {
                 session()->setFlashData('messages', 'new data added successfully');
             }
         } catch (\Exception $e) {
-            return redirect()->to('/sebab/create/' . $idLaporan)->withInput()->with('messages', $e->getMessage());
+            return redirect()->to('/sebab/create/' . $idTemuan)->withInput()->with('messages', $e->getMessage());
         }
 
-        return redirect()->to('/sebab/index/' . $idLaporan);
+        return redirect()->to('/sebab/index/' . $idTemuan);
     }
 
     public function edit($id)
@@ -169,7 +153,7 @@ class Sebab extends BaseController
     public function update($id)
     {
 
-        $idLaporan = $this->request->getVar('id_laporan');
+        $idTemuan = $this->request->getVar('id_temuan');
 
         $validation = [
             'no_sebab' => [
@@ -199,9 +183,7 @@ class Sebab extends BaseController
                     'id' => $id,
                     'no_sebab' => $this->request->getVar('no_sebab'),
                     'memo_sebab' => $this->request->getVar('memo_sebab'),
-                    'jenis_sebab' => $this->request->getVar('jenis_sebab'),
-                    'nilai_sebab' => $this->request->getVar('nilai_sebab'),
-                    'id_laporan' => $this->request->getVar('id_laporan')
+                    'id_temuan' => $this->request->getVar('id_temuan')
                 ];
 
                 /*Update data ke table Positions berdasarkan ID */
@@ -218,7 +200,7 @@ class Sebab extends BaseController
                 return redirect()->to('/sebab/edit/' . $id)->withInput()->with('messages', $e->getMessage());
             }
 
-            return redirect()->to('/sebab/index/' . $idLaporan);
+            return redirect()->to('/sebab/index/' . $idTemuan);
         }
     }
 }
