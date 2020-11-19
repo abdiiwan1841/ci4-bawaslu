@@ -338,9 +338,9 @@ class User extends BaseController
 					return redirect()->to('/user/edit/' . $id)->withInput();
 				}
 
-				/*UPDATE SESSION AUTHORIZE PAGES DARI USER YANG SEDANG LOGIN*/
+				/*update session USER_PERMISSIONS  DARI USER YANG SEDANG LOGIN*/
 				$this->authModel = new AuthModel();
-				session()->set('authorize_pages', $this->authModel->getAutorizePages(session()->get('id_user')));
+				session()->set('user_permissions', $this->authModel->getUserPermissions(session()->get('id_user')));
 
 				session()->setFlashData('messages', 'Data was successfully updated' . $exceptionMessages);
 			} catch (\Exception $e) {

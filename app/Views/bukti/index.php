@@ -69,7 +69,7 @@
             paging: true,
             dom: 'Bfrtip',
             buttons: [
-                <?php if (in_array('bukti/create', session()->get('user_permissions'))) : ?> {
+                <?php if (in_array('buktiTMP/create', session()->get('user_permissions'))) : ?> {
                         text: 'Create New',
                         action: function(e, dt, node, config) {
                             window.location.href = "<?= base_url('/bukti/create/' . $id_tindak_lanjut); ?>";

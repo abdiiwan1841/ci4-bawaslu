@@ -88,7 +88,7 @@ class Satuankerja extends BaseController
                 FROM users a
                 JOIN user_groups b ON b.`id_user`=a.`id` 
                 JOIN `groups` c ON c.`id`=b.`id_group`
-                WHERE c.name='Auditi'
+                WHERE c.name='Auditee'
                 ORDER BY  a.`name` ASC
             ) temp
             ";

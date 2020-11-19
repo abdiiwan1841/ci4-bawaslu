@@ -22,7 +22,7 @@
                     <div class="col-md-8 col-lg-8 col-sm-7">
                         <blockquote>
                             <h3>Welcome, <?= session()->get('name'); ?></h3>
-                            <footer>Inventory System - PT. Intan Triputra Abadi<cite title="Source Title"></cite>
+                            <footer>SISTEM INFORMASI PEMANTAUAN TINDAK LANJUT - BAWASLU<cite title="Source Title"></cite>
                             </footer>
                         </blockquote>
                     </div>

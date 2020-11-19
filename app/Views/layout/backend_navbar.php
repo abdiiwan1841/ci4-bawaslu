@@ -14,15 +14,25 @@
                 </a>
             </li>
         <?php endif; ?>
-        <?php if (in_array('laporan', session()->get('user_permissions'))) : ?>
+        <?php if (
+            in_array('laporan', session()->get('user_permissions')) ||
+            in_array('laporanauditee', session()->get('user_permissions'))
+        ) : ?>
             <li>
-                <a href="#" <?= (($active == 'laporan')) ? 'class="selected"' : ''; ?>>
+                <a href="#" <?= (($active == 'laporan') || ($active == 'laporanauditee')) ? 'class="selected"' : ''; ?>>
                     <span class="fs1" aria-hidden="true" data-icon="&#xe0b3;"></span> Laporan
                 </a>
                 <ul>
                     <?php if (in_array('laporan', session()->get('user_permissions'))) : ?>
                         <li>
                             <a href="<?= base_url('/laporan'); ?>">Laporan</a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+                <ul>
+                    <?php if (in_array('laporanauditee', session()->get('user_permissions'))) : ?>
+                        <li>
+                            <a href="<?= base_url('/laporanauditee'); ?>">Laporan</a>
                         </li>
                     <?php endif; ?>
                 </ul>

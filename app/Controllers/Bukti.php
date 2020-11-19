@@ -74,7 +74,7 @@ class Bukti extends BaseController
                     $html = '
                     <center>
                     <a href="' . base_url('bukti/edit/' . $i) . '" class="btn btn-primary btn-small" data-original-title="Edit">
-                    Edit
+                    Detail
                     </a>
                     </center>';
                     return $html;
