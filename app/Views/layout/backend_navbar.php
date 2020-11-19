@@ -29,16 +29,28 @@
             </li>
         <?php endif; ?>
         <?php if (
-            in_array('product1', session()->get('user_permissions'))
+            in_array('auditor', session()->get('user_permissions')) ||
+            in_array('auditi', session()->get('user_permissions')) ||
+            in_array('satuankerja', session()->get('user_permissions'))
         ) : ?>
             <li>
-                <a href="#" <?= (($active == 'product')) ? 'class="selected"' : ''; ?>>
+                <a href="#" <?= (($active == 'auditor') || ($active == 'auditi') || ($active == 'satuankerja')) ? 'class="selected"' : ''; ?>>
                     <span class="fs1" aria-hidden="true" data-icon="&#xe020;"></span> Master Data
                 </a>
                 <ul>
-                    <?php if (in_array('product', session()->get('user_permissions'))) : ?>
+                    <?php if (in_array('auditor', session()->get('user_permissions'))) : ?>
                         <li>
-                            <a href="<?= base_url('/product'); ?>">Products</a>
+                            <a href="<?= base_url('/auditor'); ?>">Auditor</a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if (in_array('auditi', session()->get('user_permissions'))) : ?>
+                        <li>
+                            <a href="<?= base_url('/auditi'); ?>">Auditi</a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if (in_array('satuankerja', session()->get('user_permissions'))) : ?>
+                        <li>
+                            <a href="<?= base_url('/satuankerja'); ?>">Satuan Kerja</a>
                         </li>
                     <?php endif; ?>
                 </ul>

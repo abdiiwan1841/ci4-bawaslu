@@ -11,7 +11,7 @@
     <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <link rel="shortcut icon" type="image/png" href="<?= '/images/icon.ico'; ?>" id="favicon" data-original-href="<?= '/images/icon.ico'; ?>" />
+    <link rel="shortcut icon" type="image/png" href="<?= '/images/icon.png'; ?>" id="favicon" data-original-href="<?= '/images/icon.ico'; ?>" />
     <link href="<?= '/assets/icomoon/style.css'; ?>" rel="stylesheet">
     <link href="<?= '/assets/css/main.css'; ?>" rel="stylesheet">
     <script type="text/javascript" src="<?= '/assets/jquery/js/jquery-1.12.4.js' ?>"></script>
