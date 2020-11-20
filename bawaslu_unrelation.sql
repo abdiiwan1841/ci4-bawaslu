@@ -211,7 +211,7 @@ CREATE TABLE `laporan` (
 
 /*Data for the table `laporan` */
 
-insert  into `laporan`(`id`,`no_laporan`,`tanggal_laporan`,`nama_laporan`,`no_surat_tugas`,`tanggal_surat_tugas`,`unit_pelaksana`,`nip_pimpinan`,`pimpinan_satuan_kerja`,`nama_satuan_kerja`,`tahun_anggaran`,`nilai_anggaran`,`realisasi_anggaran`,`audit_anggaran`,`jenis_anggaran`,`id_auditor`,`id_satuan_kerja`,`created_at`,`updated_at`,`deleted_at`) values ('b80aa572-930f-50ec-db8c-4ec7101fd0bd','LTL-0001','2020-11-14','Tets Laporan 1','SK-001','2020-11-14','Bandung','10110738','Tarkiman','Kota Bandung',2020,25000000,20000000,'20000000','A','1','1','2020-11-14 19:53:36','2020-11-14 19:53:36',NULL),('bc5de997-1827-b445-9707-a8afd5785eb3','LTL-0002','2020-11-15','Tets Laporan 2','SK-002','2020-11-15','Jakarta','10110696','Edi Yulianto','Jakarta Pusat',2020,20000000,19500000,'19500000','B','2','2','2020-11-14 20:10:04','2020-11-15 02:24:55',NULL),('fa680bcb-fc76-41f5-8235-3d6cc8185673','LTL-0003','2020-11-15','Tets Laporan 3','SK-003','2020-11-15','Semarang','10110736','Abdul Kohar','Semarang',2020,15000000,14000000,'14000000','C','3','3','2020-11-14 20:10:51','2020-11-15 02:24:47',NULL);
+insert  into `laporan`(`id`,`no_laporan`,`tanggal_laporan`,`nama_laporan`,`no_surat_tugas`,`tanggal_surat_tugas`,`unit_pelaksana`,`nip_pimpinan`,`pimpinan_satuan_kerja`,`nama_satuan_kerja`,`tahun_anggaran`,`nilai_anggaran`,`realisasi_anggaran`,`audit_anggaran`,`jenis_anggaran`,`id_auditor`,`id_satuan_kerja`,`created_at`,`updated_at`,`deleted_at`) values ('b80aa572-930f-50ec-db8c-4ec7101fd0bd','LTL-0001','2020-11-14','Tets Laporan 1','SK-001','2020-11-14','Bandung','10110738','Tarkiman','Kota Bandung',2020,25000000,20000000,'20000000','A','1','e04dacbe-a496-277a-adef-ad9f048a5788','2020-11-14 19:53:36','2020-11-14 19:53:36',NULL),('bc5de997-1827-b445-9707-a8afd5785eb3','LTL-0002','2020-11-15','Tets Laporan 2','SK-002','2020-11-15','Jakarta','10110696','Edi Yulianto','Jakarta Pusat',2020,20000000,19500000,'19500000','B','2','e04dacbe-a496-277a-adef-ad9f048a5788','2020-11-14 20:10:04','2020-11-15 02:24:55',NULL),('fa680bcb-fc76-41f5-8235-3d6cc8185673','LTL-0003','2020-11-15','Tets Laporan 3','SK-003','2020-11-15','Semarang','10110736','Abdul Kohar','Semarang',2020,15000000,14000000,'14000000','C','3','e04dacbe-a496-277a-adef-ad9f048a5788','2020-11-14 20:10:51','2020-11-15 02:24:47',NULL);
 
 /*Table structure for table `permissions` */
 
@@ -284,12 +284,18 @@ CREATE TABLE `satuan_kerja` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
+  `provinsi` varchar(50) DEFAULT NULL,
+  `kabupaten` varchar(50) DEFAULT NULL,
+  `nip_pimpinan` varchar(50) DEFAULT NULL,
+  `jabatan` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_auditi` (`id_pimpinan`),
   KEY `id_wilayah` (`id_wilayah`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `satuan_kerja` */
+
+insert  into `satuan_kerja`(`id`,`kode_satuan_kerja`,`nama_satuan_kerja`,`id_wilayah`,`id_pimpinan`,`created_at`,`updated_at`,`deleted_at`,`provinsi`,`kabupaten`,`nip_pimpinan`,`jabatan`) values ('e04dacbe-a496-277a-adef-ad9f048a5788','SK-001','Kota Bandung - Jawa Barat','3273','cce5d04b-5afb-a349-542b-ad96eccfcc8f','2020-11-20 07:41:16','2020-11-20 07:41:16',NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `sebab` */
 

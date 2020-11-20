@@ -23,7 +23,7 @@ class Satuankerja extends BaseController
     {
         $data = [
             'title' => 'List of Satuan Kerja',
-            'active' => 'satuan_kerja',
+            'active' => 'satuankerja',
             'data' => null
         ];
 
@@ -35,15 +35,17 @@ class Satuankerja extends BaseController
         $table =
             "
             (
-                SELECT 
-                a.id,
-                a.kode_satuan_kerja,
-                a.nama_satuan_kerja,
-                a.id_wilayah,
-                a.id_pimpinan
-                FROM satuan_kerja a
-                WHERE a.deleted_at IS NULL
-                ORDER BY a.nama_satuan_kerja ASC
+            SELECT 
+            a.id,
+            a.kode_satuan_kerja,
+            a.nama_satuan_kerja,
+            a.id_wilayah,
+            a.id_pimpinan,
+            b.`name` AS nama_pimpinan
+            FROM satuan_kerja a 
+            JOIN users b ON b.id=a.`id_pimpinan`
+            WHERE a.deleted_at IS NULL
+            ORDER BY a.nama_satuan_kerja ASC
             ) temp
             ";
 
@@ -52,7 +54,7 @@ class Satuankerja extends BaseController
             array('db' => 'kode_satuan_kerja', 'dt' => 1),
             array('db' => 'nama_satuan_kerja', 'dt' => 2),
             array('db' => 'id_wilayah', 'dt' => 3),
-            array('db' => 'id_pimpinan', 'dt' => 4),
+            array('db' => 'nama_pimpinan', 'dt' => 4),
             array(
                 'db'        => 'id',
                 'dt'        => 5,
@@ -63,7 +65,7 @@ class Satuankerja extends BaseController
                     ' . link_edit('satuankerja/edit', $i) . '
                     ' . link_delete('satuankerja/delete', $i) . '
                     </center>';
-                    return $html;
+                    return '';
                 }
             ),
         );
@@ -130,7 +132,7 @@ class Satuankerja extends BaseController
 
         $data = [
             'title' => 'Create New Satuan Kerja',
-            'active' => 'SatuanKerja',
+            'active' => 'satuankerja',
             'provinsi_options' => $provinsi_options,
             'validation' => \Config\Services::validation()
         ];
@@ -139,6 +141,7 @@ class Satuankerja extends BaseController
 
     public function save()
     {
+        $idWilayah = ($this->request->getVar('kabupaten')) ? $this->request->getVar('kabupaten') : $this->request->getVar('provinsi');
 
         if (!$this->validate([
             'kode_satuan_kerja' => [
@@ -192,12 +195,12 @@ class Satuankerja extends BaseController
 
             $db->transStart();
 
-            $id = $this->satuanKerjaModel->counterID();
-
             $this->satuanKerjaModel->insert([
-                'id' => $id,
-                'satuan_kerja_name' => $this->request->getVar('satuan_kerja_name'),
-                'description' => $this->request->getVar('description')
+                'id' => get_uuid(),
+                'kode_satuan_kerja' => $this->request->getVar('kode_satuan_kerja'),
+                'nama_satuan_kerja' => $this->request->getVar('nama_satuan_kerja'),
+                'id_wilayah' => $idWilayah,
+                'id_pimpinan' => $this->request->getVar('id_pimpinan')
             ]);
 
             $db->transComplete();
@@ -215,9 +218,18 @@ class Satuankerja extends BaseController
 
     public function edit($id)
     {
+
+        $provinsi_options = array();
+
+        $provinsi = $this->satuanKerjaModel->getProvinsi();
+        foreach ($provinsi as $r) {
+            $provinsi_options[$r->id] = $r->nama_provinsi;
+        }
+
         $data = [
-            'title' => 'Edit SatuanKerja',
-            'active' => 'SatuanKerja',
+            'title' => 'Edit Satuan Kerja',
+            'active' => 'satuankerja',
+            'provinsi_options' => $provinsi_options,
             'data' => $this->satuanKerjaModel->getDataById($id),
             'validation' => \Config\Services::validation()
         ];

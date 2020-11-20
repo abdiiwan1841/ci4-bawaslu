@@ -48,20 +48,28 @@ class SatuanKerjaModel extends Model
 
     public function getDataById($id)
     {
-        $this->select('
-        id,
-        kode_satuan_kerja,
-        nama_satuan_kerja,
-        id_wilayah,
-        id_pimpinan');
-        $this->orderBy('nama_satuan_kerja', 'ASC');
-        $this->where('id', $id);
-        $query = $this->get();
-        $data = $query->getRow();
-        if (isset($data)) {
-            return $data;
+        try {
+            $sql = "SELECT 
+                    a.id,
+                    a.kode_satuan_kerja,
+                    a.nama_satuan_kerja,
+                    a.id_wilayah,
+                    a.id_pimpinan,
+                    b.`name` AS nama_pimpinan,
+                    b.nip
+                    FROM satuan_kerja a
+                    JOIN users b ON b.id=a.`id_pimpinan`
+                    WHERE a.deleted_at IS NULL 
+                    AND a.id=? ";
+            $query = $this->query($sql, [$id]);
+            $data = $query->getRow();
+            if (isset($data)) {
+                return $data;
+            }
+            return array();
+        } catch (\Exception $e) {
+            return $e->getMessage();
         }
-        return array();
     }
 
     public function getProvinsi()

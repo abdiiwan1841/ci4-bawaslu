@@ -46,8 +46,6 @@
                                 <?= input_number($field_name = 'realisasi_anggaran', $label = 'Realisasi Anggaran', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'audit_anggaran', $label = 'Audit Anggaran', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'jenis_anggaran', $label = 'Jenis Anggaran', $value = '', $required = true, $readonly = false, $disabled = false); ?>
-                                <?= input_text($field_name = 'id_auditor', $label = 'id_auditor', $value = '', $required = true, $readonly = false, $disabled = false); ?>
-                                <?= input_text($field_name = 'id_satuan_kerja', $label = 'id_satuan_kerja', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                                 <div class="form-actions no-margin">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                     <button type="button" class="btn" onclick="window.history.back();">Cancel</button>

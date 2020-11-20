@@ -30,7 +30,7 @@
                     <?= input_select($field_name = 'kabupaten', $label = 'Kabupaten', [], $selected = '', $required = false, $disabled = ''); ?>
 
                     <div class="control-group">
-                        <label class="control-label" for="">Pimpinan<font color="red"> * </font></label>
+                        <label class="control-label" for="">Nama Pimpinan<font color="red"> * </font></label>
                         <div class="controls controls-row">
                             <div class="input-append">
                                 <input type="hidden" name="id_pimpinan" id="id_pimpinan" value="">
@@ -156,7 +156,7 @@
     });
 
     function displayResult(frm, id, nip, name, jabatan) {
-        $("#id_user").val(id);
+        $("#id_pimpinan").val(id);
         $("#nip").val(nip);
         $("#nama_pimpinan").val(name);
         $("#jabatan").val(jabatan);

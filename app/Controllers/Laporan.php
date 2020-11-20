@@ -78,7 +78,10 @@ class Laporan extends BaseController
                 a.jenis_anggaran,
                 a.id_auditor,
                 a.id_satuan_kerja
-                FROM laporan a
+                FROM laporan a 
+                JOIN satuan_kerja b ON b.id=a.id_satuan_kerja
+                LEFT JOIN provinsi c ON c.id=b.id_wilayah AND c.id='" . session()->get('id_wilayah') . "'
+                LEFT JOIN kabupaten d ON d.id=b.id_wilayah AND d.id='" . session()->get('id_wilayah') . "'
                 WHERE a.deleted_at IS NULL
                 ORDER BY a.nama_laporan ASC
             ) temp
@@ -199,8 +202,8 @@ class Laporan extends BaseController
                 'realisasi_anggaran' => $this->request->getVar('realisasi_anggaran'),
                 'audit_anggaran' => $this->request->getVar('audit_anggaran'),
                 'jenis_anggaran' => $this->request->getVar('jenis_anggaran'),
-                'id_auditor' => $this->request->getVar('id_auditor'),
-                'id_satuan_kerja' => $this->request->getVar('id_satuan_kerja')
+                'id_auditor' => session()->get('id_user'),
+                'id_satuan_kerja' => session()->get('id_wilayah')
             ]);
 
             $db->transComplete();
