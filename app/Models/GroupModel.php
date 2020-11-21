@@ -44,7 +44,11 @@ class GroupModel extends Model
 
     public function getDataById($id)
     {
-        $this->select('groups.id,groups.name,groups.description,permissions.name as landing_page');
+        $this->select('groups.id,
+        groups.name,
+        groups.description,
+        permissions.id as landing_page,
+        permissions.name as landing_page_uri');
         $this->join('permissions', 'permissions.id=groups.landing_page', 'left');
         $this->where('groups.deleted_at', NULL);
         $this->where('groups.id', $id);

@@ -35,6 +35,7 @@ class PermissionModel extends Model
         id,
         name,
         uri');
+        $this->orderBy('uri', 'ASC');
         $query = $this->get();
         $data = $query->getResult();
         if (isset($data)) {

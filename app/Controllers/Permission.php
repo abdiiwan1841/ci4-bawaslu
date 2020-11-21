@@ -54,12 +54,20 @@ class Permission extends BaseController
             ";
 
         $columns = array(
-            array('db' => 'id', 'dt' => 0),
-            array('db' => 'name', 'dt' => 1),
-            array('db' => 'uri', 'dt' => 2),
+            array(
+                'db' => 'id', 'dt' => 'DT_RowId',
+                'formatter' => function ($d, $row) {
+                    // Technically a DOM id cannot start with an integer, so we prefix
+                    // a string. This can also be useful if you have multiple tables
+                    // to ensure that the id is unique with a different prefix
+                    return 'row_' . $d;
+                }
+            ),
+            array('db' => 'name', 'dt' => 'name'),
+            array('db' => 'uri', 'dt' => 'uri'),
             array(
                 'db'        => 'id',
-                'dt'        => 3,
+                'dt'        => 'id',
                 'formatter' => function ($i, $row) {
                     $html = '
                     <center>
@@ -300,5 +308,55 @@ class Permission extends BaseController
         }
 
         return redirect()->to('/permission');
+    }
+
+    public function deletedSelected()
+    {
+        $ids = json_decode(stripslashes($_POST['id']));
+
+        $arrayID = array();
+
+        foreach ($ids as $id) {
+            $id = str_replace('#row_', '', $id);
+            array_push($arrayID, $id);
+        }
+
+        if ($arrayID) {
+
+
+            $response['array_ids'] = $arrayID;
+
+            try {
+                $db      = \Config\Database::connect();
+
+                $db->transStart();
+
+                $this->groupPermissionModel->whereIn('id_permission', $arrayID);
+                $this->groupPermissionModel->delete();
+
+                $this->permissionModel->whereIn('id', $arrayID);
+                $this->permissionModel->delete();
+                $db->transComplete();
+
+                if ($db->transStatus() === FALSE) {
+                    $response['status'] = false;
+                } else {
+
+                    $response['status'] = true;
+
+                    /*update session USER_PERMISSIONS*/
+                    $this->authModel = new AuthModel();
+                    session()->set('user_permissions', $this->authModel->getUserPermissions(session()->get('id_user')));
+                }
+            } catch (\Exception $e) {
+                $response['status'] = false;
+                $response['messages'] = $e->getMessage();
+            }
+        } else {
+            $response['status'] = false;
+            $response['messages'] = 'Please select first';
+        }
+
+        echo json_encode($response);
     }
 }
