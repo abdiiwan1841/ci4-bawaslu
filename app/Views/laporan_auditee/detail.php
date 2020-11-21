@@ -1,6 +1,12 @@
 <?= $this->extend('layout/backend_template'); ?>
 
 <?= $this->section('backend_content'); ?>
+<style>
+    .imp-messages li .message-wrapper,
+    .tasks li .message-wrapper {
+        margin-left: 20px !important;
+    }
+</style>
 
 <div class="row-fluid">
     <div class="span12">
@@ -25,11 +31,10 @@
                 <ul class="imp-messages">
                     <?php $i = 1; ?>
                     <?php foreach ($data->temuan as $r) : ?>
-                        <?php $i++; ?>
                         <li>
                             <div class="message-wrapper">
                                 <h4 class="message-heading"><?= $i++ . '. ' . $r->memo_temuan; ?></h4>
-                                <ul>
+                                <ul style="padding-left: 30px">
                                     <h5 class="message-heading">Rekomendasi</h5>
                                     <li>
                                         <?php $no = 1; ?>
@@ -51,7 +56,7 @@
                                         </blockquote>
                                     <?php endif; ?>
                                 </ul>
-                                <ul>
+                                <ul style="padding-left: 30px">
                                     <h5 class="message-heading">Sebab</h5>
                                     <li>
                                         <?php $no = 1; ?>
