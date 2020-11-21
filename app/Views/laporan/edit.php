@@ -43,7 +43,7 @@
                                 <?= input_text($field_name = 'tahun_anggaran', $label = 'Tahun Anggaran', $value = $data->tahun_anggaran, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_number($field_name = 'nilai_anggaran', $label = 'Nilai Anggaran', $value = $data->nilai_anggaran, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_number($field_name = 'realisasi_anggaran', $label = 'Realisasi Anggaran', $value = $data->realisasi_anggaran, $required = true, $readonly = false, $disabled = false); ?>
-                                <?= input_number($field_name = 'audit_anggaran', $label = 'Audit Anggaran', $value = $data->audit_anggaran, $required = true, $readonly = false, $disabled = false); ?>
+                                <?= input_text($field_name = 'audit_anggaran', $label = 'Audit Anggaran', $value = $data->audit_anggaran, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'jenis_anggaran', $label = 'Jenis Anggaran', $value = $data->jenis_anggaran, $required = true, $readonly = false, $disabled = false); ?>
                                 <div class="form-actions no-margin">
                                     <button type="submit" class="btn btn-primary">Submit</button>

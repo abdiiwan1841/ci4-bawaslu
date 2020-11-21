@@ -125,7 +125,7 @@
                                 <td style="text-align:left;">
                                     <?php if ($r->lampiran) : ?>
                                         <p class="url">
-                                            <a href="<?= base_url('/attachments/' . $r->lampiran); ?>" target="_blank" style="color:#3a86c8;">
+                                            <a href="<?= base_url('/uploads/' . $r->lampiran); ?>" target="_blank" style="color:#3a86c8;">
                                                 <span class="fs1 text-info" aria-hidden="true" data-icon="&#xe0c5;"></span>
                                                 <?= $r->nama_bukti; ?>
                                             </a>

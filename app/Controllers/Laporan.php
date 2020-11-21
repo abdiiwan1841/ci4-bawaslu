@@ -79,10 +79,9 @@ class Laporan extends BaseController
                 a.id_auditor,
                 a.id_satuan_kerja
                 FROM laporan a 
-                JOIN satuan_kerja b ON b.id=a.id_satuan_kerja
-                LEFT JOIN provinsi c ON c.id=b.id_wilayah AND c.id='" . session()->get('id_wilayah') . "'
-                LEFT JOIN kabupaten d ON d.id=b.id_wilayah AND d.id='" . session()->get('id_wilayah') . "'
-                WHERE a.deleted_at IS NULL
+                WHERE
+                a.id_satuan_kerja='" . session()->get('id_wilayah') . "'
+                AND a.deleted_at IS NULL
                 ORDER BY a.nama_laporan ASC
             ) temp
             ";

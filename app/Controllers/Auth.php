@@ -68,6 +68,17 @@ class Auth extends BaseController
                 session()->set('group_name', $data->group_name);
                 session()->set('landing_page', $data->landing_page);
                 session()->set('user_permissions', $this->authModel->getUserPermissions($data->id));
+
+                /*CUSTOM PROJECT BAWASLU */
+                $employee = $this->authModel->getDataByIdUser($data->id);
+                if ($employee) {
+                    session()->set('id_satuan_kerja', $employee->id_satuan_kerja);
+                    session()->set('wilayah', $employee->wilayah);
+                } else {
+                    session()->set('id_satuan_kerja', '');
+                    session()->set('wilayah', '');
+                }
+
                 return redirect()->to('/' . $data->landing_page);
             } else {
                 return redirect()->to('/login')->with('messages', 'Username or Password is wrong.');

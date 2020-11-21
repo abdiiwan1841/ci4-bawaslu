@@ -100,7 +100,7 @@
                 $('th').css("text-align", "center");
                 $('td:eq(0)', nRow).css("text-align", "center");
                 $('td:eq(3)', nRow).css("text-align", "right");
-                $('td:eq(4)', nRow).css("text-align", "center");
+                $('td:eq(4)', nRow).css("text-align", "left");
                 return nRow;
             },
         });

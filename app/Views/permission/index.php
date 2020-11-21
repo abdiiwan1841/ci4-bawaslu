@@ -61,12 +61,14 @@
 
         var table = $('#datatables').DataTable({
             dom: 'Bfrtip',
-            buttons: [{
-                    text: 'Delete Selected',
-                    action: function(e, dt, node, config) {
-                        deletedSelected();
+            buttons: [
+                <?php if (in_array('permission/delete', session()->get('user_permissions'))) : ?> {
+                        text: 'Delete Selected',
+                        action: function(e, dt, node, config) {
+                            deletedSelected();
+                        }
                     }
-                }
+                <?php endif; ?>
                 <?php if (in_array('permission/create', session()->get('user_permissions'))) : ?>, {
                         text: 'Create New',
                         action: function(e, dt, node, config) {

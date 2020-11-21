@@ -75,7 +75,7 @@ class Bukti extends BaseController
                     $html = '';
                     if ($i) {
                         $html = '<p class="url">
-                                    <a href="' . base_url('/attachments/' . $i) . '" target="_blank" style="color:#3a86c8;">
+                                    <a href="' . base_url('/uploads/' . $i) . '" target="_blank" style="color:#3a86c8;">
                                         <span class="fs1 text-info" aria-hidden="true" data-icon="&#xe0c5;"></span>' . $row['nama_bukti'] . '
                                     </a>
                                 </p>';

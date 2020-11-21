@@ -101,4 +101,49 @@ class AuthModel extends Model
         }
         return array();
     }
+
+    /* CUSTOM UNTUK PROJECT BAWASLU */
+
+    public function getDataByIdUser($id)
+    {
+        try {
+            $sql = "SELECT 
+            a.`id`,
+            a.`nip`,
+            a.`nama`,
+            a.`jabatan`,
+            a.`id_satuan_kerja`,
+            c.wilayah,
+            a.`id_user`,
+            b.username,
+            a.`created_at`,
+            a.`updated_at`,
+            a.`deleted_at`
+            FROM `auditee` a
+            LEFT JOIN users b ON b.id=a.id_user
+            LEFT JOIN (
+                        SELECT
+                        x.`id`,
+                        x.`nama_provinsi` AS wilayah
+                        FROM provinsi `x` 
+                        UNION
+                        SELECT 
+                        y.id,
+                        y.nama_kabupaten AS wilayah
+                        FROM
+                        kabupaten `y`
+                    ) c ON c.id=a.`id_satuan_kerja`
+            WHERE a.deleted_at IS NULL
+            AND b.id=?
+            ORDER BY a.nama ASC;";
+            $query = $this->query($sql, [$id]);
+            $data = $query->getRow();
+            if (isset($data)) {
+                return $data;
+            }
+            return array();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

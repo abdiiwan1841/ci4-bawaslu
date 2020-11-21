@@ -49,7 +49,8 @@ class Laporanauditee extends BaseController
                 '0' AS belum_ditindak_lanjuti,
                 '0' AS tidak_dapat_ditindak_lanjuti
                 FROM laporan a
-                WHERE a.deleted_at IS NULL
+                WHERE a.deleted_at IS NULL 
+                AND a.id_satuan_kerja='" . session()->get('id_satuan_kerja') . "'
                 ORDER BY a.nama_laporan ASC
             ) temp
             ";
@@ -327,7 +328,7 @@ class Laporanauditee extends BaseController
                 $namaFile = $file->getRandomName();
 
                 //pindahkan file ke folder IMAGES
-                $file->move('attachments', $namaFile); //kalau di buar random nama file dijadikan parameter
+                $file->move('uploads', $namaFile); //kalau di buar random nama file dijadikan parameter
             }
 
             $this->buktiModel->insert([
@@ -409,7 +410,7 @@ class Laporanauditee extends BaseController
                 $namaFile = $file->getRandomName();
 
                 //pindahkan file ke folder IMAGES
-                $file->move('attachments', $namaFile); //kalau di buar random nama file dijadikan parameter
+                $file->move('uploads', $namaFile); //kalau di buar random nama file dijadikan parameter
 
             }
 
@@ -437,7 +438,7 @@ class Laporanauditee extends BaseController
                     //hapus file lama jika bukan file default
                     if ($this->request->getVar('old_lampiran') != 'default.png') {
                         try {
-                            unlink('attachments/' . $this->request->getVar('old_lampiran'));
+                            unlink('uploads/' . $this->request->getVar('old_lampiran'));
                         } catch (\Exception $e) {
                             $exceptionMessages = '<br/>' . $e->getMessage();
                         }

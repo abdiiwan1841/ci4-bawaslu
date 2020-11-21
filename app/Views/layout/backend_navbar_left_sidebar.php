@@ -102,7 +102,7 @@
             <?php endif; ?>
             <?php if (
                 in_array('auditor', session()->get('user_permissions')) ||
-                in_array('auditi', session()->get('user_permissions')) ||
+                in_array('auditee', session()->get('user_permissions')) ||
                 in_array('satuankerja', session()->get('user_permissions'))
             ) : ?>
                 <div class="accordion-group">
@@ -119,9 +119,9 @@
                                         <a href="<?= base_url('/auditor'); ?>">Auditor</a>
                                     </li>
                                 <?php endif; ?>
-                                <?php if (in_array('auditi', session()->get('user_permissions'))) : ?>
+                                <?php if (in_array('auditee', session()->get('user_permissions'))) : ?>
                                     <li>
-                                        <a href="<?= base_url('/auditi'); ?>">Auditi</a>
+                                        <a href="<?= base_url('/auditee'); ?>">Auditee</a>
                                     </li>
                                 <?php endif; ?>
                                 <?php if (in_array('satuankerja', session()->get('user_permissions'))) : ?>
