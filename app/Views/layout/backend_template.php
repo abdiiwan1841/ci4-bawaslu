@@ -71,12 +71,11 @@
     </header>
     <div class="container-fluid">
 
-        <?php //$this->include('layout/backend_navbar_left_sidebar'); 
-        ?>
+        <?= $this->include('layout/backend_navbar_left_sidebar'); ?>
 
         <div class="dashboard-wrapper">
 
-            <?= $this->include('layout/backend_navbar'); ?>
+            <?php $this->include('layout/backend_navbar'); ?>
 
             <div class="main-container">
 

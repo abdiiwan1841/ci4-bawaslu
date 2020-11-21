@@ -25,13 +25,16 @@
                 <ul class="imp-messages">
                     <?php $i = 1; ?>
                     <?php foreach ($data->temuan as $r) : ?>
+                        <?php $i++; ?>
                         <li>
                             <div class="message-wrapper">
                                 <h4 class="message-heading"><?= $i++ . '. ' . $r->memo_temuan; ?></h4>
                                 <ul>
                                     <h5 class="message-heading">Rekomendasi</h5>
                                     <li>
+                                        <?php $no = 1; ?>
                                         <?php foreach ($r->rekomendasi as $d) : ?>
+                                            <?php $no++; ?>
                                             <blockquote class="message">
                                                 <?= $d->memo_rekomendasi; ?>
                                                 <p class="url">
@@ -42,22 +45,44 @@
                                             <br>
                                         <?php endforeach; ?>
                                     </li>
+                                    <?php if ($no == 1) : ?>
+                                        <blockquote class="message">
+                                            <span style="color:red;">Belum ada rekomendasi</span>
+                                        </blockquote>
+                                    <?php endif; ?>
                                 </ul>
                                 <ul>
                                     <h5 class="message-heading">Sebab</h5>
                                     <li>
+                                        <?php $no = 1; ?>
                                         <?php foreach ($r->sebab as $d) : ?>
+                                            <?php $no++; ?>
                                             <blockquote class="message">
                                                 <?= $d->memo_sebab; ?>
                                             </blockquote>
                                             <br>
                                         <?php endforeach; ?>
+                                        <?php if ($no == 1) : ?>
+                                            <blockquote class="message">
+                                                <span style="color:red;">Belum ada sebab</span>
+                                            </blockquote>
+                                        <?php endif; ?>
                                     </li>
                                 </ul>
                             </div>
                         </li>
                     <?php endforeach; ?>
+                    <?php if ($i == 1) : ?>
+                        <blockquote class="message">
+                            <span style="color:red;">Belum ada temuan</span>
+                        </blockquote>
+                    <?php endif; ?>
                 </ul>
+            </div>
+            <div class="form-actions no-margin">
+
+                <a href="<?= base_url('laporanauditee') ?>" class="btn btn-default">Kembali</a>
+                <div class="clearfix"></div>
             </div>
         </div>
     </div>

@@ -32,7 +32,7 @@
                 <ul>
                     <?php if (in_array('laporanauditee', session()->get('user_permissions'))) : ?>
                         <li>
-                            <a href="<?= base_url('/laporanauditee'); ?>">Laporan</a>
+                            <a href="<?= base_url('/laporan'); ?>">Laporan</a>
                         </li>
                     <?php endif; ?>
                 </ul>

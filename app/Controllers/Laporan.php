@@ -119,7 +119,7 @@ class Laporan extends BaseController
                 'db'        => 'audit_anggaran',
                 'dt'        => 13,
                 'formatter' => function ($i, $row) {
-                    $html = format_number($i);
+                    $html = $i;
                     return $html;
                 }
             ),
@@ -276,8 +276,7 @@ class Laporan extends BaseController
                     'realisasi_anggaran' => $this->request->getVar('realisasi_anggaran'),
                     'audit_anggaran' => $this->request->getVar('audit_anggaran'),
                     'jenis_anggaran' => $this->request->getVar('jenis_anggaran'),
-                    'id_auditor' => $this->request->getVar('id_auditor'),
-                    'id_satuan_kerja' => $this->request->getVar('id_satuan_kerja')
+                    'id_auditor' => session()->get('id_user')
                 ];
 
                 /*Update data ke table Positions berdasarkan ID */
@@ -287,14 +286,14 @@ class Laporan extends BaseController
                 if ($db->transStatus() === FALSE) {
                     return redirect()->to('/laporan/edit/' . $id)->withInput();
                 } else {
-
                     session()->setFlashData('messages', 'Data was successfully updated');
+                    return redirect()->to('/laporan/list/' . session()->get('id_wilayah'));
                 }
             } catch (\Exception $e) {
                 return redirect()->to('/laporan/edit/' . $id)->withInput()->with('messages', $e->getMessage());
             }
 
-            return redirect()->to('/laporan');
+            return redirect()->to('/laporan/list/' . session()->get('id_wilayah'));
         }
     }
 

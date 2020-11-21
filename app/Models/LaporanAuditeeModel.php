@@ -196,6 +196,7 @@ class LaporanAuditeeModel extends Model
     {
         try {
             $sql = "SELECT
+                    a.`id`,
                     a.`no_rekomendasi`,
                     a.`memo_rekomendasi`,
                     a.`nama_penanggung_jawab`,
@@ -204,6 +205,7 @@ class LaporanAuditeeModel extends Model
                     b.`memo_temuan`,
                     b.`jenis_temuan`,
                     b.`nilai_temuan`,
+                    c.id AS id_laporan,
                     c.`no_laporan`,
                     c.`nama_laporan`,
                     c.`nilai_anggaran`,
@@ -243,6 +245,74 @@ class LaporanAuditeeModel extends Model
                     WHERE a.id_rekomendasi=?
                     ORDER BY a.created_at DESC";
             $query = $this->query($sql, [$idRekomendasi]);
+            $data = $query->getResult();
+            if (isset($data)) {
+                return $data;
+            }
+            return array();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getBukti($idTindakLanjut)
+    {
+        try {
+            $sql = "SELECT
+                    a.id,
+                    a.`nilai_rekomendasi`,
+                    a.`nilai_akhir_rekomendasi`,
+                    a.`nilai_sisa_rekomendasi`,
+                    b.id AS id_rekomendasi,
+                    b.`no_rekomendasi`,
+                    b.`memo_rekomendasi`,
+                    b.`nama_penanggung_jawab`,
+                    b.`nilai_rekomendasi`,
+                    c.`no_temuan`,
+                    c.`memo_temuan`,
+                    c.`jenis_temuan`,
+                    c.`nilai_temuan`,
+                    d.`no_laporan`,
+                    d.`nama_laporan`,
+                    d.`nilai_anggaran`,
+                    d.`audit_anggaran`,
+                    d.`tanggal_laporan`,
+                    d.`tahun_anggaran`
+                    FROM tindak_lanjut a
+                    JOIN rekomendasi b ON b.id=a.id_rekomendasi
+                    JOIN temuan c ON c.`id`=b.`id_temuan` 
+                    JOIN laporan d ON d.`id`=c.`id_laporan`
+                    WHERE a.id=?
+                    ";
+            $query = $this->query($sql, [$idTindakLanjut]);
+            $data = $query->getRow();
+            if (isset($data)) {
+                $data->bukti = $this->getRiwayatBukti($idTindakLanjut);
+                return $data;
+            }
+            return array();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getRiwayatBukti($idTindakLanjut)
+    {
+        try {
+            $sql = "SELECT
+                    a.`id`,
+                    a.`no_bukti`,
+                    a.`nama_bukti`,
+                    a.`nilai_bukti`,
+                    a.`id_tindak_lanjut`,
+                    a.`lampiran`,
+                    a.`created_at`,
+                    a.`updated_at`,
+                    a.`deleted_at`
+                    FROM `bukti` a
+                    WHERE a.id_tindak_lanjut=?
+                    ORDER BY a.created_at DESC";
+            $query = $this->query($sql, [$idTindakLanjut]);
             $data = $query->getResult();
             if (isset($data)) {
                 return $data;

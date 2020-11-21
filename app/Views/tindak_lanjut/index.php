@@ -69,12 +69,13 @@
             paging: true,
             dom: 'Bfrtip',
             buttons: [
-                <?php if (in_array('tindaklanjut/create', session()->get('user_permissions'))) : ?> {
-                        text: 'Create New',
-                        action: function(e, dt, node, config) {
-                            window.location.href = "<?= base_url('/tindaklanjut/create/' . $id_rekomendasi); ?>";
-                        }
-                    }
+                <?php if (in_array('tindaklanjut/create', session()->get('user_permissions'))) : ?>
+                    // {
+                    //         text: 'Create New',
+                    //         action: function(e, dt, node, config) {
+                    //             window.location.href = "<?= base_url('/tindaklanjut/create/' . $id_rekomendasi); ?>";
+                    //         }
+                    //     }
                 <?php endif; ?>
             ],
             processing: true,

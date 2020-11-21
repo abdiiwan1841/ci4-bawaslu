@@ -15,7 +15,7 @@ if (!function_exists('format_number')) {
 
     function format_number($number, $rp = false)
     {
-        if ($number) {
+        if (is_numeric($number)) {
             $_rp = $rp ? 'Rp ' . number_format($number, 2, '.', ',') : number_format($number, 0, '.', ',');
             return $_rp;
         }
@@ -261,7 +261,7 @@ function input_hidden($field_name = '', $value = '')
 }
 
 
-function input_image($field_name = '', $label = '', $file_name = 'default.png', $required = false, $readonly = false)
+function input_image($field_name = '', $label = '', $file_name = 'default.png', $required = false, $readonly = false, $path = 'images')
 {
 
     $validation = \Config\Services::validation();
@@ -282,7 +282,7 @@ function input_image($field_name = '', $label = '', $file_name = 'default.png', 
     echo '<label class="control-label" for="' . $field_name . '">' . $label . $hashRequired . '</label>';
     echo '<div class="controls controls-row">';
     echo '<a class="thumbnail-img span2" data-gallery="gallery" href="' . base_url('images/' . $file_name) . '" target="_blank" data-original-title="' . $file_name . '">';
-    echo '<img src="' . base_url('images/' . $file_name) . '" class="img-thumbnail img-preview" style="max-width: 200px;border: 1px solid #ddd;border-radius: 8px;padding: 5px;">';
+    echo '<img src="' . base_url($path . '/' . $file_name) . '" class="img-thumbnail img-preview" style="max-width: 200px;border: 1px solid #ddd;border-radius: 8px;padding: 5px;">';
     echo '</a>';
     echo '</div>';
     echo '<div class="controls controls-row">';

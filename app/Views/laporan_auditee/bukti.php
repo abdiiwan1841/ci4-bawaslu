@@ -64,44 +64,82 @@
                             </ul>
                         </div>
                     </li>
+                    <li>
+                        <div class="message-wrapper">
+                            <h4 class="message-heading">Tindak Lanjut</h4>
+                            <ul>
+                                <li>
+                                    <blockquote class="message">
+                                        <table>
+                                            <tr>
+                                                <td>Nilai Rekomendasi</td>
+                                                <td>:</td>
+                                                <td style="text-align:right;"><?= format_number($data->nilai_rekomendasi, true); ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nilai Sisa Rekomendasi</td>
+                                                <td>:</td>
+                                                <td style="text-align:right;"><?= format_number($data->nilai_sisa_rekomendasi, true); ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nilai Akhir Rekomendasi</td>
+                                                <td>:</td>
+                                                <td style="text-align:right;"><?= format_number($data->nilai_akhir_rekomendasi, true); ?></td>
+                                            </tr>
+                                        </table>
+                                    </blockquote>
+                                    <br>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
 
-                <h5>List Tindak Lanjut</h5>
+                <h5>List Bukti</h5>
                 <hr />
 
-                <a href="<?= base_url('laporanauditee/createtindaklanjut/' . $data->id) ?>" class="btn btn-info">Tambah Data</a>
-                <a href="<?= base_url('laporanauditee/detail/' . $data->id_laporan) ?>" class="btn btn-default">Kembali</a>
-                <div class="clearfix"></div>
+                <a href="<?= base_url('laporanauditee/createbukti/' . $data->id) ?>" class="btn btn-info">Tambah Bukti</a>
+                <a href="<?= base_url('laporanauditee/tindaklanjut/' . $data->id_rekomendasi) ?>" class="btn btn-default">Kembali</a>
                 <div class="clearfix"></div>
                 <table class="table table-condensed table-striped table-bordered table-hover no-margin">
                     <thead>
                         <tr>
-                            <th style="width:10%">No.</th>
-                            <th style="width:20%">Tanggal</th>
-                            <th style="width:20%">Nilai Rekomendasi</th>
-                            <th style="width:20%">Nilai Sisa Rekomendasi</th>
-                            <th style="width:20%">Nilai Akhir Rekomendasi</th>
+                            <th style="width:5%">No.</th>
+                            <th style="width:20%">Tanggal Dibuat</th>
+                            <th style="width:10%">No.Bukti</th>
+                            <th style="width:25%">Nama Bukti</th>
+                            <th style="width:10%">Nilai Bukti</th>
+                            <th style="width:20%">Lampiran</th>
                             <th style="width:10%">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $no = 1; ?>
-                        <?php foreach ($data->tindak_lanjut as $r) : ?>
+                        <?php foreach ($data->bukti as $r) : ?>
                             <tr>
                                 <td><?= '#' . $no++; ?></td>
                                 <td><?= $r->created_at; ?></td>
-                                <td style="text-align:right;"><?= format_number($r->nilai_rekomendasi, true); ?></td>
-                                <td style="text-align:right;"><?= format_number($r->nilai_sisa_rekomendasi, true); ?></td>
-                                <td style="text-align:right;"><?= format_number($r->nilai_akhir_rekomendasi, true); ?></td>
+                                <td style="text-align:left;"><?= $r->no_bukti; ?></td>
+                                <td style="text-align:left;"><?= $r->nama_bukti; ?></td>
+                                <td style="text-align:right;"><?= format_number($r->nilai_bukti, true); ?></td>
+                                <td style="text-align:left;">
+                                    <?php if ($r->lampiran) : ?>
+                                        <p class="url">
+                                            <a href="<?= base_url('/attachments/' . $r->lampiran); ?>" target="_blank" style="color:#3a86c8;">
+                                                <span class="fs1 text-info" aria-hidden="true" data-icon="&#xe0c5;"></span>
+                                                <?= $r->nama_bukti; ?>
+                                            </a>
+                                        </p>
+                                    <?php endif; ?>
+                                </td>
                                 <td style="text-align:center;">
-                                    <a href="<?= base_url('laporanauditee/edittindaklanjut/' . $r->id); ?>" class="btn btn-default">Edit</a>
-                                    <a href="<?= base_url('laporanauditee/bukti/' . $r->id); ?>" class="btn btn-success">Bukti</a>
+                                    <a href="<?= base_url('laporanauditee/editbukti/' . $r->id); ?>" class="btn btn-default">Edit</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                         <?php if ($no == 1) : ?>
                             <tr>
-                                <td colspan="6" style="text-align:center;">Belum ada tindak lanjut</td>
+                                <td colspan="6" style="text-align:center;">Belum ada bukti</td>
                             </tr>
                         <?php endif; ?>
                     </tbody>

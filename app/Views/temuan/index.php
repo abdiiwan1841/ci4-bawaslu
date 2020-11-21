@@ -82,9 +82,14 @@
             serverSide: true,
             responsive: true,
             columnDefs: [{
-                responsivePriority: 1,
-                targets: 4
-            }],
+                    responsivePriority: 1,
+                    targets: 4
+                },
+                {
+                    width: '200px',
+                    targets: 5
+                }
+            ],
             order: [
                 [1, "asc"]
             ],

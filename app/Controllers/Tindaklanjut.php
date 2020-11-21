@@ -87,9 +87,6 @@ class Tindaklanjut extends BaseController
                 'formatter' => function ($i, $row) {
                     $html = '
                     <center>
-                    <a href="' . base_url('tindaklanjut/edit/' . $i) . '" class="btn btn-primary btn-small" data-original-title="Edit">
-                    Edit
-                    </a>
                     <a href="' . base_url('bukti/index/' . $i) . '" class="btn btn-success btn-small" data-original-title="Edit">
                     Bukti
                     </a>

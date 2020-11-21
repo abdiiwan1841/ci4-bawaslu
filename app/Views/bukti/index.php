@@ -44,7 +44,7 @@
                                     <th>No Bukti</th>
                                     <th>Nama Bukti</th>
                                     <th>Nilai Bukti</th>
-                                    <th>Action</th>
+                                    <th>Lampiran</th>
                                 </tr>
                             </thead>
                             <tbody>

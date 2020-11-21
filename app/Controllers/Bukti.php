@@ -47,7 +47,8 @@ class Bukti extends BaseController
                 a.no_bukti,
                 a.nama_bukti,
                 a.nilai_bukti,
-                a.id_tindak_lanjut
+                a.id_tindak_lanjut,
+                a.lampiran
                 FROM bukti a
                 WHERE a.deleted_at IS NULL 
                 AND a.id_tindak_lanjut='" . $idTindakLanjut . "'
@@ -68,15 +69,17 @@ class Bukti extends BaseController
                 }
             ),
             array(
-                'db'        => 'id',
+                'db'        => 'lampiran',
                 'dt'        => 4,
                 'formatter' => function ($i, $row) {
-                    $html = '
-                    <center>
-                    <a href="' . base_url('bukti/edit/' . $i) . '" class="btn btn-primary btn-small" data-original-title="Edit">
-                    Detail
-                    </a>
-                    </center>';
+                    $html = '';
+                    if ($i) {
+                        $html = '<p class="url">
+                                    <a href="' . base_url('/attachments/' . $i) . '" target="_blank" style="color:#3a86c8;">
+                                        <span class="fs1 text-info" aria-hidden="true" data-icon="&#xe0c5;"></span>' . $row['nama_bukti'] . '
+                                    </a>
+                                </p>';
+                    }
                     return $html;
                 }
             ),

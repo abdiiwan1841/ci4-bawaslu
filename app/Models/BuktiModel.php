@@ -22,7 +22,8 @@ class BuktiModel extends Model
         'no_bukti',
         'nama_bukti',
         'nilai_bukti',
-        'id_tindak_lanjut'
+        'id_tindak_lanjut',
+        'lampiran'
     ];
 
     protected $useTimestamps = true;
@@ -41,7 +42,8 @@ class BuktiModel extends Model
         no_bukti,
         nama_bukti,
         nilai_bukti,
-        id_tindak_lanjut');
+        id_tindak_lanjut,
+        lampiran');
         $this->orderBy('no_bukti', 'ASC');
         $query = $this->get();
         $data = $query->getResult();
@@ -58,7 +60,8 @@ class BuktiModel extends Model
         no_bukti,
         nama_bukti,
         nilai_bukti,
-        id_tindak_lanjut');
+        id_tindak_lanjut,
+        lampiran');
         $this->orderBy('no_bukti', 'ASC');
         $this->where('id', $id);
         $query = $this->get();
