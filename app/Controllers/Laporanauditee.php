@@ -300,12 +300,10 @@ class Laporanauditee extends BaseController
                 ]
             ],
             'lampiran' => [
-                'rules' => 'max_size[lampiran,1024]|is_image[lampiran]|mime_in[lampiran,image/jpg,image/jpeg,image/png]|ext_in[lampiran,jpg,jpeg,png]',
+                'rules' => 'max_size[lampiran,1024]|ext_in[lampiran,jpg,jpeg,png,pdf,xls,xlsx,doc,docx]',
                 'errors' => [
                     'max_size' => 'ukuran tidak boleh melebihi 1024 KB',
-                    'is_image' => 'Yang anda pilih bukan gambar',
-                    'mime_in' => 'Yang anda pilih bukan gambar',
-                    'ext_in' => 'Harus JPG/JPEG/PNG'
+                    'ext_in' => 'tipe file harus .jpg | .png |.pdf |.xls | .xlsx |.doc | .docx'
                 ]
             ]
         ])) {
@@ -386,12 +384,10 @@ class Laporanauditee extends BaseController
                 ]
             ],
             'lampiran' => [
-                'rules' => 'max_size[lampiran,1024]|is_image[lampiran]|mime_in[lampiran,image/jpg,image/jpeg,image/png]|ext_in[lampiran,jpg,jpeg,png]',
+                'rules' => 'max_size[lampiran,1024]|ext_in[lampiran,jpg,jpeg,png,pdf,xls,xlsx,doc,docx]',
                 'errors' => [
                     'max_size' => 'ukuran tidak boleh melebihi 1024 KB',
-                    'is_image' => 'Yang anda pilih bukan gambar',
-                    'mime_in' => 'Yang anda pilih bukan gambar',
-                    'ext_in' => 'Harus JPG/JPEG/PNG'
+                    'ext_in' => 'tipe file harus .jpg | .png |.pdf |.xls | .xlsx |.doc | .docx'
                 ]
             ]
         ];

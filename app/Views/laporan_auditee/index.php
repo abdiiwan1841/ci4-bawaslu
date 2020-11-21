@@ -69,6 +69,10 @@
                     targets: 8
                 },
                 {
+                    width: '120px',
+                    targets: 1
+                },
+                {
                     width: '100px',
                     targets: 8
                 }

@@ -313,6 +313,35 @@ function input_image($field_name = '', $label = '', $file_name = 'default.png', 
     echo '</script>';
 }
 
+function input_file($field_name = '', $label = '', $file_name = 'default.png', $required = false, $readonly = false, $path = 'images', $tips = ".jpg | .jpeg | .png")
+{
+
+    $validation = \Config\Services::validation();
+
+    $hashError = $validation->hasError($field_name) ? 'error' : '';
+    $hashRequired = ($required) ? '<font color="red"> *</font>' : '';
+
+    $data = [
+        'name'      => $field_name,
+        'id'        => $field_name,
+        'value'     => $file_name,
+        'onchange'  => 'previewImage_' . $field_name . '();'
+    ];
+
+    $file_name = ($file_name) ? $file_name : 'default.png';
+
+    echo '<div class="control-group ' . $hashError . '"">';
+    echo '<label class="control-label" for="' . $field_name . '">' . $label . $hashRequired . '</label>';
+    echo '<div class="controls controls-row">';
+    if (!$readonly) {
+        echo form_upload($data, $file_name, $extra = array());
+        echo $validation->hasError($field_name) ? '<span class="help-inline ">' . $validation->getError($field_name) . '</span>' : '';
+        echo '<label class="custom-file-label" style="font-size: 11px;color: #3a86c8;" for="image">' . $tips . '</label>';
+    }
+    echo '</div>';
+    echo '</div>';
+}
+
 function input_select($field_name, $label, $options, $selected = '', $required = false, $disabled = false)
 {
     $validation = \Config\Services::validation();

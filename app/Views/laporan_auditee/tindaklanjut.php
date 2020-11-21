@@ -71,17 +71,16 @@
 
                 <a href="<?= base_url('laporanauditee/createtindaklanjut/' . $data->id) ?>" class="btn btn-info">Tambah Data</a>
                 <a href="<?= base_url('laporanauditee/detail/' . $data->id_laporan) ?>" class="btn btn-default">Kembali</a>
-                <div class="clearfix"></div>
-                <div class="clearfix"></div>
+                <div class="clearfix" style="margin-bottom: 5px;"></div>
                 <table class="table table-condensed table-striped table-bordered table-hover no-margin">
                     <thead>
                         <tr>
-                            <th style="width:10%">No.</th>
-                            <th style="width:20%">Tanggal</th>
-                            <th style="width:20%">Nilai Rekomendasi</th>
-                            <th style="width:20%">Nilai Sisa Rekomendasi</th>
-                            <th style="width:20%">Nilai Akhir Rekomendasi</th>
-                            <th style="width:10%">Action</th>
+                            <th style="width:10%; text-align:center;">No.</th>
+                            <th style="width:15%; text-align:center;">Tanggal</th>
+                            <th style="width:20%; text-align:center;">Nilai Rekomendasi</th>
+                            <th style="width:20%; text-align:center;">Nilai Sisa Rekomendasi</th>
+                            <th style="width:20%; text-align:center;">Nilai Akhir Rekomendasi</th>
+                            <th style="width:15%; text-align:center;">Action</th>
                         </tr>
                     </thead>
                     <tbody>

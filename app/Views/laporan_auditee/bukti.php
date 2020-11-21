@@ -100,17 +100,17 @@
 
                 <a href="<?= base_url('laporanauditee/createbukti/' . $data->id) ?>" class="btn btn-info">Tambah Bukti</a>
                 <a href="<?= base_url('laporanauditee/tindaklanjut/' . $data->id_rekomendasi) ?>" class="btn btn-default">Kembali</a>
-                <div class="clearfix"></div>
+                <div class="clearfix" style="margin-bottom: 5px;"></div>
                 <table class="table table-condensed table-striped table-bordered table-hover no-margin">
                     <thead>
                         <tr>
-                            <th style="width:5%">No.</th>
-                            <th style="width:20%">Tanggal Dibuat</th>
-                            <th style="width:10%">No.Bukti</th>
-                            <th style="width:25%">Nama Bukti</th>
-                            <th style="width:10%">Nilai Bukti</th>
-                            <th style="width:20%">Lampiran</th>
-                            <th style="width:10%">Action</th>
+                            <th style="text-align:center; width:5%">No.</th>
+                            <th style="text-align:center; width:15%">Tanggal Dibuat</th>
+                            <th style="text-align:center; width:15%">No.Bukti</th>
+                            <th style="text-align:center; width:20%">Nama Bukti</th>
+                            <th style="text-align:center; width:15%">Nilai Bukti</th>
+                            <th style="text-align:center; width:20%">Lampiran</th>
+                            <th style="text-align:center; width:10%">Action</th>
                         </tr>
                     </thead>
                     <tbody>
