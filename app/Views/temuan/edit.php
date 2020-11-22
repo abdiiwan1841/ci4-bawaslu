@@ -33,9 +33,12 @@
 
                                 <?= csrf_field(); ?>
                                 <?= input_text($field_name = 'no_temuan', $label = 'No. Temuan', $value = $data->no_temuan, $required = true, $readonly = false, $disabled = false); ?>
+                                <!-- no temuan autonumber/ increment -->
                                 <?= input_textarea($field_name = 'memo_temuan', $label = 'Memo Temuan', $value = $data->memo_temuan, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'jenis_temuan', $label = 'Jenis Temuan', $value = $data->jenis_temuan, $required = true, $readonly = false, $disabled = false); ?>
+                                <!-- temuan di buat select box jenis temuan, list nya nanati di kasih -->
                                 <?= input_number($field_name = 'nilai_temuan', $label = 'Nilai Temuan', $value = $data->nilai_temuan, $required = true, $readonly = false, $disabled = false); ?>
+                                <!-- nilai temuan bergantung jenis temuan -->
                                 <?= input_hidden($field_name = 'id_laporan', $value = $data->id_laporan); ?>
                                 <div class="form-actions no-margin">
                                     <button type="submit" class="btn btn-primary">Submit</button>

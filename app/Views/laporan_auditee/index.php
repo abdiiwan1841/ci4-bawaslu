@@ -32,6 +32,7 @@
                             <th>No Laporan</th>
                             <th>Tanggal Laporan</th>
                             <th>Nama Laporan</th>
+                            <!-- <th>Pelakasana Audit</th> BPK/IRWIL -->
                             <th>Sesuai</th>
                             <th>Belum Sesuai</th>
                             <th>Belum Ditindak Lanjuti</th>

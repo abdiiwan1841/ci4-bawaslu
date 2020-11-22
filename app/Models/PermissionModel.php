@@ -58,4 +58,16 @@ class PermissionModel extends Model
         }
         return array();
     }
+
+    public function isNotExistUri($uri)
+    {
+        $this->select('uri');
+        $this->where('uri', $uri);
+        $query = $this->get();
+        $data = $query->getRow();
+        if (isset($data)) {
+            return false;
+        }
+        return true;
+    }
 }

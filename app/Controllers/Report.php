@@ -9,8 +9,8 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\EmployeeModel;
-use App\Models\OrderModel;
-use App\Models\OrderDetailModel;
+// use App\Models\OrderModel;
+// use App\Models\OrderDetailModel;
 use App\Models\StockModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -26,8 +26,8 @@ class Report extends BaseController
     public function __construct()
     {
         $this->employeeModel = new EmployeeModel();
-        $this->orderModel = new OrderModel();
-        $this->orderDetailModel = new OrderDetailModel();
+        // $this->orderModel = new OrderModel();
+        // $this->orderDetailModel = new OrderDetailModel();
         $this->stockModel = new StockModel();
     }
 
@@ -42,31 +42,31 @@ class Report extends BaseController
         return view('report/index', $data);
     }
     // public function excel()
-	// {
-	// 	$spreadsheet = new Spreadsheet();
-	// 	$sheet = $spreadsheet->getActiveSheet();
-	// 	$sheet->setCellValue('A1', 'Hello World !');
-	// 	$writer = new Xlsx($spreadsheet);
-	// 	//$writer->save('helloworld.xlsx');
+    // {
+    // 	$spreadsheet = new Spreadsheet();
+    // 	$sheet = $spreadsheet->getActiveSheet();
+    // 	$sheet->setCellValue('A1', 'Hello World !');
+    // 	$writer = new Xlsx($spreadsheet);
+    // 	//$writer->save('helloworld.xlsx');
 
 
-	// 	//sesuaikan headernya 
-	// 	// header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-	// 	// header("Cache-Control: no-store, no-cache, must-revalidate");
-	// 	// header("Cache-Control: post-check=0, pre-check=0", false);
-	// 	// header("Pragma: no-cache");
-	// 	// header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-	// 	// //ubah nama file saat diunduh
-	// 	// header('Content-Disposition: attachment;filename="update_shopee_product.xlsx"');
+    // 	//sesuaikan headernya 
+    // 	// header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+    // 	// header("Cache-Control: no-store, no-cache, must-revalidate");
+    // 	// header("Cache-Control: post-check=0, pre-check=0", false);
+    // 	// header("Pragma: no-cache");
+    // 	// header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    // 	// //ubah nama file saat diunduh
+    // 	// header('Content-Disposition: attachment;filename="update_shopee_product.xlsx"');
 
-	// 	header('Content-Type: application/vnd.ms-excel');
-	// 	header('Content-Disposition: attachment;filename="Laporan_Transaction.xlsx"');
-	// 	// header('Cache-Control: max-age=0');
+    // 	header('Content-Type: application/vnd.ms-excel');
+    // 	header('Content-Disposition: attachment;filename="Laporan_Transaction.xlsx"');
+    // 	// header('Cache-Control: max-age=0');
 
-	// 	$writer->save('php://output');
-	// }
+    // 	$writer->save('php://output');
+    // }
 
-	public function pdf()
+    public function pdf()
     {
         $id = '04163ca3-d141-f8df-4a2d-474312d15496';
 
@@ -280,6 +280,4 @@ class Report extends BaseController
 
         $writer->save('php://output');
     }
-
-  
 }

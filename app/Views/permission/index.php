@@ -61,11 +61,20 @@
 
         var table = $('#datatables').DataTable({
             dom: 'Bfrtip',
-            buttons: [
-                <?php if (in_array('permission/delete', session()->get('user_permissions'))) : ?> {
+            buttons: [{
+                    text: 'Update All Class & Method In All Controller',
+                    action: function(e, dt, node, config) {
+                        if (confirm("Are you sure ?")) {
+                            getAllClassMethodInAllController();
+                        }
+                    }
+                }
+                <?php if (in_array('permission/delete', session()->get('user_permissions'))) : ?>, {
                         text: 'Delete Selected',
                         action: function(e, dt, node, config) {
-                            deletedSelected();
+                            if (confirm("Are you sure ?")) {
+                                deletedSelected();
+                            }
                         }
                     }
                 <?php endif; ?>
@@ -170,6 +179,24 @@
                 }
             });
 
+        };
+
+        function getAllClassMethodInAllController() {
+            $.ajax({
+                url: "<?= '/permission/getAllClassMethodInAllController' ?>",
+                type: "POST",
+                dataType: 'json',
+                cache: false,
+                success: function(res) {
+                    console.log(res);
+                    if (res.status) {
+                        alert(res.messages);
+                        table.ajax.reload();
+                    } else {
+                        alert(res.messages);
+                    }
+                }
+            });
         };
 
     });

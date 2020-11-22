@@ -36,14 +36,23 @@
                                 <?= input_text($field_name = 'nama_laporan', $label = 'Nama Laporan', $value = $data->nama_laporan, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'no_surat_tugas', $label = 'No. Surat Tugas', $value = $data->no_surat_tugas, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_date($field_name = 'tanggal_surat_tugas', $label = 'Tanggal Surat Tugas', $value = $data->tanggal_surat_tugas, $required = true, $readonly = false, $disabled = false); ?>
-                                <?= input_text($field_name = 'unit_pelaksana', $label = 'Unit Pelaksana', $value = $data->unit_pelaksana, $required = true, $readonly = false, $disabled = false); ?>
+                                <?php
+                                $optionsUnitPelaksana = [
+                                    'BPK' => 'BPK',
+                                    'BPKP' => 'BPKP',
+                                    'IRWIL1' => 'IRWIL1',
+                                    'IRWIL2' => 'IRWIL2',
+                                    'IRWIL3' => 'IRWIL3'
+                                ];
+                                ?>
+                                <?= input_select($field_name = 'unit_pelaksana', $label = 'Unit Pelaksana', $options = $optionsUnitPelaksana, $selected = $data->unit_pelaksana, $required = true, $disabled = ''); ?>
                                 <?= input_text($field_name = 'nip_pimpinan', $label = 'NIP Pimpinan', $value = $data->nip_pimpinan, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'pimpinan_satuan_kerja', $label = 'Pimpinan Satuan Kerja', $value = $data->pimpinan_satuan_kerja, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'nama_satuan_kerja', $label = 'Nama Satuan Kerja', $value = $data->nama_satuan_kerja, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'tahun_anggaran', $label = 'Tahun Anggaran', $value = $data->tahun_anggaran, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_number($field_name = 'nilai_anggaran', $label = 'Nilai Anggaran', $value = $data->nilai_anggaran, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_number($field_name = 'realisasi_anggaran', $label = 'Realisasi Anggaran', $value = $data->realisasi_anggaran, $required = true, $readonly = false, $disabled = false); ?>
-                                <?= input_text($field_name = 'audit_anggaran', $label = 'Audit Anggaran', $value = $data->audit_anggaran, $required = true, $readonly = false, $disabled = false); ?>
+                                <?= input_text($field_name = 'audit_anggaran', $label = 'Periode Audit', $value = $data->audit_anggaran, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'jenis_anggaran', $label = 'Jenis Anggaran', $value = $data->jenis_anggaran, $required = true, $readonly = false, $disabled = false); ?>
                                 <div class="form-actions no-margin">
                                     <button type="submit" class="btn btn-primary">Submit</button>

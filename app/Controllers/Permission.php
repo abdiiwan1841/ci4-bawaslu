@@ -15,7 +15,7 @@ use App\Models\AuthModel;
 
 class Permission extends BaseController
 {
-    protected $PermissionModel;
+    protected $permissionModel;
     protected $groupModel;
     protected $groupPermissionModel;
     protected $authModel;
@@ -357,6 +357,96 @@ class Permission extends BaseController
             $response['messages'] = 'Please select first';
         }
 
+        echo json_encode($response);
+    }
+
+    public function getAllClassMethodInAllController()
+    {
+        $array_uri = [];
+        $method_exception = ['__construct', 'initController', 'forceHTTPS', 'cachePage', 'loadHelpers', 'validate'];
+
+        /* dapatkan lokasi path dari script ini saat di jalankan */
+        $src    = dirname(__FILE__);
+
+        /* baca semua folder file yang ada di folder dari path ini*/
+        $dir = opendir($src);
+
+        /* di loop sebanyak file yang ada di folder/path ini*/
+        while (false !== ($file = readdir($dir))) {
+
+            /* kecualikan (.) dan (..)*/
+            if (($file != '.') && ($file != '..')) {
+
+                /* hilangkan nama extention dari file berjenis (.php) / ambil namanya saja*/
+                $file = str_replace('.php', '', $file);
+
+                /*ambil namespaces nya*/
+                $namespacesClass = 'App\Controllers\\' . $file;
+
+                /*inisialisasi nama/object class*/
+                $class = new $namespacesClass();
+
+                /*dapatkan semua method yang ada di class tersebut*/
+                $class_methods = get_class_methods($class);
+
+                /*loop sebanyak method yang ada di class tersebut*/
+                foreach ($class_methods as $r) {
+
+                    /*kecualikan method yang ada di array method_exception*/
+                    if (!in_array($r, $method_exception)) {
+
+                        /*kecualikan method index, cukup ambil nama class nya saja*/
+                        $r = ($r == 'index') ? strtolower($file) : strtolower($file) . '/' . $r;
+
+                        /*masukan kedalam array_uri */
+                        array_push($array_uri, $r);
+                    }
+                }
+            }
+        }
+
+        // dd($array_uri);
+        $response['array_uri'] = $array_uri;
+
+        /*masukan kedalam database*/
+        try {
+            $db      = \Config\Database::connect();
+
+            $db->transStart();
+            if ($array_uri) {
+
+                $data = [];
+                foreach ($array_uri as $r) {
+
+                    /*insert data hanya untuk yang belum ada */
+                    if ($this->permissionModel->isNotExistUri($r)) {
+                        $data[] = array(
+                            'id' => get_uuid(),
+                            'name' => $r,
+                            'uri' => $r
+                        );
+                    }
+                }
+                if ($data) {
+                    $this->permissionModel->insertBatch($data);
+                } else {
+                    $response['status'] = false;
+                    $response['messages'] = 'none new class & method';
+                }
+            }
+
+            $db->transComplete();
+            if ($db->transStatus() === FALSE) {
+                $response['status'] = false;
+                $response['messages'] = 'transaction failed';
+            } else {
+                $response['status'] = true;
+                $response['messages'] = 'transaction success';
+            }
+        } catch (\Exception $e) {
+            $response['status'] = false;
+            $response['messages'] = $e->getMessage();
+        }
         echo json_encode($response);
     }
 }

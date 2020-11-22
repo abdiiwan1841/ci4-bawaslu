@@ -44,12 +44,20 @@
                                     <th>Nilai Rekomendasi</th>
                                     <th>Nilai Akhir Rekomendasi</th>
                                     <th>Nilai Sisa Rekomendasi</th>
+                                    <!-- <th>Deskripsi</th> -->
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                             </tbody>
                         </table>
+
+                        <!--
+                            -1-BELUM TL
+                            -2-BELUM SESUAI
+                            -3-SESUAI
+                            -4-TIDAK DAPAT TL
+                          -->
 
                     </div>
                 </div>

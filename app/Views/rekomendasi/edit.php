@@ -33,9 +33,11 @@
 
                                 <?= csrf_field(); ?>
                                 <?= input_text($field_name = 'no_rekomendasi', $label = 'No. Rekomendasi', $value = $data->no_rekomendasi, $required = true, $readonly = false, $disabled = false); ?>
+                                <?= input_select($field_name = 'jenis_rekomendasi', $label = 'Jenis Rekomendasi', [], $selected = '', $required = true, $disabled = ''); ?>
                                 <?= input_textarea($field_name = 'memo_rekomendasi', $label = 'Memo Rekomendasi', $value = $data->memo_rekomendasi, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_number($field_name = 'nilai_rekomendasi', $label = 'Nilai Rekomendasi', $value = $data->nilai_rekomendasi, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'nama_penanggung_jawab', $label = 'Nama Penanggung Jawab', $value = $data->nama_penanggung_jawab, $required = true, $readonly = false, $disabled = false); ?>
+                                <!-- nama penanggung jawab bisa lebih dari satu -->
                                 <?= input_hidden($field_name = 'id_temuan', $value = $data->id_temuan); ?>
                                 <div class="form-actions no-margin">
                                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -43,6 +45,8 @@
                                 </div>
                             </form>
                         </div>
+
+                        <!-- tidak dapat di tindak lanjuti upload -->
                     </div>
                 </div>
             </div>
