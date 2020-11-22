@@ -25,6 +25,7 @@ class Temuan extends BaseController
         // session()->set('id_wilayah', $idWilayah);
         session()->set('id_laporan', $idLaporan);
         session()->set('id_temuan', '');
+        session()->set('id_sebab', '');
         session()->set('id_rekomendasi', '');
         session()->set('id_tindak_lanjut', '');
         session()->set('id_bukti', '');
@@ -77,9 +78,6 @@ class Temuan extends BaseController
                     <center>
                     <a href="' . base_url('temuan/edit/' . $i) . '" class="btn btn-primary btn-small" data-original-title="Edit">
                     Edit
-                    </a>
-                    <a href="' . base_url('rekomendasi/index/' . $i) . '" class="btn btn-success btn-small" data-original-title="Edit">
-                    Rekomendasi
                     </a>
                     <a href="' . base_url('sebab/index/' . $i) . '" class="btn btn-danger btn-small" data-original-title="Edit">
                     Sebab

@@ -36,28 +36,6 @@
                             <div class="message-wrapper">
                                 <h4 class="message-heading"><?= $r->memo_temuan; ?></h4>
                                 <ul style="padding-left: 30px">
-                                    <h5 class="message-heading">Rekomendasi</h5>
-                                    <li>
-                                        <?php $no = 1; ?>
-                                        <?php foreach ($r->rekomendasi as $d) : ?>
-                                            <?php $no++; ?>
-                                            <blockquote class="message">
-                                                <?= $d->memo_rekomendasi; ?>
-                                                <p class="url">
-                                                    <span class="fs1 text-info" aria-hidden="true" data-icon="&#xe132;"></span>
-                                                    <a href="<?= base_url('laporanauditee/tindaklanjut/' . $d->id) ?>">Riwayat Tindak Lanjut</a>
-                                                </p>
-                                            </blockquote>
-                                            <br>
-                                        <?php endforeach; ?>
-                                    </li>
-                                    <?php if ($no == 1) : ?>
-                                        <blockquote class="message">
-                                            <span style="color:red;">Belum ada rekomendasi</span>
-                                        </blockquote>
-                                    <?php endif; ?>
-                                </ul>
-                                <ul style="padding-left: 30px">
                                     <h5 class="message-heading">Sebab</h5>
                                     <li>
                                         <?php $no = 1; ?>
@@ -67,6 +45,28 @@
                                                 <?= $d->memo_sebab; ?>
                                             </blockquote>
                                             <br>
+                                            <ul style="padding-left: 30px">
+                                                <h5 class="message-heading">Rekomendasi</h5>
+                                                <li>
+                                                    <?php $n = 1; ?>
+                                                    <?php foreach ($d->rekomendasi as $e) : ?>
+                                                        <?php $n++; ?>
+                                                        <blockquote class="message">
+                                                            <?= $e->memo_rekomendasi; ?>
+                                                            <p class="url">
+                                                                <span class="fs1 text-info" aria-hidden="true" data-icon="&#xe132;"></span>
+                                                                <a href="<?= base_url('laporanauditee/tindaklanjut/' . $e->id) ?>">Riwayat Tindak Lanjut</a>
+                                                            </p>
+                                                        </blockquote>
+                                                        <br>
+                                                    <?php endforeach; ?>
+                                                </li>
+                                                <?php if ($n == 1) : ?>
+                                                    <blockquote class="message">
+                                                        <span style="color:red;">Belum ada rekomendasi</span>
+                                                    </blockquote>
+                                                <?php endif; ?>
+                                            </ul>
                                         <?php endforeach; ?>
                                         <?php if ($no == 1) : ?>
                                             <blockquote class="message">

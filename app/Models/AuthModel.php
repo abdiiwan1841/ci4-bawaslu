@@ -113,7 +113,7 @@ class AuthModel extends Model
             a.`nama`,
             a.`jabatan`,
             a.`id_satuan_kerja`,
-            c.wilayah,
+            c.nama AS nama_satuan_kerja,
             a.`id_user`,
             b.username,
             a.`created_at`,
@@ -121,18 +121,7 @@ class AuthModel extends Model
             a.`deleted_at`
             FROM `auditee` a
             LEFT JOIN users b ON b.id=a.id_user
-            LEFT JOIN (
-                        SELECT
-                        x.`id`,
-                        x.`nama_provinsi` AS wilayah
-                        FROM provinsi `x` 
-                        UNION
-                        SELECT 
-                        y.id,
-                        y.nama_kabupaten AS wilayah
-                        FROM
-                        kabupaten `y`
-                    ) c ON c.id=a.`id_satuan_kerja`
+            LEFT JOIN eselon c ON c.id=a.id_satuan_kerja
             WHERE a.deleted_at IS NULL
             AND b.id=?
             ORDER BY a.nama ASC;";

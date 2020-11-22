@@ -106,15 +106,16 @@ class LaporanModel extends Model
         return array();
     }
 
-    public function getProvinsi()
+    public function getEselon1()
     {
         try {
             $sql = "SELECT
                     a.id,
-                    a.nama_provinsi
-                    FROM provinsi a 
-                    JOIN kabupaten b ON b.id_provinsi=a.id
-                    ORDER BY a.nama_provinsi ASC";
+                    a.nama
+                    FROM eselon a 
+                    WHERE a.level_eselon='1' 
+                    AND a.deleted_at IS NULL
+                    ORDER BY a.nama ASC";
             $query = $this->query($sql);
             $data = $query->getResult();
             if (isset($data)) {
@@ -126,17 +127,40 @@ class LaporanModel extends Model
         }
     }
 
-    public function getKabupaten($idProvinsi)
+    public function getEselon2($idEselon1)
     {
         try {
             $sql = "SELECT
-                    b.id,
-                    b.nama_kabupaten
-                    FROM provinsi a 
-                    JOIN kabupaten b ON b.id_provinsi=a.id
-                    WHERE a.id=?
-                    ORDER BY b.nama_kabupaten ASC";
-            $query = $this->query($sql, [$idProvinsi]);
+                    a.id,
+                    a.nama
+                    FROM eselon a 
+                    WHERE a.level_eselon='2' 
+                    AND a.id_parent=?
+                    AND a.deleted_at IS NULL
+                    ORDER BY a.nama ASC";
+            $query = $this->query($sql, [$idEselon1]);
+            $data = $query->getResult();
+            if (isset($data)) {
+                return $data;
+            }
+            return array();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getEselon3($idEselon2)
+    {
+        try {
+            $sql = "SELECT
+                    a.id,
+                    a.nama
+                    FROM eselon a 
+                    WHERE a.level_eselon='3' 
+                    AND a.id_parent=?
+                    AND a.deleted_at IS NULL
+                    ORDER BY a.nama ASC";
+            $query = $this->query($sql, [$idEselon2]);
             $data = $query->getResult();
             if (isset($data)) {
                 return $data;

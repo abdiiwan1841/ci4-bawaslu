@@ -73,10 +73,10 @@ class Auth extends BaseController
                 $employee = $this->authModel->getDataByIdUser($data->id);
                 if ($employee) {
                     session()->set('id_satuan_kerja', $employee->id_satuan_kerja);
-                    session()->set('wilayah', $employee->wilayah);
+                    session()->set('nama_satuan_kerja', $employee->nama_satuan_kerja);
                 } else {
                     session()->set('id_satuan_kerja', '');
-                    session()->set('wilayah', '');
+                    session()->set('nama_satuan_kerja', '');
                 }
 
                 return redirect()->to('/' . $data->landing_page);

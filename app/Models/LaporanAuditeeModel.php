@@ -128,7 +128,6 @@ class LaporanAuditeeModel extends Model
             $data = $query->getResult();
             if (isset($data)) {
                 foreach ($data as $r) {
-                    $r->rekomendasi = $this->getRekomendasi($r->id);
                     $r->sebab = $this->getSebab($r->id);
                     array_push($result, $r);
                 }
@@ -140,7 +139,7 @@ class LaporanAuditeeModel extends Model
         }
     }
 
-    public function getRekomendasi($idTemuan)
+    public function getRekomendasi($idSebab)
     {
         try {
             $sql = "SELECT
@@ -149,14 +148,14 @@ class LaporanAuditeeModel extends Model
                     a.`memo_rekomendasi`,
                     a.`nilai_rekomendasi`,
                     a.`nama_penanggung_jawab`,
-                    a.`id_temuan`,
+                    a.`id_sebab`,
                     a.`created_at`,
                     a.`updated_at`,
                     a.`deleted_at`
                     FROM `rekomendasi` a
-                    WHERE a.id_temuan=?
+                    WHERE a.id_sebab=?
                     ORDER BY a.no_rekomendasi ASC";
-            $query = $this->query($sql, [$idTemuan]);
+            $query = $this->query($sql, [$idSebab]);
             $data = $query->getResult();
             if (isset($data)) {
                 return $data;
@@ -169,6 +168,7 @@ class LaporanAuditeeModel extends Model
 
     public function getSebab($idTemuan)
     {
+        $result = [];
         try {
             $sql = "SELECT
                     a.`id`,
@@ -184,7 +184,11 @@ class LaporanAuditeeModel extends Model
             $query = $this->query($sql, [$idTemuan]);
             $data = $query->getResult();
             if (isset($data)) {
-                return $data;
+                foreach ($data as $r) {
+                    $r->rekomendasi = $this->getRekomendasi($r->id);
+                    array_push($result, $r);
+                }
+                return $result;
             }
             return array();
         } catch (\Exception $e) {
@@ -201,20 +205,24 @@ class LaporanAuditeeModel extends Model
                     a.`memo_rekomendasi`,
                     a.`nama_penanggung_jawab`,
                     a.`nilai_rekomendasi`,
-                    b.`no_temuan`,
-                    b.`memo_temuan`,
-                    b.`jenis_temuan`,
-                    b.`nilai_temuan`,
-                    c.id AS id_laporan,
-                    c.`no_laporan`,
-                    c.`nama_laporan`,
-                    c.`nilai_anggaran`,
-                    c.`audit_anggaran`,
-                    c.`tanggal_laporan`,
-                    c.`tahun_anggaran`
+                    b.id AS id_sebab,
+                    b.no_sebab,
+                    b.memo_sebab,
+                    c.`no_temuan`,
+                    c.`memo_temuan`,
+                    c.`jenis_temuan`,
+                    c.`nilai_temuan`,
+                    d.id AS id_laporan,
+                    d.`no_laporan`,
+                    d.`nama_laporan`,
+                    d.`nilai_anggaran`,
+                    d.`audit_anggaran`,
+                    d.`tanggal_laporan`,
+                    d.`tahun_anggaran`
                     FROM rekomendasi a
-                    JOIN temuan b ON b.`id`=a.`id_temuan` 
-                    JOIN laporan c ON c.`id`=b.`id_laporan`
+                    JOIN sebab b ON b.`id`=a.`id_sebab` 
+                    JOIN temuan c ON c.`id`=b.`id_temuan` 
+                    JOIN laporan d ON d.`id`=c.`id_laporan`
                     WHERE a.id=?
                     ";
             $query = $this->query($sql, [$idRekomendasi]);
@@ -268,20 +276,24 @@ class LaporanAuditeeModel extends Model
                     b.`memo_rekomendasi`,
                     b.`nama_penanggung_jawab`,
                     b.`nilai_rekomendasi`,
-                    c.`no_temuan`,
-                    c.`memo_temuan`,
-                    c.`jenis_temuan`,
-                    c.`nilai_temuan`,
-                    d.`no_laporan`,
-                    d.`nama_laporan`,
-                    d.`nilai_anggaran`,
-                    d.`audit_anggaran`,
-                    d.`tanggal_laporan`,
-                    d.`tahun_anggaran`
+                    c.id AS id_sebab,
+                    c.no_sebab,
+                    c.memo_sebab,
+                    d.`no_temuan`,
+                    d.`memo_temuan`,
+                    d.`jenis_temuan`,
+                    d.`nilai_temuan`,
+                    e.`no_laporan`,
+                    e.`nama_laporan`,
+                    e.`nilai_anggaran`,
+                    e.`audit_anggaran`,
+                    e.`tanggal_laporan`,
+                    e.`tahun_anggaran`
                     FROM tindak_lanjut a
                     JOIN rekomendasi b ON b.id=a.id_rekomendasi
-                    JOIN temuan c ON c.`id`=b.`id_temuan` 
-                    JOIN laporan d ON d.`id`=c.`id_laporan`
+                    JOIN sebab c ON c.`id`=b.`id_sebab` 
+                    JOIN temuan d ON d.`id`=c.`id_temuan` 
+                    JOIN laporan e ON e.`id`=d.`id_laporan`
                     WHERE a.id=?
                     ";
             $query = $this->query($sql, [$idTindakLanjut]);

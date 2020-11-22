@@ -23,36 +23,67 @@ class Laporan extends BaseController
     public function index()
     {
 
-        $provinsi_options = array();
+        session()->set('id_satuan_kerja', '');
+        session()->set('id_laporan', '');
+        session()->set('id_temuan', '');
+        session()->set('id_sebab', '');
+        session()->set('id_rekomendasi', '');
+        session()->set('id_tindak_lanjut', '');
+        session()->set('id_bukti', '');
 
-        $provinsi = $this->laporanModel->getProvinsi();
-        foreach ($provinsi as $r) {
-            $provinsi_options[$r->id] = $r->nama_provinsi;
+        $eselon1_options = array();
+
+        $eselon1 = $this->laporanModel->getEselon1();
+        foreach ($eselon1 as $r) {
+            $eselon1_options[$r->id] = $r->nama;
         }
 
         $data = [
             'title' => 'Satuan Kerja',
             'active' => 'laporan',
-            'provinsi_options' => $provinsi_options,
+            'eselon1_options' => $eselon1_options,
         ];
         return view('laporan/satuan_kerja', $data);
     }
 
-    public function list($idWilayah)
+    public function list()
     {
+        if ($this->request->getVar('eselon1') != '' || session()->get('id_satuan_kerja') != '') {
 
-        session()->set('id_wilayah', $idWilayah);
-        session()->set('id_laporan', '');
-        session()->set('id_temuan', '');
-        session()->set('id_rekomendasi', '');
-        session()->set('id_tindak_lanjut', '');
-        session()->set('id_bukti', '');
+            $eselon1 = $this->request->getVar('eselon1');
+            $eselon2 = $this->request->getVar('eselon2');
+            $eselon3 = $this->request->getVar('eselon3');
 
-        $data = [
-            'title' => 'Laporan',
-            'active' => 'laporan'
-        ];
-        return view('laporan/index', $data);
+            $idSatuanKerja = $eselon1;
+
+            if ($eselon3) {
+                $idSatuanKerja = $eselon3;
+            } else {
+                if ($eselon2) {
+                    $idSatuanKerja = $eselon2;
+                } else {
+                    $idSatuanKerja = $eselon1;
+                }
+            }
+
+            if (!session()->get('id_satuan_kerja')) {
+                session()->set('id_satuan_kerja', $idSatuanKerja);
+            }
+            session()->set('id_laporan', '');
+            session()->set('id_temuan', '');
+            session()->set('id_sebab', '');
+            session()->set('id_rekomendasi', '');
+            session()->set('id_tindak_lanjut', '');
+            session()->set('id_bukti', '');
+
+            $data = [
+                'title' => 'Laporan',
+                'active' => 'laporan'
+            ];
+            return view('laporan/index', $data);
+        } else {
+            return redirect()->to('/laporan')->withInput();
+        }
     }
 
     public function datatables()
@@ -80,7 +111,7 @@ class Laporan extends BaseController
                 a.id_satuan_kerja
                 FROM laporan a 
                 WHERE
-                a.id_satuan_kerja='" . session()->get('id_wilayah') . "'
+                a.id_satuan_kerja='" . session()->get('id_satuan_kerja') . "'
                 AND a.deleted_at IS NULL
                 ORDER BY a.nama_laporan ASC
             ) temp
@@ -296,9 +327,15 @@ class Laporan extends BaseController
         }
     }
 
-    public function ajaxGetKabupatenByProvinsiId($idProvinsi)
+    public function ajaxGetEselon2($idEselon1)
     {
-        $response['data'] = $this->laporanModel->getKabupaten($idProvinsi);
+        $response['data'] = $this->laporanModel->getEselon2($idEselon1);
+        echo json_encode($response);
+    }
+
+    public function ajaxGetEselon3($idEselon2)
+    {
+        $response['data'] = $this->laporanModel->getEselon3($idEselon2);
         echo json_encode($response);
     }
 }

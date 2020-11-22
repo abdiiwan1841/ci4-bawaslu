@@ -103,7 +103,8 @@
             <?php if (
                 in_array('auditor', session()->get('user_permissions')) ||
                 in_array('auditee', session()->get('user_permissions')) ||
-                in_array('satuankerja', session()->get('user_permissions'))
+                in_array('satuankerja', session()->get('user_permissions')) ||
+                in_array('eselon', session()->get('user_permissions'))
             ) : ?>
                 <div class="accordion-group">
                     <div class="accordion-heading">
@@ -122,6 +123,11 @@
                                 <?php if (in_array('auditee', session()->get('user_permissions'))) : ?>
                                     <li>
                                         <a href="<?= base_url('/auditee'); ?>">Auditee</a>
+                                    </li>
+                                <?php endif; ?>
+                                <?php if (in_array('eselon', session()->get('user_permissions'))) : ?>
+                                    <li>
+                                        <a href="<?= base_url('/eselon'); ?>">Eselon</a>
                                     </li>
                                 <?php endif; ?>
                                 <?php if (in_array('satuankerja', session()->get('user_permissions'))) : ?>

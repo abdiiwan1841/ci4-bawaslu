@@ -22,12 +22,13 @@
             <div class="widget-body">
                 <div id="wizard" class="bwizard clearfix">
                     <ol class="bwizard-steps clearfix clickable" role="tablist">
-                        <li role="tab" aria-selected="true" class="active" style="z-index: 6;"><span class="label badge-inverse">1</span><a href="<?= base_url('laporan') ?>" class="hidden-phone">Satuan Kerja</a></li>
-                        <li role="tab" aria-selected="true" class="active" style="z-index: 5;"><span class="label badge-inverse">2</span><a href="<?= base_url('laporan/list/' . session()->get('id_wilayah')) ?>" class="hidden-phone">Laporan</a></li>
-                        <li role="tab" aria-selected="true" class="active" style="z-index: 4;"><span class="label badge-inverse">3</span><a href="<?= base_url('temuan/index/' . session()->get('id_laporan')) ?>" class="hidden-phone">Temuan</a></li>
-                        <li role="tab" aria-selected="false" class="active" style="z-index: 3;"><span class="label badge-inverse">4</span><a href="<?= base_url('rekomendasi/index/' . session()->get('id_temuan')) ?>" class="hidden-phone">Rekomendasi</a></li>
-                        <li role="tab" aria-selected="false" style="z-index: 2;" class=""><span class="label">5</span>Tindak Lanjut</li>
-                        <li role="tab" aria-selected="false" style="z-index: 1;" class=""><span class="label">6</span>Bukti</li>
+                        <li role="tab" aria-selected="true" class="active" style="z-index: 7;"><span class="label badge-inverse">1</span><a href="<?= base_url('laporan') ?>" class="hidden-phone">Satuan Kerja</a></li>
+                        <li role="tab" aria-selected="true" class="active" style="z-index: 6;"><span class="label badge-inverse">2</span><a href="<?= base_url('laporan/list/' . session()->get('id_satuan_kerja')) ?>" class="hidden-phone">Laporan</a></li>
+                        <li role="tab" aria-selected="true" class="active" style="z-index: 5;"><span class="label badge-inverse">3</span><a href="<?= base_url('temuan/index/' . session()->get('id_laporan')) ?>" class="hidden-phone">Temuan</a></li>
+                        <li role="tab" aria-selected="false" class="active" style="z-index: 4;"><span class="label badge-inverse">4</span><a href="<?= base_url('sebab/index/' . session()->get('id_temuan')) ?>" class="hidden-phone">Sebab</a></li>
+                        <li role="tab" aria-selected="false" class="active" style="z-index: 3;"><span class="label badge-inverse">5</span><a href="<?= base_url('rekomendasi/index/' . session()->get('id_sebab')) ?>" class="hidden-phone">Rekomendasi</a></li>
+                        <li role="tab" aria-selected="false" style="z-index: 2;" class=""><span class="label">6</span>Tindak Lanjut</li>
+                        <li role="tab" aria-selected="false" style="z-index: 1;" class=""><span class="label">7</span>Bukti</li>
                     </ol>
 
                     <div class="well">
@@ -73,7 +74,7 @@
                 <?php if (in_array('rekomendasi/create', session()->get('user_permissions'))) : ?> {
                         text: 'Create New',
                         action: function(e, dt, node, config) {
-                            window.location.href = "<?= base_url('/rekomendasi/create/' . $id_temuan); ?>";
+                            window.location.href = "<?= base_url('/rekomendasi/create/' . $id_sebab); ?>";
                         }
                     }
                 <?php endif; ?>
@@ -91,7 +92,7 @@
             search: {
                 "caseInsensitive": false
             },
-            ajax: "<?= base_url('rekomendasi/datatables/' . $id_temuan); ?>",
+            ajax: "<?= base_url('rekomendasi/datatables/' . $id_sebab); ?>",
             fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 var info = table.page.info();
                 var page = info.page;

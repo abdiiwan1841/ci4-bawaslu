@@ -2,28 +2,27 @@
 
 /**
  *
- * @author Tarkiman | tarkiman.zone@gmail.com | https://www.linkedin.com/in/tarkiman
+ * @author Tarkiman | tarkiman@itasoft.co.id / tarkiman.zone@gmail.com 
  */
 
 namespace App\Models;
 
 use CodeIgniter\Model;
 
-class RekomendasiModel extends Model
+class EselonModel extends Model
 {
 
-    protected $table      = 'rekomendasi';
+    protected $table      = 'eselon';
     protected $primaryKey = 'id';
 
     protected $returnType     = 'object';
-    protected $useSoftDeletes = false;
+    protected $useSoftDeletes = true;
+
     protected $allowedFields = [
         'id',
-        'no_rekomendasi',
-        'memo_rekomendasi',
-        'nilai_rekomendasi',
-        'nama_penanggung_jawab',
-        'id_sebab'
+        'nama',
+        'level_eselon',
+        'id_parent'
     ];
 
     protected $useTimestamps = true;
@@ -37,14 +36,11 @@ class RekomendasiModel extends Model
 
     public function getData()
     {
-        $this->select('
-        id,
-        no_rekomendasi,
-        memo_rekomendasi,
-        nilai_rekomendasi,
-        nama_penanggung_jawab,
-        id_sebab');
-        $this->orderBy('no_rekomendasi', 'ASC');
+        $this->select('id,
+        nama,
+        level_eselon,
+        id_parent');
+        $this->orderBy('nama', 'ASC');
         $query = $this->get();
         $data = $query->getResult();
         if (isset($data)) {
@@ -55,14 +51,11 @@ class RekomendasiModel extends Model
 
     public function getDataById($id)
     {
-        $this->select('
-        id,
-        no_rekomendasi,
-        memo_rekomendasi,
-        nilai_rekomendasi,
-        nama_penanggung_jawab,
-        id_sebab');
-        $this->orderBy('no_rekomendasi', 'ASC');
+        $this->select('id,
+        nama,
+        level_eselon,
+        id_parent');
+        $this->orderBy('nama', 'ASC');
         $this->where('id', $id);
         $query = $this->get();
         $data = $query->getRow();

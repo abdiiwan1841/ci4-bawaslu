@@ -66,6 +66,9 @@ class Sebab extends BaseController
                     <center>
                     <a href="' . base_url('sebab/edit/' . $i) . '" class="btn btn-primary btn-small" data-original-title="Edit">
                     Edit
+                    </a>                    
+                    <a href="' . base_url('rekomendasi/index/' . $i) . '" class="btn btn-success btn-small" data-original-title="Edit">
+                    Rekomendasi
                     </a>
                     </center>';
                     return $html;

@@ -48,6 +48,22 @@
                     </li>
                     <li>
                         <div class="message-wrapper">
+                            <h4 class="message-heading">Sebab</h4>
+                            <ul>
+                                <li>
+                                    <blockquote class="message">
+                                        No.Sebab : <?= $data->no_sebab; ?>
+                                        <br />
+                                        <?= $data->memo_sebab; ?>
+                                        <br />
+                                    </blockquote>
+                                    <br>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="message-wrapper">
                             <h4 class="message-heading">Rekomendasi</h4>
                             <ul>
                                 <li>

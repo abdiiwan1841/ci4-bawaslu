@@ -19,12 +19,13 @@ class Rekomendasi extends BaseController
         $this->rekomendasiModel = new RekomendasiModel();
     }
 
-    public function index($idTemuan)
+    public function index($idSebab)
     {
 
         // session()->set('id_wilayah', $idWilayah);
         // session()->set('id_laporan', $idLaporan);
-        session()->set('id_temuan', $idTemuan);
+        // session()->set('id_temuan', $idTemuan);
+        session()->set('id_sebab', $idSebab);
         session()->set('id_rekomendasi', '');
         session()->set('id_tindak_lanjut', '');
         session()->set('id_bukti', '');
@@ -32,12 +33,12 @@ class Rekomendasi extends BaseController
         $data = [
             'title' => 'Rekomendasi',
             'active' => 'rekomendasi',
-            'id_temuan' => $idTemuan
+            'id_sebab' => $idSebab
         ];
         return view('rekomendasi/index', $data);
     }
 
-    public function datatables($idTemuan)
+    public function datatables($idSebab)
     {
         $table =
             "
@@ -48,10 +49,10 @@ class Rekomendasi extends BaseController
                  a.memo_rekomendasi,
                  a.nilai_rekomendasi,
                  a.nama_penanggung_jawab,
-                 a.id_temuan 
+                 a.id_sebab 
                 FROM rekomendasi a
                 WHERE a.deleted_at IS NULL 
-                AND a.id_temuan='" . $idTemuan . "'
+                AND a.id_sebab='" . $idSebab . "'
                 ORDER BY a.no_rekomendasi ASC
             ) temp
             ";
@@ -94,13 +95,13 @@ class Rekomendasi extends BaseController
         tarkiman_datatables($table, $columns, $condition, $primaryKey);
     }
 
-    public function create($idTemuan)
+    public function create($idSebab)
     {
 
         $data = [
             'title' => 'Buat Rekomendasi Baru',
             'active' => 'rekomendasi',
-            'id_temuan' => $idTemuan,
+            'id_sebab' => $idSebab,
             'validation' => \Config\Services::validation()
         ];
         return view('rekomendasi/create', $data);
@@ -108,7 +109,7 @@ class Rekomendasi extends BaseController
 
     public function save()
     {
-        $idTemuan = $this->request->getVar('id_temuan');
+        $idSebab = $this->request->getVar('id_sebab');
         if (!$this->validate([
             'no_rekomendasi' => [
                 'rules' => 'required|is_unique[rekomendasi.no_rekomendasi]',
@@ -124,7 +125,7 @@ class Rekomendasi extends BaseController
                 ]
             ]
         ])) {
-            return redirect()->to('/rekomendasi/create/' . $idTemuan)->withInput();
+            return redirect()->to('/rekomendasi/create/' . $idSebab)->withInput();
         }
 
         try {
@@ -138,20 +139,20 @@ class Rekomendasi extends BaseController
                 'memo_rekomendasi' => $this->request->getVar('memo_rekomendasi'),
                 'nilai_rekomendasi' => $this->request->getVar('nilai_rekomendasi'),
                 'nama_penanggung_jawab' => $this->request->getVar('nama_penanggung_jawab'),
-                'id_temuan' => $this->request->getVar('id_temuan')
+                'id_sebab' => $this->request->getVar('id_sebab')
             ]);
 
             $db->transComplete();
             if ($db->transStatus() === FALSE) {
-                return redirect()->to('/rekomendasi/create/' . $idTemuan)->withInput();
+                return redirect()->to('/rekomendasi/create/' . $idSebab)->withInput();
             } else {
                 session()->setFlashData('messages', 'new data added successfully');
             }
         } catch (\Exception $e) {
-            return redirect()->to('/rekomendasi/create/' . $idTemuan)->withInput()->with('messages', $e->getMessage());
+            return redirect()->to('/rekomendasi/create/' . $idSebab)->withInput()->with('messages', $e->getMessage());
         }
 
-        return redirect()->to('/rekomendasi/index/' . $idTemuan);
+        return redirect()->to('/rekomendasi/index/' . $idSebab);
     }
 
     public function edit($id)
@@ -169,7 +170,7 @@ class Rekomendasi extends BaseController
     public function update($id)
     {
 
-        $idTemuan = $this->request->getVar('id_temuan');
+        $idSebab = $this->request->getVar('id_sebab');
 
         $validation = [
             'no_rekomendasi' => [
@@ -201,7 +202,7 @@ class Rekomendasi extends BaseController
                     'memo_rekomendasi' => $this->request->getVar('memo_rekomendasi'),
                     'nilai_rekomendasi' => $this->request->getVar('nilai_rekomendasi'),
                     'nama_penanggung_jawab' => $this->request->getVar('nama_penanggung_jawab'),
-                    'id_temuan' => $this->request->getVar('id_temuan')
+                    'id_sebab' => $this->request->getVar('id_sebab')
                 ];
 
                 /*Update data ke table Positions berdasarkan ID */
@@ -218,7 +219,7 @@ class Rekomendasi extends BaseController
                 return redirect()->to('/rekomendasi/edit/' . $id)->withInput()->with('messages', $e->getMessage());
             }
 
-            return redirect()->to('/rekomendasi/index/' . $idTemuan);
+            return redirect()->to('/rekomendasi/index/' . $idSebab);
         }
     }
 }
