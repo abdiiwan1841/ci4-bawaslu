@@ -22,7 +22,7 @@
                     <?= input_text($field_name = 'no_bukti', $label = 'No. Bukti', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                     <?= input_text($field_name = 'nama_bukti', $label = 'Nama Bukti', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                     <?= input_number($field_name = 'nilai_bukti', $label = 'Nilai Bukti', $value = '', $required = false, $readonly = false, $disabled = false); ?>
-                    <?= input_file($field_name = 'lampiran', $label = 'Lampiran', $file_name = 'default.png', $required = false, $readonly = false, $path = 'attachments', $tips = '*.jpg | .png |.pdf |.xls | .xlsx |.doc | .docx'); ?>
+                    <?= input_file($field_name = 'lampiran', $label = 'Lampiran', $file_name = 'default.png', $required = false, $readonly = false, $path = 'uploads', $tips = '*.jpg | .png |.pdf |.xls | .xlsx |.doc | .docx'); ?>
                     <?= input_hidden($field_name = 'id_tindak_lanjut', $value = $id_tindak_lanjut); ?>
                     <div class="form-actions no-margin">
                         <button type="submit" class="btn btn-primary">Submit</button>

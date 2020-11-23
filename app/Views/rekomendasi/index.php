@@ -46,6 +46,7 @@
                                     <th>Memo Rekomendasi</th>
                                     <th>Nilai Rekomendasi</th>
                                     <th>Nama Penangung Jawab</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>

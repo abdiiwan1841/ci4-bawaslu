@@ -17,7 +17,7 @@
     <link rel="shortcut icon" type="image/png" href="<?= '/images/icon.png'; ?>" id="favicon" data-original-href="<?= '/images/icon.ico'; ?>" />
 
     <!-- Place this data between the <head> tags of your website -->
-    <title>BAWASLU - SIPTL</title>
+    <title><?= $title; ?></title>
     <meta name="description" content="">
 
     <!-- Google Fonts -->

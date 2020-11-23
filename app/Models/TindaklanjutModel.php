@@ -22,7 +22,11 @@ class TindaklanjutModel extends Model
         'nilai_rekomendasi',
         'nilai_sisa_rekomendasi',
         'nilai_akhir_rekomendasi',
-        'id_rekomendasi'
+        'id_rekomendasi',
+        'remark_auditor',
+        'remark_auditee',
+        'status',
+        'read_status'
     ];
 
     protected $useTimestamps = true;
@@ -41,7 +45,11 @@ class TindaklanjutModel extends Model
         nilai_rekomendasi,
         nilai_sisa_rekomendasi,
         nilai_akhir_rekomendasi,
-        id_rekomendasi');
+        id_rekomendasi,
+        remark_auditor,
+        remark_auditee,
+        status,
+        read_status');
         $this->orderBy('nilai_rekomendasi', 'ASC');
         $query = $this->get();
         $data = $query->getResult();
@@ -58,7 +66,11 @@ class TindaklanjutModel extends Model
         nilai_rekomendasi,
         nilai_sisa_rekomendasi,
         nilai_akhir_rekomendasi,
-        id_rekomendasi');
+        id_rekomendasi,
+        remark_auditor,
+        remark_auditee,
+        status,
+        read_status');
         $this->orderBy('nilai_rekomendasi', 'ASC');
         $this->where('id', $id);
         $query = $this->get();
@@ -67,5 +79,32 @@ class TindaklanjutModel extends Model
             return $data;
         }
         return array();
+    }
+
+    public function showButtonSesuai($idRekomendasi)
+    {
+        try {
+            $sql = "SELECT
+                    COUNT(a.status) AS status_terima,
+                    (
+                        SELECT 
+                        COUNT(b.id) 
+                        FROM tindak_lanjut b 
+                        WHERE b.deleted_at IS NULL 
+                        AND b.id_rekomendasi=?
+                    ) AS jumlah_tl
+                    FROM tindak_lanjut a 
+                    WHERE a.status='TERIMA' 
+                    AND a.id_rekomendasi=?
+                    AND a.deleted_at IS NULL";
+            $query = $this->query($sql, [$idRekomendasi, $idRekomendasi]);
+            $data = $query->getRow();
+            if (isset($data)) {
+                return $data;
+            }
+            return array();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

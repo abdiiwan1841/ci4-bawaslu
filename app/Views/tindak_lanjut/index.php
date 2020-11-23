@@ -45,13 +45,24 @@
                                     <th>Nilai Rekomendasi</th>
                                     <th>Nilai Akhir Rekomendasi</th>
                                     <th>Nilai Sisa Rekomendasi</th>
-                                    <!-- <th>Deskripsi</th> -->
+                                    <th>Remark Auditee</th>
+                                    <th>Remark Auditor</th>
+                                    <th>Status TL</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                             </tbody>
                         </table>
+                        <div class="form-actions no-margin">
+                            <?php if ($show_button_sesuai) : ?>
+                                <a href="<?= base_url('rekomendasi/updateStatusRekomendasiSesuai/' . session()->get('id_rekomendasi')); ?>" onclick="return confirm('Yakin TL sudah sesuai rekomendasi ini ?');" class="btn btn-success">TL Sudah Sesuai Rekomendasi</a>
+                            <?php endif; ?>
+
+                            <?php if ($show_button_tidak_dapat_di_tl) : ?>
+                                <a href="<?= base_url('rekomendasi/tidakDapatDiTL/' . session()->get('id_rekomendasi')); ?>" class="btn btn-danger">Tindak Dapat di TL</a>
+                            <?php endif; ?>
+                        </div>
 
                         <!--
                             -1-BELUM TL

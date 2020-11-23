@@ -337,6 +337,8 @@ function input_file($field_name = '', $label = '', $file_name = 'default.png', $
         echo form_upload($data, $file_name, $extra = array());
         echo $validation->hasError($field_name) ? '<span class="help-inline ">' . $validation->getError($field_name) . '</span>' : '';
         echo '<label class="custom-file-label" style="font-size: 11px;color: #3a86c8;" for="image">' . $tips . '</label>';
+    } else {
+        echo '<a href="' . base_url($path . '/' . $file_name) . '"  target="_blank" style="color:#3a86c8;"><span class="fs1 text-info" aria-hidden="true" data-icon="&#xe0c5;"></span> ' . $file_name . '</a>';
     }
     echo '</div>';
     echo '</div>';

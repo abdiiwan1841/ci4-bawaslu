@@ -23,7 +23,10 @@ class RekomendasiModel extends Model
         'memo_rekomendasi',
         'nilai_rekomendasi',
         'nama_penanggung_jawab',
-        'id_sebab'
+        'id_sebab',
+        'status',
+        'alasan_tidak_di_tl',
+        'lampiran_tidak_di_tl'
     ];
 
     protected $useTimestamps = true;
@@ -43,7 +46,10 @@ class RekomendasiModel extends Model
         memo_rekomendasi,
         nilai_rekomendasi,
         nama_penanggung_jawab,
-        id_sebab');
+        id_sebab,
+        status,
+        alasan_tidak_di_tl,
+        lampiran_tidak_di_tl');
         $this->orderBy('no_rekomendasi', 'ASC');
         $query = $this->get();
         $data = $query->getResult();
@@ -61,7 +67,10 @@ class RekomendasiModel extends Model
         memo_rekomendasi,
         nilai_rekomendasi,
         nama_penanggung_jawab,
-        id_sebab');
+        id_sebab,
+        status,
+        alasan_tidak_di_tl,
+        lampiran_tidak_di_tl');
         $this->orderBy('no_rekomendasi', 'ASC');
         $this->where('id', $id);
         $query = $this->get();

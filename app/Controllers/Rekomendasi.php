@@ -49,7 +49,8 @@ class Rekomendasi extends BaseController
                  a.memo_rekomendasi,
                  a.nilai_rekomendasi,
                  a.nama_penanggung_jawab,
-                 a.id_sebab 
+                 a.id_sebab,
+                 a.status 
                 FROM rekomendasi a
                 WHERE a.deleted_at IS NULL 
                 AND a.id_sebab='" . $idSebab . "'
@@ -71,17 +72,41 @@ class Rekomendasi extends BaseController
             ),
             array('db' => 'nama_penanggung_jawab', 'dt' => 4),
             array(
-                'db'        => 'id',
+                'db'        => 'status',
                 'dt'        => 5,
+                'formatter' => function ($i, $row) {
+                    if ($i == 'BELUM_TL') {
+                        $html = 'Belum TL';
+                    } elseif ($i == 'BELUM_SESUAI') {
+                        $html = '<span style="color:blue;">Belum Sesuai</span>';
+                    } elseif ($i == 'SESUAI') {
+                        $html = '<span style="color:green;">Sesuai</span>';
+                    } elseif ($i == 'TIDAK_DAPAT_DI_TL') {
+                        $html = '<span style="color:red;">Tidak Dapat di TL</span>';
+                    }
+                    return $html;
+                }
+            ),
+            array(
+                'db'        => 'id',
+                'dt'        => 6,
                 'formatter' => function ($i, $row) {
                     $html = '
                     <center>
-                    <a href="' . base_url('rekomendasi/edit/' . $i) . '" class="btn btn-primary btn-small" data-original-title="Edit">
+                    <a href="' . base_url('rekomendasi/edit/' . $i) . '" class="btn btn-primary btn-small" data-original-title="">
                     Edit
-                    </a>
-                    <a href="' . base_url('tindaklanjut/index/' . $i) . '" class="btn btn-success btn-small" data-original-title="Edit">
+                    </a>';
+                    if ($row['status'] == 'TIDAK_DAPAT_DI_TL') {
+                        $html .= ' <a href="' . base_url('rekomendasi/detailAlasanTidakDiTL/' . $i) . '" class="btn btn-danger btn-small" data-original-title="">
+                    Detail Tidak di TL
+                    </a>';
+                    } else {
+                        $html .= ' <a href="' . base_url('tindaklanjut/index/' . $i) . '" class="btn btn-success btn-small" data-original-title="">
                     Tindak Lanjut
-                    </a>
+                    </a>';
+                    }
+
+                    $html .= '
                     </center>';
                     return $html;
                 }
@@ -221,5 +246,119 @@ class Rekomendasi extends BaseController
 
             return redirect()->to('/rekomendasi/index/' . $idSebab);
         }
+    }
+
+    public function updateStatusRekomendasiSesuai($id)
+    {
+        try {
+            $db      = \Config\Database::connect();
+
+            $db->transStart();
+
+            $data = [
+                'id' => $id,
+                'status' => 'SESUAI'
+            ];
+            $this->rekomendasiModel->save($data);
+
+            $db->transComplete();
+            if ($db->transStatus() === FALSE) {
+                return redirect()->to('/rekomendasi/index/' . session()->get('id_sebab'))->withInput();
+            } else {
+
+                session()->setFlashData('messages', 'Data berhasil di updated');
+            }
+        } catch (\Exception $e) {
+            return redirect()->to('/rekomendasi/index/' . session()->get('id_sebab'))->withInput()->with('messages', $e->getMessage());
+        }
+
+        return redirect()->to('/rekomendasi/index/' . session()->get('id_sebab'));
+    }
+
+    public function tidakDapatDiTL($idRekomendasi)
+    {
+
+        $data = [
+            'title' => 'Form Keterangan Tidak Dapat Di TL',
+            'active' => 'rekomendasi',
+            'data' => $this->rekomendasiModel->getDataById($idRekomendasi),
+            'id_sebab' => session()->get('id_sebab'),
+            'id_rekomendasi' => $idRekomendasi,
+            'validation' => \Config\Services::validation()
+        ];
+        return view('rekomendasi/tidak_dapat_di_tl', $data);
+    }
+
+    public function saveTidakDapatDiTL()
+    {
+        $idRekomendasi = $this->request->getVar('id_rekomendasi');
+        if (!$this->validate([
+            'alasan_tidak_di_tl' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'lampiran' => [
+                'rules' => 'max_size[lampiran,1024]|ext_in[lampiran,jpg,jpeg,png,pdf,xls,xlsx,doc,docx]',
+                'errors' => [
+                    'max_size' => 'ukuran tidak boleh melebihi 1024 KB',
+                    'ext_in' => 'tipe file harus .jpg | .png |.pdf |.xls | .xlsx |.doc | .docx'
+                ]
+            ]
+        ])) {
+            return redirect()->to('/rekomendasi/tidakDapatDiTL/' . $idRekomendasi)->withInput();
+        }
+
+        try {
+            $db      = \Config\Database::connect();
+
+            $db->transStart();
+
+            //ambil gambar
+            $file = $this->request->getFile('lampiran');
+
+            if ($file->getError() == 4) { //4 = ga ada file yang di upload
+                $namaFile = "default.png";
+            } else {
+
+                //ambil nama file;
+                // $namaFile = $file->getName();
+                $namaFile = $file->getRandomName();
+
+                //pindahkan file ke folder IMAGES
+                $file->move('uploads', $namaFile); //kalau di buar random nama file dijadikan parameter
+            }
+
+            $this->rekomendasiModel->save([
+                'id' => $idRekomendasi,
+                'status' => 'TIDAK_DAPAT_DI_TL',
+                'alasan_tidak_di_tl' => $this->request->getVar('alasan_tidak_di_tl'),
+                'lampiran_tidak_di_tl' => $namaFile
+            ]);
+
+            $db->transComplete();
+            if ($db->transStatus() === FALSE) {
+                return redirect()->to('/rekomendasi/tidakDapatDiTL/' . $idRekomendasi)->withInput();
+            } else {
+                session()->setFlashData('messages', 'new data added successfully');
+            }
+        } catch (\Exception $e) {
+            return redirect()->to('/rekomendasi/tidakDapatDiTL/' . $idRekomendasi)->withInput()->with('messages', $e->getMessage());
+        }
+
+        return redirect()->to('/rekomendasi/index/' . session()->get('id_sebab'));
+    }
+
+    public function detailAlasanTidakDiTL($id)
+    {
+        $data = [
+            'title' => 'Detail Asalan Tidak Dapat di TL',
+            'active' => 'rekomendasi',
+            'data' => $this->rekomendasiModel->getDataById($id),
+            'validation' => \Config\Services::validation()
+        ];
+
+        return view('rekomendasi/detail_alasan_tidak_di_tl', $data);
     }
 }
