@@ -23,9 +23,9 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Nama</th>
-                            <th>Level Eselon</th>
-                            <th>ID Parent</th>
+                            <th>Kode</th>
+                            <th>Deskripsi</th>
+                            <th>Parent</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -44,10 +44,10 @@
         var table = $('#datatables').DataTable({
             "dom": 'Bfrtip',
             "buttons": [
-                <?php if (in_array('eselon/create', session()->get('user_permissions'))) : ?> {
+                <?php if (in_array('jenistemuan/create', session()->get('user_permissions'))) : ?> {
                         text: 'Create New',
                         action: function(e, dt, node, config) {
-                            window.location.href = "<?= base_url('/eselon/create'); ?>";
+                            window.location.href = "<?= base_url('/jenistemuan/create'); ?>";
                         }
                     }
                 <?php endif; ?>
@@ -55,12 +55,12 @@
             "processing": true,
             "serverSide": true,
             "order": [
-                [2, "asc"]
+                [1, "asc"]
             ],
             "search": {
                 "caseInsensitive": false
             },
-            "ajax": "<?= base_url('eselon/datatables'); ?>",
+            "ajax": "<?= base_url('jenistemuan/datatables'); ?>",
             "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 var info = table.page.info();
                 var page = info.page;

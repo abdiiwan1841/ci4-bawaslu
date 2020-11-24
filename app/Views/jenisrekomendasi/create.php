@@ -16,14 +16,13 @@
                         <?= session()->getFlashData('messages') ?>
                     </div>
                 <?php endif; ?>
-                <form action="<?= base_url('eselon/update/' . $data->id); ?>" method="POST" enctype="multipart/form-data" class="form-horizontal no-margin">
+                <form action="<?= base_url('jenisrekomendasi/save'); ?>" method="POST" enctype="multipart/form-data" class="form-horizontal no-margin">
 
                     <?= csrf_field(); ?>
 
-                    <?= input_text($field_name = 'nama', $label = 'Nama', $value = $data->nama, $required = true, $readonly = false, $disabled = false); ?>
-                    <?= input_text($field_name = 'level_eselon', $label = 'Level Eselon', $value = $data->level_eselon, $required = true, $readonly = false, $disabled = false); ?>
-                    <?= input_text($field_name = 'id_parent', $label = 'ID Parent', $value = $data->id_parent, $required = true, $readonly = false, $disabled = false); ?>
-
+                    <?= input_text($field_name = 'kode', $label = 'Kode', $value = '', $required = true, $readonly = false, $disabled = false); ?>
+                    <?= input_text($field_name = 'deskripsi', $label = 'Deskripsi', $value = '', $required = true, $readonly = false, $disabled = false); ?>
+                    <?= input_text($field_name = 'id_jenis_temuan', $label = 'Jenis Temuan', $value = '', $required = false, $readonly = false, $disabled = false); ?>
                     <div class="form-actions no-margin">
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button type="button" class="btn" onclick="window.history.back();">Cancel</button>

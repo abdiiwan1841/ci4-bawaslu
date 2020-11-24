@@ -20,10 +20,9 @@
 
                     <?= csrf_field(); ?>
 
-                    <?= input_text($field_name = 'nama', $label = 'Nama', $value = $data->nama, $required = true, $readonly = true, $disabled = false); ?>
-                    <?= input_text($field_name = 'level_eselon', $label = 'Level Eselon', $value = $data->level_eselon, $required = true, $readonly = true, $disabled = false); ?>
-                    <?= input_text($field_name = 'id_parent', $label = 'ID Parent', $value = $data->id_parent, $required = true, $readonly = true, $disabled = false); ?>
-
+                    <?= input_text($field_name = 'kode', $label = 'Kode', $value = $data->kode, $required = true, $readonly = true, $disabled = false); ?>
+                    <?= input_text($field_name = 'deskripsi', $label = 'Deskripsi', $value = $data->deskripsi, $required = true, $readonly = true, $disabled = false); ?>
+                    <?= input_text($field_name = 'id_jenis_temuan', $label = 'Jenis Temuan', $value = $data->id_jenis_temuan, $required = false, $readonly = true, $disabled = false); ?>
                     <div class="form-actions no-margin">
                         <button type="button" class="btn" onclick="window.history.back();">Cancel</button>
                     </div>
