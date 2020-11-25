@@ -50,10 +50,13 @@ class Temuan extends BaseController
                  a.id_jenis_temuan1,
                  a.id_jenis_temuan2,
                  a.id_jenis_temuan3,
+                 b.deskripsi AS jenis_tunjangan,
                  a.nilai_temuan,
                  a.id_laporan 
                 FROM temuan a 
+                LEFT JOIN jenis_temuan b ON b.id=a.id_jenis_temuan3
                 WHERE a.deleted_at IS NULL 
+                AND b.deleted_at IS NULL
                 AND a.id_laporan='" . $idLaporan . "'
                 ORDER BY a.no_temuan ASC
             ) temp
@@ -63,7 +66,7 @@ class Temuan extends BaseController
             array('db' => 'id', 'dt' => 0),
             array('db' => 'no_temuan', 'dt' => 1),
             array('db' => 'memo_temuan', 'dt' => 2),
-            array('db' => 'id_jenis_temuan3', 'dt' => 3),
+            array('db' => 'jenis_tunjangan', 'dt' => 3),
             array(
                 'db'        => 'nilai_temuan',
                 'dt'        => 4,
