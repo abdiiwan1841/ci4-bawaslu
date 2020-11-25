@@ -104,15 +104,6 @@
 
         $("select#eselon1").trigger('change');
 
-
-        // $('#submit').click(function() {
-        //     var idEselon1 = $('select#eselon2').val();
-        //     var idProvinsi = $("select#provinsi").val();
-
-        //     var idWilayah = (idKabupaten != null && idKabupaten != "" && idKabupaten != undefined) ? idKabupaten : idProvinsi;
-        //     window.location.href = "<?= base_url('/laporan/list'); ?>" + "/" + idWilayah;
-        // });
-
     });
 </script>
 
