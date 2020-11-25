@@ -231,4 +231,44 @@ class Jenistemuan extends BaseController
 
         return redirect()->to('/jenistemuan');
     }
+
+    // public function inject()
+    // {
+
+    //     $data = [
+    //         ['id' => get_uuid(), 'id_parent' => '301', 'kode' => '30101', 'deskripsi' => "Pengadaan barang/jasa melebihi kebutuhan"],
+    //         ['id' => get_uuid(), 'id_parent' => '301', 'kode' => '30102', 'deskripsi' => "Penetapan kualitas dan kuantitas barang/jasa yang digunakan tidak sesuai standar"],
+    //         ['id' => get_uuid(), 'id_parent' => '301', 'kode' => '30103', 'deskripsi' => "Pemborosan keuangan negara/daerah/perusahaan atau kemahalan harga"],
+    //         ['id' => get_uuid(), 'id_parent' => '302', 'kode' => '30201', 'deskripsi' => "Penggunaan kuantitas input untuk satu satuan output lebih besar/tinggi dari yang seharusnya"],
+    //         ['id' => get_uuid(), 'id_parent' => '302', 'kode' => '30202', 'deskripsi' => "Penggunaan kualitas input untuk satu satuan output lebih tinggi dari seharusnya"],
+    //         ['id' => get_uuid(), 'id_parent' => '303', 'kode' => '30301', 'deskripsi' => "Penggunaan anggaran tidak tepat sasaran/tidak sesuai peruntukan"],
+    //         ['id' => get_uuid(), 'id_parent' => '303', 'kode' => '30302', 'deskripsi' => "Pemanfaatan barang/jasa dilakukan tidak sesuai dengan rencana yang ditetapkan"],
+    //         ['id' => get_uuid(), 'id_parent' => '303', 'kode' => '30303', 'deskripsi' => "Barang yang dibeli belum/tidak dapat dimanfaatkan"],
+    //         ['id' => get_uuid(), 'id_parent' => '303', 'kode' => '30304', 'deskripsi' => "Pemanfaatan barang/jasa tidak berdampak terhadap pencapaian tujuan organisasi"],
+    //         ['id' => get_uuid(), 'id_parent' => '303', 'kode' => '30305', 'deskripsi' => "Pelaksanaan kegiatan terlambat/terhambat sehingga mempengaruhi pencapaian tujuan organisasi"],
+    //         ['id' => get_uuid(), 'id_parent' => '303', 'kode' => '30306', 'deskripsi' => "Pelayanan kepada masyarakat tidak optimal"],
+    //         ['id' => get_uuid(), 'id_parent' => '303', 'kode' => '30307', 'deskripsi' => "Fungsi atau tugas instansi yang diperiksa tidak diselenggarakan dengan baik termasuk target penerimaan tidak tercapai"],
+    //         ['id' => get_uuid(), 'id_parent' => '303', 'kode' => '30308', 'deskripsi' => "Penggunaan biaya promosi/pemasaran tidak efektif"]
+    //     ];
+
+
+
+
+    //     try {
+    //         $db      = \Config\Database::connect();
+
+    //         $db->transStart();
+
+    //         $this->jenistemuanModel->insertBatch($data);
+
+    //         $db->transComplete();
+    //         if ($db->transStatus() === FALSE) {
+    //             dd('gagal');
+    //         } else {
+    //             dd('sukses');
+    //         }
+    //     } catch (\Exception $e) {
+    //         dd($e->getMessage());
+    //     }
+    // }
 }

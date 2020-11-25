@@ -91,7 +91,12 @@
                 var length = info.length;
                 var index = (page * length + (iDisplayIndex + 1));
                 $('td:first', nRow).html(index);
+                $('th').css("text-align", "center");
                 $('td:eq(1)', nRow).css("text-align", "left");
+                $('td:eq(4)', nRow).css("text-align", "center");
+                $('td:eq(5)', nRow).css("text-align", "center");
+                $('td:eq(6)', nRow).css("text-align", "center");
+                $('td:eq(7)', nRow).css("text-align", "center");
                 $('td:eq(8)', nRow).css("text-align", "center");
                 return nRow;
             },

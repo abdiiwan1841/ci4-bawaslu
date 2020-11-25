@@ -34,12 +34,28 @@
                             <ul>
                                 <li>
                                     <blockquote class="message">
-                                        No.Temuan : <?= $data->no_temuan; ?>
-                                        <br />
-                                        <?= $data->memo_temuan; ?>
-                                        <br /><br />
-                                        Nilai Temuan :
-                                        <?= format_number($data->nilai_temuan, true); ?>
+                                        <table>
+                                            <tr>
+                                                <td>No.Temuan</td>
+                                                <td>:</td>
+                                                <td><?= $data->no_temuan; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jenis Temuan</td>
+                                                <td>:</td>
+                                                <td><?= $data->jenis_temuan; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Memo Temuan</td>
+                                                <td>:</td>
+                                                <td><?= $data->memo_temuan; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nilai Temuan</td>
+                                                <td>:</td>
+                                                <td><?= format_number($data->nilai_temuan, true); ?></td>
+                                            </tr>
+                                        </table>
                                     </blockquote>
                                     <br>
                                 </li>
@@ -52,10 +68,18 @@
                             <ul>
                                 <li>
                                     <blockquote class="message">
-                                        No.Sebab : <?= $data->no_sebab; ?>
-                                        <br />
-                                        <?= $data->memo_sebab; ?>
-                                        <br />
+                                        <table>
+                                            <tr>
+                                                <td>No.Sebab</td>
+                                                <td>:</td>
+                                                <td><?= $data->no_sebab; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Memo Sebab</td>
+                                                <td>:</td>
+                                                <td><?= $data->memo_sebab; ?></td>
+                                            </tr>
+                                        </table>
                                     </blockquote>
                                     <br>
                                 </li>
@@ -68,12 +92,28 @@
                             <ul>
                                 <li>
                                     <blockquote class="message">
-                                        No.Rekomendasi : <?= $data->no_rekomendasi; ?>
-                                        <br />
-                                        <?= $data->memo_rekomendasi; ?>
-                                        <br /><br />
-                                        Nilai Rekomendasi :
-                                        <?= format_number($data->nilai_rekomendasi, true); ?>
+                                        <table>
+                                            <tr>
+                                                <td>No.Rekomendasi</td>
+                                                <td>:</td>
+                                                <td><?= $data->no_rekomendasi; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jenis Rekomendasi</td>
+                                                <td>:</td>
+                                                <td><?= $data->jenis_rekomendasi; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Memo Rekomendasi</td>
+                                                <td>:</td>
+                                                <td><?= $data->memo_rekomendasi; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nilai Rekomendasi</td>
+                                                <td>:</td>
+                                                <td><?= format_number($data->nilai_rekomendasi, true); ?></td>
+                                            </tr>
+                                        </table>
                                     </blockquote>
                                     <br>
                                 </li>

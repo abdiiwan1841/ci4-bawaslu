@@ -115,7 +115,7 @@ class LaporanAuditeeModel extends Model
                     a.`id`,
                     a.`no_temuan`,
                     a.`memo_temuan`,
-                    a.`jenis_temuan`,
+                    a.`id_jenis_temuan3`,
                     a.`nilai_temuan`,
                     a.`id_laporan`,
                     a.`created_at`,
@@ -202,6 +202,7 @@ class LaporanAuditeeModel extends Model
             $sql = "SELECT
                     a.`id`,
                     a.`no_rekomendasi`,
+                    e.deskripsi AS jenis_rekomendasi,
                     a.`memo_rekomendasi`,
                     a.`nama_penanggung_jawab`,
                     a.`nilai_rekomendasi`,
@@ -209,8 +210,9 @@ class LaporanAuditeeModel extends Model
                     b.no_sebab,
                     b.memo_sebab,
                     c.`no_temuan`,
+                    f.deskripsi AS jenis_temuan,
                     c.`memo_temuan`,
-                    c.`jenis_temuan`,
+                    c.`id_jenis_temuan3`,
                     c.`nilai_temuan`,
                     d.id AS id_laporan,
                     d.`no_laporan`,
@@ -223,6 +225,8 @@ class LaporanAuditeeModel extends Model
                     JOIN sebab b ON b.`id`=a.`id_sebab` 
                     JOIN temuan c ON c.`id`=b.`id_temuan` 
                     JOIN laporan d ON d.`id`=c.`id_laporan`
+                    LEFT JOIN jenis_rekomendasi e ON e.id=a.id_jenis_rekomendasi
+                    LEFT JOIN jenis_temuan f ON f.id=c.id_jenis_temuan3
                     WHERE a.id=?
                     ";
             $query = $this->query($sql, [$idRekomendasi]);
@@ -273,6 +277,7 @@ class LaporanAuditeeModel extends Model
                     a.`nilai_sisa_rekomendasi`,
                     b.id AS id_rekomendasi,
                     b.`no_rekomendasi`,
+                    f.deskripsi AS jenis_rekomendasi,
                     b.`memo_rekomendasi`,
                     b.`nama_penanggung_jawab`,
                     b.`nilai_rekomendasi`,
@@ -281,7 +286,8 @@ class LaporanAuditeeModel extends Model
                     c.memo_sebab,
                     d.`no_temuan`,
                     d.`memo_temuan`,
-                    d.`jenis_temuan`,
+                    d.`id_jenis_temuan3`,
+                    g.deskripsi AS jenis_temuan,
                     d.`nilai_temuan`,
                     e.`no_laporan`,
                     e.`nama_laporan`,
@@ -294,6 +300,8 @@ class LaporanAuditeeModel extends Model
                     JOIN sebab c ON c.`id`=b.`id_sebab` 
                     JOIN temuan d ON d.`id`=c.`id_temuan` 
                     JOIN laporan e ON e.`id`=d.`id_laporan`
+                    LEFT JOIN jenis_rekomendasi f ON f.id=b.id_jenis_rekomendasi
+                    LEFT JOIN jenis_temuan g ON g.id=d.id_jenis_temuan3
                     WHERE a.id=?
                     ";
             $query = $this->query($sql, [$idTindakLanjut]);

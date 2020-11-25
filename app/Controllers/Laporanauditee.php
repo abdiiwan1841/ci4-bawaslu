@@ -44,10 +44,42 @@ class Laporanauditee extends BaseController
                 a.no_laporan,
                 a.tanggal_laporan,
                 a.nama_laporan,
-                '0' AS sesuai,
-                '0' AS belum_sesuai,
-                '0' AS belum_ditindak_lanjuti,
-                '0' AS tidak_dapat_ditindak_lanjuti
+                (
+                SELECT 
+                COUNT(b.status) 
+                FROM rekomendasi b 
+                JOIN sebab c ON c.id=b.id_sebab 
+                JOIN temuan d ON d.id=c.id_temuan
+                WHERE b.status='SESUAI'
+                AND d.id_laporan=a.id
+                ) AS sesuai,
+                (
+                SELECT 
+                COUNT(b.status) 
+                FROM rekomendasi b 
+                JOIN sebab c ON c.id=b.id_sebab 
+                JOIN temuan d ON d.id=c.id_temuan
+                WHERE b.status='BELUM_SESUAI'
+                AND d.id_laporan=a.id
+                ) AS belum_sesuai,
+                (
+                SELECT 
+                COUNT(b.status) 
+                FROM rekomendasi b 
+                JOIN sebab c ON c.id=b.id_sebab 
+                JOIN temuan d ON d.id=c.id_temuan
+                WHERE b.status='BELUM_TL'
+                AND d.id_laporan=a.id
+                ) AS belum_ditindak_lanjuti,
+                (
+                SELECT 
+                COUNT(b.status) 
+                FROM rekomendasi b 
+                JOIN sebab c ON c.id=b.id_sebab 
+                JOIN temuan d ON d.id=c.id_temuan
+                WHERE b.status='TIDAK_DAPAT_DI_TL'
+                AND d.id_laporan=a.id
+                ) AS tidak_dapat_ditindak_lanjuti
                 FROM laporan a
                 WHERE a.deleted_at IS NULL 
                 AND a.id_satuan_kerja='" . session()->get('id_satuan_kerja') . "'
