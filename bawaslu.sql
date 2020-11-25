@@ -428,6 +428,7 @@ DROP TABLE IF EXISTS `rekomendasi`;
 CREATE TABLE `rekomendasi` (
   `id` varchar(50) NOT NULL,
   `no_rekomendasi` varchar(50) DEFAULT NULL,
+  `id_rekomendasi` varchar(50) DEFAULT NULL,
   `memo_rekomendasi` text DEFAULT NULL,
   `nilai_rekomendasi` int(11) DEFAULT NULL,
   `nama_penanggung_jawab` varchar(100) DEFAULT NULL,
@@ -444,7 +445,7 @@ CREATE TABLE `rekomendasi` (
 
 /*Data for the table `rekomendasi` */
 
-insert  into `rekomendasi`(`id`,`no_rekomendasi`,`memo_rekomendasi`,`nilai_rekomendasi`,`nama_penanggung_jawab`,`id_sebab`,`status`,`alasan_tidak_di_tl`,`lampiran_tidak_di_tl`,`created_at`,`updated_at`,`deleted_at`) values ('046f7540-da92-d56c-c650-0b9edd8b7833','R004','Test rekomendasi ',5000000,'Tarkiman','1be44899-f3f3-3423-3f48-25730803d4ab','BELUM_TL',NULL,NULL,'2020-11-21 17:45:17','2020-11-21 17:45:17',NULL),('50bf94b5-6365-81de-8a29-1d21b213a89b','R003','Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque esse quaerat quam necessitatibus alias quod nostrum fugiat architecto? Reiciendis fuga obcaecati quo incidunt accusamus voluptates molestias autem magnam placeat aperiam.',5000000,'Tarkiman','1be44899-f3f3-3423-3f48-25730803d4ab','BELUM_TL',NULL,NULL,'2020-11-15 02:27:04','2020-11-15 02:27:04',NULL),('ec1d8127-3e12-77a7-4997-166a87f39958','R002','Test Rekomendasi ke 2',100000,'Tarkiman','e92631c0-5514-b79b-5fce-59a01c0dd0af','TIDAK_DAPAT_DI_TL','Test Alasan Tidak Dapat Di TL','1606149663_cef89389cec2b896aa8b.jpeg','2020-11-15 02:16:41','2020-11-23 23:41:03',NULL),('f23e6174-d39e-664d-0edc-d75765de7ff4','R001','Test Memo Rekomendasi',1000000,'Tarkiman','e92631c0-5514-b79b-5fce-59a01c0dd0af','SESUAI',NULL,NULL,'2020-11-15 02:14:32','2020-11-23 22:47:22',NULL);
+insert  into `rekomendasi`(`id`,`no_rekomendasi`,`id_rekomendasi`,`memo_rekomendasi`,`nilai_rekomendasi`,`nama_penanggung_jawab`,`id_sebab`,`status`,`alasan_tidak_di_tl`,`lampiran_tidak_di_tl`,`created_at`,`updated_at`,`deleted_at`) values ('046f7540-da92-d56c-c650-0b9edd8b7833','R004',NULL,'Test rekomendasi ',5000000,'Tarkiman','1be44899-f3f3-3423-3f48-25730803d4ab','BELUM_TL',NULL,NULL,'2020-11-21 17:45:17','2020-11-21 17:45:17',NULL),('50bf94b5-6365-81de-8a29-1d21b213a89b','R003',NULL,'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque esse quaerat quam necessitatibus alias quod nostrum fugiat architecto? Reiciendis fuga obcaecati quo incidunt accusamus voluptates molestias autem magnam placeat aperiam.',5000000,'Tarkiman','1be44899-f3f3-3423-3f48-25730803d4ab','BELUM_TL',NULL,NULL,'2020-11-15 02:27:04','2020-11-15 02:27:04',NULL),('ec1d8127-3e12-77a7-4997-166a87f39958','R002',NULL,'Test Rekomendasi ke 2',100000,'Tarkiman','e92631c0-5514-b79b-5fce-59a01c0dd0af','TIDAK_DAPAT_DI_TL','Test Alasan Tidak Dapat Di TL','1606149663_cef89389cec2b896aa8b.jpeg','2020-11-15 02:16:41','2020-11-23 23:41:03',NULL),('f23e6174-d39e-664d-0edc-d75765de7ff4','R001',NULL,'Test Memo Rekomendasi',1000000,'Tarkiman','e92631c0-5514-b79b-5fce-59a01c0dd0af','SESUAI',NULL,NULL,'2020-11-15 02:14:32','2020-11-23 22:47:22',NULL);
 
 /*Table structure for table `satuan_kerja` */
 
