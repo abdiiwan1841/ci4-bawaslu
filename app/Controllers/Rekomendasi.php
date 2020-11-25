@@ -46,13 +46,17 @@ class Rekomendasi extends BaseController
                 SELECT 
                  a.id,
                  a.no_rekomendasi,
+                 a.id_jenis_rekomendasi,
+                 b.deskripsi AS jenis_rekomendasi,
                  a.memo_rekomendasi,
                  a.nilai_rekomendasi,
                  a.nama_penanggung_jawab,
                  a.id_sebab,
                  a.status 
                 FROM rekomendasi a
+                LEFT JOIN jenis_rekomendasi b ON b.id=a.id_jenis_rekomendasi
                 WHERE a.deleted_at IS NULL 
+                AND b.deleted_at IS NULL
                 AND a.id_sebab='" . $idSebab . "'
                 ORDER BY a.no_rekomendasi ASC
             ) temp
@@ -61,19 +65,20 @@ class Rekomendasi extends BaseController
         $columns = array(
             array('db' => 'id', 'dt' => 0),
             array('db' => 'no_rekomendasi', 'dt' => 1),
-            array('db' => 'memo_rekomendasi', 'dt' => 2),
+            array('db' => 'jenis_rekomendasi', 'dt' => 2),
+            array('db' => 'memo_rekomendasi', 'dt' => 3),
             array(
                 'db'        => 'nilai_rekomendasi',
-                'dt'        => 3,
+                'dt'        => 4,
                 'formatter' => function ($i, $row) {
                     $html = format_number($i);
                     return $html;
                 }
             ),
-            array('db' => 'nama_penanggung_jawab', 'dt' => 4),
+            array('db' => 'nama_penanggung_jawab', 'dt' => 5),
             array(
                 'db'        => 'status',
-                'dt'        => 5,
+                'dt'        => 6,
                 'formatter' => function ($i, $row) {
                     if ($i == 'BELUM_TL') {
                         $html = 'Belum TL';
@@ -89,7 +94,7 @@ class Rekomendasi extends BaseController
             ),
             array(
                 'db'        => 'id',
-                'dt'        => 6,
+                'dt'        => 7,
                 'formatter' => function ($i, $row) {
                     $html = '
                     <center>
@@ -123,10 +128,18 @@ class Rekomendasi extends BaseController
     public function create($idSebab)
     {
 
+        $jenis_rekomendasi_options = [];
+
+        $jenisRekomendasi = $this->rekomendasiModel->getJenisRekomendasi();
+        foreach ($jenisRekomendasi as $r) {
+            $jenis_rekomendasi_options[$r->id] = $r->nama;
+        }
+
         $data = [
             'title' => 'Buat Rekomendasi Baru',
             'active' => 'rekomendasi',
             'id_sebab' => $idSebab,
+            'jenis_rekomendasi_options' => $jenis_rekomendasi_options,
             'validation' => \Config\Services::validation()
         ];
         return view('rekomendasi/create', $data);
@@ -141,6 +154,12 @@ class Rekomendasi extends BaseController
                 'errors' => [
                     // 'required' => '{field} harus diisi.',
                     // 'is_unique' => '{field} sudah terdaftar'
+                ]
+            ],
+            'id_jenis_rekomendasi' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
                 ]
             ],
             'memo_rekomendasi' => [
@@ -161,6 +180,7 @@ class Rekomendasi extends BaseController
             $this->rekomendasiModel->insert([
                 'id' => get_uuid(),
                 'no_rekomendasi' => $this->request->getVar('no_rekomendasi'),
+                'id_jenis_rekomendasi' => $this->request->getVar('id_jenis_rekomendasi'),
                 'memo_rekomendasi' => $this->request->getVar('memo_rekomendasi'),
                 'nilai_rekomendasi' => $this->request->getVar('nilai_rekomendasi'),
                 'nama_penanggung_jawab' => $this->request->getVar('nama_penanggung_jawab'),
@@ -182,10 +202,19 @@ class Rekomendasi extends BaseController
 
     public function edit($id)
     {
+
+        $jenis_rekomendasi_options = [];
+
+        $jenisRekomendasi = $this->rekomendasiModel->getJenisRekomendasi();
+        foreach ($jenisRekomendasi as $r) {
+            $jenis_rekomendasi_options[$r->id] = $r->nama;
+        }
+
         $data = [
             'title' => 'Edit Rekomendasi',
             'active' => 'rekomendasi',
             'data' => $this->rekomendasiModel->getDataById($id),
+            'jenis_rekomendasi_options' => $jenis_rekomendasi_options,
             'validation' => \Config\Services::validation()
         ];
 
@@ -199,6 +228,12 @@ class Rekomendasi extends BaseController
 
         $validation = [
             'no_rekomendasi' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'id_jenis_rekomendasi' => [
                 'rules' => 'required',
                 'errors' => [
                     // 'required' => '{field} harus diisi.'
@@ -224,6 +259,7 @@ class Rekomendasi extends BaseController
                 $data = [
                     'id' => $id,
                     'no_rekomendasi' => $this->request->getVar('no_rekomendasi'),
+                    'id_jenis_rekomendasi' => $this->request->getVar('id_jenis_rekomendasi'),
                     'memo_rekomendasi' => $this->request->getVar('memo_rekomendasi'),
                     'nilai_rekomendasi' => $this->request->getVar('nilai_rekomendasi'),
                     'nama_penanggung_jawab' => $this->request->getVar('nama_penanggung_jawab'),

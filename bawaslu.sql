@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v9.63 
-MySQL - 5.5.5-10.2.8-MariaDB : Database - bawaslu
+MySQL - 5.5.5-10.4.10-MariaDB : Database - bawaslu
 *********************************************************************
 */
 
@@ -35,6 +35,46 @@ CREATE TABLE `auditee` (
 /*Data for the table `auditee` */
 
 insert  into `auditee`(`id`,`nip`,`nama`,`jabatan`,`id_satuan_kerja`,`id_user`,`type`,`id_provinsi`,`id_kabupaten`,`created_at`,`updated_at`,`deleted_at`) values ('a75d3933-95e1-ae70-7e34-3ac6168b37e3','10110738','Tarkiman','Pimpinan Satuan Kerja Jakarta Pusat','a4acf9a8-a709-ac81-e513-2ad247d0e638','12e3bd32-0129-64f5-cf54-208fdbba48a4','AUDITEE','31','3171','2020-11-22 01:14:16','2020-11-22 03:34:28',NULL),('c740fed4-6130-a26f-0929-332c129a096f','10110736','Auditee','Jabatan Auditee','a4acf9a8-a709-ac81-e513-2ad247d0e638','68215f0c-9edd-8be1-37aa-e22cf2952364','AUDITEE','32','3273','2020-11-22 02:28:42','2020-11-22 02:28:42',NULL),('c79118fd-35f6-c6ed-286f-8628a2d576db','10110696','Auditor','Jabatan Auditor','a4acf9a8-a709-ac81-e513-2ad247d0e638','0b9b43b9-894f-4cc1-2677-0461af057227','AUDITOR',NULL,NULL,'2020-11-22 02:31:53','2020-11-22 02:31:53',NULL);
+
+/*Table structure for table `auditi` */
+
+DROP TABLE IF EXISTS `auditi`;
+
+CREATE TABLE `auditi` (
+  `id` varchar(50) NOT NULL,
+  `nip` varchar(50) DEFAULT NULL,
+  `nama` varchar(100) DEFAULT NULL,
+  `jabatan` varchar(50) DEFAULT NULL,
+  `id_user` varchar(50) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `auditi` */
+
+insert  into `auditi`(`id`,`nip`,`nama`,`jabatan`,`id_user`,`created_at`,`updated_at`,`deleted_at`) values ('1','10110738','Tarkiman','Pimpinan','cce5d04b-5afb-a349-542b-ad96eccfcc8f',NULL,NULL,NULL);
+
+/*Table structure for table `auditor` */
+
+DROP TABLE IF EXISTS `auditor`;
+
+CREATE TABLE `auditor` (
+  `id` varchar(50) NOT NULL,
+  `nip` varchar(50) DEFAULT NULL,
+  `nama` varchar(100) DEFAULT NULL,
+  `jabatan` varchar(50) DEFAULT NULL,
+  `id_user` varchar(50) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `auditor` */
+
+insert  into `auditor`(`id`,`nip`,`nama`,`jabatan`,`id_user`,`created_at`,`updated_at`,`deleted_at`) values ('1','10110696','Edi Yulianto','TIM Auditor','cce5d04b-5afb-a349-542b-ad96eccfcc8f',NULL,NULL,NULL);
 
 /*Table structure for table `bukti` */
 
@@ -209,6 +249,8 @@ CREATE TABLE `jenis_temuan` (
   `kode` varchar(10) DEFAULT NULL,
   `deskripsi` varchar(255) DEFAULT NULL,
   `id_parent` varchar(50) DEFAULT NULL,
+  `kode_parent` varchar(10) DEFAULT NULL,
+  `level` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
@@ -220,7 +262,7 @@ CREATE TABLE `jenis_temuan` (
 
 /*Data for the table `jenis_temuan` */
 
-insert  into `jenis_temuan`(`id`,`kode`,`deskripsi`,`id_parent`,`created_at`,`updated_at`,`deleted_at`,`created_by`,`updated_by`,`deleted_by`) values ('1112e7c8-4293-42bd-b554-501d5c1c13c4','3','Temuan 3E','','2020-11-25 02:30:26','2020-11-25 02:30:26',NULL,NULL,NULL,NULL),('2a56ac2e-1305-663f-3ddb-7e5d02dfbfc4','102','Potensi kerugian negara/daerah atau kerugian negara/daerah yang terjadi pada perusahaan milik negara/daerah','1','2020-11-25 02:33:05','2020-11-25 02:33:05',NULL,NULL,NULL,NULL),('3612668f-50e0-9c7b-95e7-d6de4ed1524c','301','Ketidakhematan/pemborosan/ketidakekonomisan','3','2020-11-25 02:36:56','2020-11-25 02:36:56',NULL,NULL,NULL,NULL),('44e56e5f-cbc4-c86f-8e5e-781ceaf755f3','303','Ketidakefektifan','3','2020-11-25 02:37:30','2020-11-25 02:37:30',NULL,NULL,NULL,NULL),('5ec69461-1989-1316-db17-4985daaf4524','202','Kelemahan sistem pengendalian pelaksanaan anggaran pendapatan dan belanja','2','2020-11-25 02:36:04','2020-11-25 02:36:04',NULL,NULL,NULL,NULL),('71d85ff7-15bf-bb0b-3593-4bee537c2add','302','Ketidakefisienan','3','2020-11-25 02:37:14','2020-11-25 02:37:14',NULL,NULL,NULL,NULL),('71e39bb4-80d8-5bd1-fc91-4ddda0f76766','10101','Belanja dan/atau pengadaan barang/jasa fiktif','101','2020-11-25 02:38:56','2020-11-25 02:38:56',NULL,NULL,NULL,NULL),('72ead6cb-a84a-2bac-9270-e2220b8aefea','104','Administrasi','1','2020-11-25 02:34:14','2020-11-25 02:34:14',NULL,NULL,NULL,NULL),('7998677f-0868-63f8-db47-df7bc35a8ef5','2','Temuan kelemahan sistem pengendalian intern','','2020-11-25 02:29:46','2020-11-25 02:29:46',NULL,NULL,NULL,NULL),('8768f52e-638d-aebf-9425-7bfc5241dcee','101','Kerugian negara/daerah atau kerugian negara/daerah yang terjadi pada perusahaan milik negara/daerah','1','2020-11-25 02:30:59','2020-11-25 02:32:30',NULL,NULL,NULL,NULL),('a197d8db-2947-b63e-2ac5-5e8b6e02a35a','1','Temuan Ketidakpatuhan Terhadap Peraturan',NULL,'2020-11-25 02:22:43','2020-11-25 02:22:43',NULL,NULL,NULL,NULL),('a9f20baf-ebd4-5b23-d721-2e1e0ddc81b6','105','Indikasi tindak pidana','1','2020-11-25 02:34:37','2020-11-25 02:34:37',NULL,NULL,NULL,NULL),('bdff7538-abbb-1192-4033-5432ed1589b5','10102','Rekanan pengadaan barang/jasa tidak menyelesaikan pekerjaan','101','2020-11-25 02:39:22','2020-11-25 02:39:22',NULL,NULL,NULL,NULL),('bf622615-bc23-7a8f-7123-598b0394e574','103','Kekurangan penerimaan negara/daerah atau perusahaan milik negara/daerah','1','2020-11-25 02:33:26','2020-11-25 02:33:26',NULL,NULL,NULL,NULL),('d81a4342-297d-021f-4903-91557f3aef7e','203','Kelemahan struktur pengendalian intern','2','2020-11-25 02:36:37','2020-11-25 02:36:37',NULL,NULL,NULL,NULL),('e01f1b9a-ef35-7d0d-578b-3d1b3e69f584','10103','Kekurangan volume pekerjaan dan/atau barang','101','2020-11-25 02:39:47','2020-11-25 02:39:47',NULL,NULL,NULL,NULL),('e06391a2-a0ca-a76c-2e75-d611c4cf28e6','201','Kelemahan sistem pengendalian akuntansi dan pelaporan','2','2020-11-25 02:35:07','2020-11-25 02:35:07',NULL,NULL,NULL,NULL);
+insert  into `jenis_temuan`(`id`,`kode`,`deskripsi`,`id_parent`,`kode_parent`,`level`,`created_at`,`updated_at`,`deleted_at`,`created_by`,`updated_by`,`deleted_by`) values ('1112e7c8-4293-42bd-b554-501d5c1c13c4','3','Temuan 3E',NULL,NULL,1,'2020-11-25 02:30:26','2020-11-25 02:30:26',NULL,NULL,NULL,NULL),('2a56ac2e-1305-663f-3ddb-7e5d02dfbfc4','102','Potensi kerugian negara/daerah atau kerugian negara/daerah yang terjadi pada perusahaan milik negara/daerah','a197d8db-2947-b63e-2ac5-5e8b6e02a35a','1',2,'2020-11-25 02:33:05','2020-11-25 02:33:05',NULL,NULL,NULL,NULL),('3612668f-50e0-9c7b-95e7-d6de4ed1524c','301','Ketidakhematan/pemborosan/ketidakekonomisan','1112e7c8-4293-42bd-b554-501d5c1c13c4','3',2,'2020-11-25 02:36:56','2020-11-25 02:36:56',NULL,NULL,NULL,NULL),('44e56e5f-cbc4-c86f-8e5e-781ceaf755f3','303','Ketidakefektifan','1112e7c8-4293-42bd-b554-501d5c1c13c4','3',2,'2020-11-25 02:37:30','2020-11-25 02:37:30',NULL,NULL,NULL,NULL),('5ec69461-1989-1316-db17-4985daaf4524','202','Kelemahan sistem pengendalian pelaksanaan anggaran pendapatan dan belanja','7998677f-0868-63f8-db47-df7bc35a8ef5','2',2,'2020-11-25 02:36:04','2020-11-25 02:36:04',NULL,NULL,NULL,NULL),('71d85ff7-15bf-bb0b-3593-4bee537c2add','302','Ketidakefisienan','1112e7c8-4293-42bd-b554-501d5c1c13c4','3',2,'2020-11-25 02:37:14','2020-11-25 02:37:14',NULL,NULL,NULL,NULL),('71e39bb4-80d8-5bd1-fc91-4ddda0f76766','10101','Belanja dan/atau pengadaan barang/jasa fiktif','8768f52e-638d-aebf-9425-7bfc5241dcee','101',3,'2020-11-25 02:38:56','2020-11-25 02:38:56',NULL,NULL,NULL,NULL),('72ead6cb-a84a-2bac-9270-e2220b8aefea','104','Administrasi','a197d8db-2947-b63e-2ac5-5e8b6e02a35a','1',2,'2020-11-25 02:34:14','2020-11-25 02:34:14',NULL,NULL,NULL,NULL),('7998677f-0868-63f8-db47-df7bc35a8ef5','2','Temuan kelemahan sistem pengendalian intern',NULL,NULL,1,'2020-11-25 02:29:46','2020-11-25 02:29:46',NULL,NULL,NULL,NULL),('8768f52e-638d-aebf-9425-7bfc5241dcee','101','Kerugian negara/daerah atau kerugian negara/daerah yang terjadi pada perusahaan milik negara/daerah','a197d8db-2947-b63e-2ac5-5e8b6e02a35a','1',2,'2020-11-25 02:30:59','2020-11-25 02:32:30',NULL,NULL,NULL,NULL),('a197d8db-2947-b63e-2ac5-5e8b6e02a35a','1','Temuan Ketidakpatuhan Terhadap Peraturan',NULL,NULL,1,'2020-11-25 02:22:43','2020-11-25 02:22:43',NULL,NULL,NULL,NULL),('a9f20baf-ebd4-5b23-d721-2e1e0ddc81b6','105','Indikasi tindak pidana','a197d8db-2947-b63e-2ac5-5e8b6e02a35a','1',2,'2020-11-25 02:34:37','2020-11-25 02:34:37',NULL,NULL,NULL,NULL),('bdff7538-abbb-1192-4033-5432ed1589b5','10102','Rekanan pengadaan barang/jasa tidak menyelesaikan pekerjaan','8768f52e-638d-aebf-9425-7bfc5241dcee','101',3,'2020-11-25 02:39:22','2020-11-25 02:39:22',NULL,NULL,NULL,NULL),('bf622615-bc23-7a8f-7123-598b0394e574','103','Kekurangan penerimaan negara/daerah atau perusahaan milik negara/daerah','a197d8db-2947-b63e-2ac5-5e8b6e02a35a','1',2,'2020-11-25 02:33:26','2020-11-25 02:33:26',NULL,NULL,NULL,NULL),('d81a4342-297d-021f-4903-91557f3aef7e','203','Kelemahan struktur pengendalian intern','7998677f-0868-63f8-db47-df7bc35a8ef5','2',2,'2020-11-25 02:36:37','2020-11-25 02:36:37',NULL,NULL,NULL,NULL),('e01f1b9a-ef35-7d0d-578b-3d1b3e69f584','10103','Kekurangan volume pekerjaan dan/atau barang','8768f52e-638d-aebf-9425-7bfc5241dcee','101',3,'2020-11-25 02:39:47','2020-11-25 02:39:47',NULL,NULL,NULL,NULL),('e06391a2-a0ca-a76c-2e75-d611c4cf28e6','201','Kelemahan sistem pengendalian akuntansi dan pelaporan','7998677f-0868-63f8-db47-df7bc35a8ef5','2',2,'2020-11-25 02:35:07','2020-11-25 02:35:07',NULL,NULL,NULL,NULL);
 
 /*Table structure for table `kabupaten` */
 
@@ -458,7 +500,9 @@ CREATE TABLE `temuan` (
   `id` varchar(50) NOT NULL,
   `no_temuan` varchar(50) DEFAULT NULL,
   `memo_temuan` text DEFAULT NULL,
-  `jenis_temuan` varchar(50) DEFAULT NULL,
+  `id_jenis_temuan1` varchar(50) DEFAULT NULL,
+  `id_jenis_temuan2` varchar(50) DEFAULT NULL,
+  `id_jenis_temuan3` varchar(50) DEFAULT NULL,
   `nilai_temuan` int(11) DEFAULT NULL,
   `id_laporan` varchar(50) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -470,7 +514,7 @@ CREATE TABLE `temuan` (
 
 /*Data for the table `temuan` */
 
-insert  into `temuan`(`id`,`no_temuan`,`memo_temuan`,`jenis_temuan`,`nilai_temuan`,`id_laporan`,`created_at`,`updated_at`,`deleted_at`) values ('4d926060-bf8b-4a17-c16e-88661ba1ff42','T-010','Test Temuan  - Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque esse quaerat quam necessitatibus alias quod nostrum fugiat architecto? Reiciendis fuga obcaecati quo incidunt accusamus voluptates molestias autem magnam placeat aperiam.','tes jenis temuan',20000000,'b80aa572-930f-50ec-db8c-4ec7101fd0bd','2020-11-18 10:45:34','2020-11-21 17:47:07',NULL),('8f533eed-33e4-6d6a-fb2c-1b79bb5e6517','123','Test Temuan 2 - Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque esse quaerat quam necessitatibus alias quod nostrum fugiat architecto? Reiciendis fuga obcaecati quo incidunt accusamus voluptates molestias autem magnam placeat aperiam.','test jeni',1000000,'bc5de997-1827-b445-9707-a8afd5785eb3','2020-11-15 01:39:21','2020-11-15 02:25:07',NULL);
+insert  into `temuan`(`id`,`no_temuan`,`memo_temuan`,`id_jenis_temuan1`,`id_jenis_temuan2`,`id_jenis_temuan3`,`nilai_temuan`,`id_laporan`,`created_at`,`updated_at`,`deleted_at`) values ('4d926060-bf8b-4a17-c16e-88661ba1ff42','T-010','Test Temuan  - Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque esse quaerat quam necessitatibus alias quod nostrum fugiat architecto? Reiciendis fuga obcaecati quo incidunt accusamus voluptates molestias autem magnam placeat aperiam.','',NULL,NULL,20000000,'b80aa572-930f-50ec-db8c-4ec7101fd0bd','2020-11-18 10:45:34','2020-11-21 17:47:07',NULL),('8f533eed-33e4-6d6a-fb2c-1b79bb5e6517','123','Test Temuan 2 - Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque esse quaerat quam necessitatibus alias quod nostrum fugiat architecto? Reiciendis fuga obcaecati quo incidunt accusamus voluptates molestias autem magnam placeat aperiam.','',NULL,NULL,1000000,'bc5de997-1827-b445-9707-a8afd5785eb3','2020-11-15 01:39:21','2020-11-15 02:25:07',NULL);
 
 /*Table structure for table `tindak_lanjut` */
 

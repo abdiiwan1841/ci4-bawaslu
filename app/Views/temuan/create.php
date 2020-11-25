@@ -35,7 +35,9 @@
                                 <?= csrf_field(); ?>
                                 <?= input_text($field_name = 'no_temuan', $label = 'No. Temuan', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_textarea($field_name = 'memo_temuan', $label = 'Memo Temuan', $value = '', $required = true, $readonly = false, $disabled = false); ?>
-                                <?= input_text($field_name = 'jenis_temuan', $label = 'Jenis Temuan', $value = '', $required = true, $readonly = false, $disabled = false); ?>
+                                <?= input_select($field_name = 'id_jenis_temuan1', $label = 'Jenis Temuan', $jenis_temuan_options, $selected = '', $required = true, $disabled = ''); ?>
+                                <?= input_select($field_name = 'id_jenis_temuan2', $label = '&nbsp;', [], $selected = '', $required = false, $disabled = ''); ?>
+                                <?= input_select($field_name = 'id_jenis_temuan3', $label = '&nbsp;', [], $selected = '', $required = false, $disabled = ''); ?>
                                 <?= input_number($field_name = 'nilai_temuan', $label = 'Nilai Temuan', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_hidden($field_name = 'id_laporan', $value = $id_laporan); ?>
                                 <div class="form-actions no-margin">
@@ -50,5 +52,62 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $("select#id_jenis_temuan2 option").remove();
+        $('select#id_jenis_temuan2').append('<option value="">--Please Select--</option>');
+        $("select#id_jenis_temuan3 option").remove();
+        $('select#id_jenis_temuan3').append('<option value="">--Please Select--</option>');
+
+        $("select#id_jenis_temuan1").change(function() {
+            var idJenisTemuan = $(this).val();
+
+            $("select#id_jenis_temuan2 option").remove();
+            $.ajax({
+                url: "<?= base_url('temuan/ajaxGetJenisTemuan/'); ?>" + "/" + idJenisTemuan,
+                async: false,
+                type: "GET",
+                dataType: 'json',
+                success: function(response) {
+                    $('select#id_jenis_temuan2').append('<option value="">--Please Select--</option>');
+                    $.each(response.data, function(i, r) {
+                        var newOption = "<option value='" + r.id + "'>" + r.nama + "</option>";
+                        if (r.id != undefined) {
+                            $(newOption).appendTo("select#id_jenis_temuan2");
+                        }
+                    });
+                    // $("select#id_jenis_temuan2").trigger('change');
+                }
+            });
+        });
+
+        $("select#id_jenis_temuan2").change(function() {
+            var idJenisTemuan2 = $(this).val();
+
+            $("select#id_jenis_temuan3 option").remove();
+            $.ajax({
+                url: "<?= base_url('temuan/ajaxGetJenisTemuan/'); ?>" + "/" + idJenisTemuan2,
+                async: false,
+                type: "GET",
+                dataType: 'json',
+                success: function(response) {
+                    $('select#id_jenis_temuan3').append('<option value="">--Please Select--</option>');
+                    $.each(response.data, function(i, r) {
+                        var newOption = "<option value='" + r.id + "'>" + r.nama + "</option>";
+                        if (r.id != undefined) {
+                            $(newOption).appendTo("select#id_jenis_temuan3");
+                        }
+                    });
+
+                }
+            });
+        });
+
+        $("select#id_jenis_temuan1").trigger('change');
+
+    });
+</script>
 
 <?= $this->endSection(); ?>

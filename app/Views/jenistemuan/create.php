@@ -21,7 +21,7 @@
                     <?= csrf_field(); ?>
                     <?= input_text($field_name = 'kode', $label = 'Kode', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                     <?= input_text($field_name = 'deskripsi', $label = 'Deskripsi', $value = '', $required = true, $readonly = false, $disabled = false); ?>
-                    <?= input_text($field_name = 'id_parent', $label = 'Parent', $value = '', $required = false, $readonly = false, $disabled = false); ?>
+                    <?= input_select($field_name = 'id_parent', $label = 'Parent', $jenis_temuan_options, $selected = '', $required = false, $disabled = ''); ?>
                     <div class="form-actions no-margin">
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button type="button" class="btn" onclick="window.history.back();">Cancel</button>

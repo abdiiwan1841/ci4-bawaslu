@@ -21,7 +21,9 @@ class TemuanModel extends Model
         'id',
         'no_temuan',
         'memo_temuan',
-        'jenis_temuan',
+        'id_jenis_temuan1',
+        'id_jenis_temuan2',
+        'id_jenis_temuan3',
         'nilai_temuan',
         'id_laporan'
     ];
@@ -41,7 +43,9 @@ class TemuanModel extends Model
         id,
         no_temuan,
         memo_temuan,
-        jenis_temuan,
+        id_jenis_temuan1,
+        id_jenis_temuan2,
+        id_jenis_temuan3,
         nilai_temuan,
         id_laporan');
         $this->orderBy('no_temuan', 'ASC');
@@ -59,7 +63,9 @@ class TemuanModel extends Model
         id,
         no_temuan,
         memo_temuan,
-        jenis_temuan,
+        id_jenis_temuan1,
+        id_jenis_temuan2,
+        id_jenis_temuan3,
         nilai_temuan,
         id_laporan');
         $this->orderBy('no_temuan', 'ASC');
@@ -70,5 +76,47 @@ class TemuanModel extends Model
             return $data;
         }
         return array();
+    }
+
+    public function getJenisTemuan()
+    {
+        try {
+            $sql = "SELECT
+                    a.id,
+                    CONCAT(a.kode,' - ',a.deskripsi) AS nama
+                    FROM jenis_temuan a 
+                    WHERE (a.id_parent IS NULL OR a.id_parent='')
+                    AND a.deleted_at IS NULL
+                    ORDER BY nama ASC";
+            $query = $this->query($sql);
+            $data = $query->getResult();
+            if (isset($data)) {
+                return $data;
+            }
+            return array();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function ajaxGetJenisTemuan($idParent)
+    {
+        try {
+            $sql = "SELECT
+                    a.id,
+                    CONCAT(a.kode,' - ',a.deskripsi) AS nama
+                    FROM jenis_temuan a 
+                    WHERE a.id_parent=?
+                    AND a.deleted_at IS NULL
+                    ORDER BY nama ASC";
+            $query = $this->query($sql, [$idParent]);
+            $data = $query->getResult();
+            if (isset($data)) {
+                return $data;
+            }
+            return array();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

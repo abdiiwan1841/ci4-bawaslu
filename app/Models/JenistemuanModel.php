@@ -57,4 +57,25 @@ class JenistemuanModel extends Model
         }
         return array();
     }
+
+    public function getJenisTemuan($idJenisTemuan = '')
+    {
+        try {
+            $sql = "SELECT
+                    a.id,
+                    CONCAT(a.kode,' - ',a.deskripsi) AS nama
+                    FROM jenis_temuan a 
+                    WHERE a.id <> ?
+                    AND a.deleted_at IS NULL
+                    ORDER BY nama ASC";
+            $query = $this->query($sql, [$idJenisTemuan]);
+            $data = $query->getResult();
+            if (isset($data)) {
+                return $data;
+            }
+            return array();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

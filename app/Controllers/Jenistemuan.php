@@ -40,9 +40,12 @@ class Jenistemuan extends BaseController
             a.id, 
             a.kode, 
             a.deskripsi,
-            a.id_parent
-            FROM jenis_temuan a
-            WHERE a.deleted_at IS NULL
+            a.id_parent,
+            concat(b.kode ,' - ',b.deskripsi) AS parent            
+            FROM jenis_temuan a 
+            LEFT JOIN jenis_temuan b ON b.id=a.id_parent
+            WHERE a.deleted_at IS NULL 
+            AND b.deleted_at IS NULL
             ) temp
             ";
 
@@ -50,7 +53,7 @@ class Jenistemuan extends BaseController
             array('db' => 'id', 'dt' => 0),
             array('db' => 'kode', 'dt' => 1),
             array('db' => 'deskripsi', 'dt' => 2),
-            array('db' => 'id_parent', 'dt' => 3),
+            array('db' => 'parent', 'dt' => 3),
             array(
                 'db'        => 'id',
                 'dt'        => 4,
@@ -76,9 +79,17 @@ class Jenistemuan extends BaseController
     public function create()
     {
 
+        $jenis_temuan_options = ['' => '--Pilih Select--'];
+
+        $jenisTemuan = $this->jenistemuanModel->getJenisTemuan();
+        foreach ($jenisTemuan as $r) {
+            $jenis_temuan_options[$r->id] = $r->nama;
+        }
+
         $data = [
             'title' => 'Create New Jenis Temuan',
             'active' => 'jenistemuan',
+            'jenis_temuan_options' => $jenis_temuan_options,
             'validation' => \Config\Services::validation()
         ];
         return view('jenistemuan/create', $data);
@@ -125,10 +136,18 @@ class Jenistemuan extends BaseController
 
     public function edit($id)
     {
+        $jenis_temuan_options = ['' => '--Pilih Select--'];
+
+        $jenisTemuan = $this->jenistemuanModel->getJenisTemuan($id);
+        foreach ($jenisTemuan as $r) {
+            $jenis_temuan_options[$r->id] = $r->nama;
+        }
+
         $data = [
             'title' => 'Edit Jenis Temuan',
             'active' => 'jenistemuan',
             'data' => $this->jenistemuanModel->getDataById($id),
+            'jenis_temuan_options' => $jenis_temuan_options,
             'validation' => \Config\Services::validation()
         ];
 

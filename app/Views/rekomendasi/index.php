@@ -42,7 +42,8 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>No.Rekomendasi</th>
+                                    <th>No. Rekomendasi</th>
+                                    <th>Jenis Rekomendasi</th>
                                     <th>Memo Rekomendasi</th>
                                     <th>Nilai Rekomendasi</th>
                                     <th>Nama Penangung Jawab</th>
@@ -84,9 +85,18 @@
             serverSide: true,
             responsive: true,
             columnDefs: [{
-                responsivePriority: 1,
-                targets: 4
-            }],
+                    responsivePriority: 1,
+                    targets: 7
+                },
+                {
+                    width: '70px',
+                    targets: 1
+                },
+                {
+                    width: '200px',
+                    targets: 7
+                }
+            ],
             order: [
                 [1, "asc"]
             ],
@@ -101,9 +111,9 @@
                 var index = (page * length + (iDisplayIndex + 1));
                 $('td:first', nRow).html(index);
                 $('th').css("text-align", "center");
-                $('td:eq(1)', nRow).css("text-align", "left");
-                $('td:eq(3)', nRow).css("text-align", "right");
-                $('td:eq(4)', nRow).css("text-align", "center");
+                $('td:eq(0)', nRow).css("text-align", "center");
+                $('td:eq(4)', nRow).css("text-align", "right");
+                $('td:eq(7)', nRow).css("text-align", "center");
                 return nRow;
             },
         });

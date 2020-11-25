@@ -34,6 +34,7 @@
 
                                 <?= csrf_field(); ?>
                                 <?= input_text($field_name = 'no_rekomendasi', $label = 'No. Rekomendasi', $value = '', $required = true, $readonly = false, $disabled = false); ?>
+                                <?= input_select($field_name = 'id_jenis_rekomendasi', $label = 'Jenis Rekomendasi', $jenis_rekomendasi_options, $selected = '', $required = true, $disabled = ''); ?>
                                 <?= input_textarea($field_name = 'memo_rekomendasi', $label = 'Memo Rekomendasi', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_number($field_name = 'nilai_rekomendasi', $label = 'Nilai Rekomendasi', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'nama_penanggung_jawab', $label = 'Nama Penanggung Jawab', $value = '', $required = true, $readonly = false, $disabled = false); ?>

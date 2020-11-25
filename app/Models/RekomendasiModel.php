@@ -20,6 +20,7 @@ class RekomendasiModel extends Model
     protected $allowedFields = [
         'id',
         'no_rekomendasi',
+        'id_jenis_rekomendasi',
         'memo_rekomendasi',
         'nilai_rekomendasi',
         'nama_penanggung_jawab',
@@ -43,6 +44,7 @@ class RekomendasiModel extends Model
         $this->select('
         id,
         no_rekomendasi,
+        id_jenis_rekomendasi,
         memo_rekomendasi,
         nilai_rekomendasi,
         nama_penanggung_jawab,
@@ -64,6 +66,7 @@ class RekomendasiModel extends Model
         $this->select('
         id,
         no_rekomendasi,
+        id_jenis_rekomendasi,
         memo_rekomendasi,
         nilai_rekomendasi,
         nama_penanggung_jawab,
@@ -79,5 +82,25 @@ class RekomendasiModel extends Model
             return $data;
         }
         return array();
+    }
+
+    public function getJenisRekomendasi()
+    {
+        try {
+            $sql = "SELECT
+                    a.id,
+                    CONCAT(a.kode,' - ',a.deskripsi) AS nama
+                    FROM jenis_rekomendasi a 
+                    WHERE a.deleted_at IS NULL
+                    ORDER BY nama ASC";
+            $query = $this->query($sql);
+            $data = $query->getResult();
+            if (isset($data)) {
+                return $data;
+            }
+            return array();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

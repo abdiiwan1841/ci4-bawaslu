@@ -22,7 +22,7 @@
 
                     <?= input_text($field_name = 'kode', $label = 'Kode', $value = $data->kode, $required = true, $readonly = false, $disabled = false); ?>
                     <?= input_text($field_name = 'deskripsi', $label = 'Deskripsi', $value = $data->deskripsi, $required = true, $readonly = false, $disabled = false); ?>
-                    <?= input_text($field_name = 'id_parent', $label = 'Parent', $value = $data->id_parent, $required = false, $readonly = false, $disabled = false); ?>
+                    <?= input_select($field_name = 'id_parent', $label = 'Parent', $jenis_temuan_options, $selected = $data->id_parent, $required = false, $disabled = ''); ?>
                     <div class="form-actions no-margin">
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button type="button" class="btn" onclick="window.history.back();">Cancel</button>

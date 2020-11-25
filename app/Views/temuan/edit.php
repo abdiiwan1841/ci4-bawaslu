@@ -36,7 +36,9 @@
                                 <?= input_text($field_name = 'no_temuan', $label = 'No. Temuan', $value = $data->no_temuan, $required = true, $readonly = false, $disabled = false); ?>
                                 <!-- no temuan autonumber/ increment -->
                                 <?= input_textarea($field_name = 'memo_temuan', $label = 'Memo Temuan', $value = $data->memo_temuan, $required = true, $readonly = false, $disabled = false); ?>
-                                <?= input_text($field_name = 'jenis_temuan', $label = 'Jenis Temuan', $value = $data->jenis_temuan, $required = true, $readonly = false, $disabled = false); ?>
+                                <?= input_select($field_name = 'id_jenis_temuan1', $label = 'Jenis Temuan', $jenis_temuan_options, $selected = '', $required = true, $disabled = ''); ?>
+                                <?= input_select($field_name = 'id_jenis_temuan2', $label = '&nbsp;', [], $selected = '', $required = false, $disabled = ''); ?>
+                                <?= input_select($field_name = 'id_jenis_temuan3', $label = '&nbsp;', [], $selected = '', $required = false, $disabled = ''); ?>
                                 <!-- temuan di buat select box jenis temuan, list nya nanati di kasih -->
                                 <?= input_number($field_name = 'nilai_temuan', $label = 'Nilai Temuan', $value = $data->nilai_temuan, $required = true, $readonly = false, $disabled = false); ?>
                                 <!-- nilai temuan bergantung jenis temuan -->
