@@ -46,26 +46,15 @@ class Pegawai extends BaseController
 				a.`nama`,
 				a.`jabatan`,
 				a.`id_satuan_kerja`,
-				c.wilayah,
+				c.`nama` AS satuan_kerja,
 				a.`id_user`,
 				b.username,
 				a.`created_at`,
 				a.`updated_at`,
 				a.`deleted_at`
 				FROM `pegawai` a
-				LEFT JOIN users b ON b.id=a.id_user
-				LEFT JOIN (
-							SELECT
-							x.`id`,
-							x.`nama_provinsi` AS wilayah
-							FROM provinsi `x` 
-							UNION
-							SELECT 
-							y.id,
-							y.nama_kabupaten AS wilayah
-							FROM
-							kabupaten `y`
-							) c ON c.id=a.`id_satuan_kerja`
+				LEFT JOIN users b ON b.id=a.id_user 
+				LEFT JOIN eselon c ON c.`id`=a.`id_satuan_kerja`
 				WHERE a.deleted_at IS NULL 
 				AND a.type='AUDITEE'
 				ORDER BY a.nama ASC
@@ -76,12 +65,11 @@ class Pegawai extends BaseController
 			array('db' => 'id', 'dt' => 0),
 			array('db' => 'nip', 'dt' => 1),
 			array('db' => 'nama', 'dt' => 2),
-			array('db' => 'jabatan', 'dt' => 3),
-			array('db' => 'wilayah', 'dt' => 4),
-			array('db' => 'username', 'dt' => 5),
+			array('db' => 'satuan_kerja', 'dt' => 3),
+			array('db' => 'username', 'dt' => 4),
 			array(
 				'db'        => 'id',
-				'dt'        => 6,
+				'dt'        => 5,
 				'formatter' => function ($i, $row) {
 					$html = '
 					<center>
@@ -148,6 +136,13 @@ class Pegawai extends BaseController
 
 	public function save()
 	{
+
+		$eselon1 = $this->request->getVar('eselon1');
+		$eselon2 = $this->request->getVar('eselon2');
+		$eselon3 = $this->request->getVar('eselon3');
+
+		$idSatuanKerja = $eselon1;
+
 		if (!$this->validate([
 			'nip' => [
 				'rules' => 'required',
@@ -167,7 +162,7 @@ class Pegawai extends BaseController
 					// 'required' => '{field} harus diisi.'
 				]
 			],
-			'provinsi' => [
+			'eselon1' => [
 				'rules' => 'required',
 				'errors' => [
 					// 'required' => '{field} harus diisi.'

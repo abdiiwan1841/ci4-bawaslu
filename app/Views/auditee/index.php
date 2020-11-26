@@ -25,7 +25,6 @@
                             <th>No.</th>
                             <th>NIP</th>
                             <th>Nama</th>
-                            <th>Jabatan</th>
                             <th>Satuan Kerja</th>
                             <th>Username</th>
                             <th>Action</th>
@@ -70,7 +69,7 @@
                 var index = (page * length + (iDisplayIndex + 1));
                 $('td:first', nRow).html(index);
                 $('td:eq(1)', nRow).css("text-align", "left");
-                $('td:eq(6)', nRow).css("text-align", "center");
+                $('td:eq(5)', nRow).css("text-align", "center");
                 return nRow;
             },
         });

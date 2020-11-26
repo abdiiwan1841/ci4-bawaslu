@@ -18,7 +18,7 @@
                         <?= session()->getFlashData('messages') ?>
                     </div>
                 <?php endif; ?>
-                <form action="<?= base_url('auditee/update/' . $data->id); ?>" method="POST" enctype="multipart/form-data" class="form-horizontal no-margin">
+                <form action="<?= base_url('pegawai/update/' . $data->id); ?>" method="POST" enctype="multipart/form-data" class="form-horizontal no-margin">
 
                     <?= csrf_field(); ?>
 
@@ -69,7 +69,7 @@
 
             $("select#kabupaten option").remove();
             $.ajax({
-                url: "<?= base_url('auditee/ajaxGetKabupatenByProvinsiId/'); ?>" + "/" + idProvinsi,
+                url: "<?= base_url('pegawai/ajaxGetKabupatenByProvinsiId/'); ?>" + "/" + idProvinsi,
                 async: false,
                 type: "GET",
                 dataType: 'json',

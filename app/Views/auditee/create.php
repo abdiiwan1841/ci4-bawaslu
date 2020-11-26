@@ -24,13 +24,13 @@
                     <hr>
                     <?= input_text($field_name = 'nip', $label = 'NIP', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                     <?= input_text($field_name = 'nama', $label = 'Nama', $value = '', $required = true, $readonly = false, $disabled = false); ?>
-                    <?= input_text($field_name = 'jabatan', $label = 'Jabatan', $value = '', $required = true, $readonly = false, $disabled = false); ?>
 
                     <h5>Satuan Kerja</h5>
                     <hr>
 
-                    <?= input_select($field_name = 'provinsi', $label = 'Provinsi', $provinsi_options, $selected = '', $required = true, $disabled = ''); ?>
-                    <?= input_select($field_name = 'kabupaten', $label = 'Kabupaten', [], $selected = '', $required = false, $disabled = ''); ?>
+                    <?= input_select($field_name = 'eselon1', $label = 'Eselon 1', $eselon1_options, $selected = '', $required = true, $disabled = ''); ?>
+                    <?= input_select($field_name = 'eselon2', $label = 'Eselon 2', [], $selected = '', $required = false, $disabled = ''); ?>
+                    <?= input_select($field_name = 'eselon3', $label = 'Eselon 3', [], $selected = '', $required = false, $disabled = ''); ?>
 
                     <h5>Informasi Akun</h5>
                     <hr>
@@ -58,34 +58,60 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
-        $('select#kabupaten').append('<option value="">--Please Select--</option>');
-        $("select#kabupaten option").remove();
+        $('select#eselon2').append('<option value="">--Please Select--</option>');
+        $("select#eselon2 option").remove();
 
-        $("select#provinsi").change(function() {
-            var idProvinsi = $(this).val();
+        $('select#eselon3').append('<option value="">--Please Select--</option>');
+        $("select#eselon3 option").remove();
 
-            $("select#kabupaten option").remove();
+        $("select#eselon1").change(function() {
+            var idEselon1 = $(this).val();
+
+            $("select#eselon2 option").remove();
             $.ajax({
-                url: "<?= base_url('auditee/ajaxGetKabupatenByProvinsiId/'); ?>" + "/" + idProvinsi,
+                url: "<?= base_url('laporan/ajaxGetEselon2/'); ?>" + "/" + idEselon1,
                 async: false,
                 type: "GET",
                 dataType: 'json',
                 success: function(response) {
-                    $('select#kabupaten').append('<option value="">--Please Select--</option>');
+                    $('select#eselon2').append('<option value="">--Please Select--</option>');
                     $.each(response.data, function(i, r) {
-                        var newOption = "<option value='" + r.id + "'>" + r.nama_kabupaten + "</option>";
+                        var newOption = "<option value='" + r.id + "'>" + r.nama + "</option>";
                         if (r.id != undefined) {
-                            $(newOption).appendTo("select#kabupaten");
+                            $(newOption).appendTo("select#eselon2");
                         }
                     });
-
-                    // $('select#kabupaten').selectpicker('refresh');
+                    $("select#eselon2").trigger('change');
                 }
             });
         });
 
-        $("select#provinsi").trigger('change');
+        $("select#eselon2").change(function() {
+            var idEselon2 = $(this).val();
+
+            $("select#eselon3 option").remove();
+            $.ajax({
+                url: "<?= base_url('laporan/ajaxGetEselon3/'); ?>" + "/" + idEselon2,
+                async: false,
+                type: "GET",
+                dataType: 'json',
+                success: function(response) {
+                    $('select#eselon3').append('<option value="">--Please Select--</option>');
+                    $.each(response.data, function(i, r) {
+                        var newOption = "<option value='" + r.id + "'>" + r.nama + "</option>";
+                        if (r.id != undefined) {
+                            $(newOption).appendTo("select#eselon3");
+                        }
+                    });
+
+                }
+            });
+        });
+
+        $("select#eselon1").trigger('change');
+
     });
 </script>
+
 
 <?= $this->endSection(); ?>

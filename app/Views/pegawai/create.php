@@ -16,7 +16,7 @@
                         <?= session()->getFlashData('messages') ?>
                     </div>
                 <?php endif; ?>
-                <form action="<?= base_url('auditee/save'); ?>" method="POST" enctype="multipart/form-data" class="form-horizontal no-margin">
+                <form action="<?= base_url('pegawai/save'); ?>" method="POST" enctype="multipart/form-data" class="form-horizontal no-margin">
 
                     <?= csrf_field(); ?>
 

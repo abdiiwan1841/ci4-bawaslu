@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v9.63 
-MySQL - 5.6.45 : Database - humasjay_demo
+MySQL - 5.5.5-10.4.10-MariaDB : Database - bawaslu
 *********************************************************************
 */
 
@@ -12,70 +12,6 @@ MySQL - 5.6.45 : Database - humasjay_demo
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-/*Table structure for table `auditee` */
-
-DROP TABLE IF EXISTS `auditee`;
-
-CREATE TABLE `auditee` (
-  `id` varchar(50) NOT NULL,
-  `nip` varchar(50) DEFAULT NULL,
-  `nama` varchar(100) DEFAULT NULL,
-  `jabatan` varchar(50) DEFAULT NULL,
-  `id_satuan_kerja` varchar(50) DEFAULT NULL,
-  `id_user` varchar(50) DEFAULT NULL,
-  `type` varchar(20) DEFAULT NULL,
-  `id_provinsi` varchar(50) DEFAULT NULL,
-  `id_kabupaten` varchar(50) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `auditee` */
-
-insert  into `auditee`(`id`,`nip`,`nama`,`jabatan`,`id_satuan_kerja`,`id_user`,`type`,`id_provinsi`,`id_kabupaten`,`created_at`,`updated_at`,`deleted_at`) values ('a75d3933-95e1-ae70-7e34-3ac6168b37e3','10110738','Tarkiman','Pimpinan Satuan Kerja Jakarta Pusat','a4acf9a8-a709-ac81-e513-2ad247d0e638','12e3bd32-0129-64f5-cf54-208fdbba48a4','AUDITEE','31','3171','2020-11-22 01:14:16','2020-11-22 03:34:28',NULL),('c740fed4-6130-a26f-0929-332c129a096f','10110736','Auditee','Jabatan Auditee','a4acf9a8-a709-ac81-e513-2ad247d0e638','68215f0c-9edd-8be1-37aa-e22cf2952364','AUDITEE','32','3273','2020-11-22 02:28:42','2020-11-22 02:28:42',NULL),('c79118fd-35f6-c6ed-286f-8628a2d576db','10110696','Auditor','Jabatan Auditor','a4acf9a8-a709-ac81-e513-2ad247d0e638','0b9b43b9-894f-4cc1-2677-0461af057227','AUDITOR',NULL,NULL,'2020-11-22 02:31:53','2020-11-22 02:31:53',NULL);
-
-/*Table structure for table `auditi` */
-
-DROP TABLE IF EXISTS `auditi`;
-
-CREATE TABLE `auditi` (
-  `id` varchar(50) NOT NULL,
-  `nip` varchar(50) DEFAULT NULL,
-  `nama` varchar(100) DEFAULT NULL,
-  `jabatan` varchar(50) DEFAULT NULL,
-  `id_user` varchar(50) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `auditi` */
-
-insert  into `auditi`(`id`,`nip`,`nama`,`jabatan`,`id_user`,`created_at`,`updated_at`,`deleted_at`) values ('1','10110738','Tarkiman','Pimpinan','cce5d04b-5afb-a349-542b-ad96eccfcc8f',NULL,NULL,NULL);
-
-/*Table structure for table `auditor` */
-
-DROP TABLE IF EXISTS `auditor`;
-
-CREATE TABLE `auditor` (
-  `id` varchar(50) NOT NULL,
-  `nip` varchar(50) DEFAULT NULL,
-  `nama` varchar(100) DEFAULT NULL,
-  `jabatan` varchar(50) DEFAULT NULL,
-  `id_user` varchar(50) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `auditor` */
-
-insert  into `auditor`(`id`,`nip`,`nama`,`jabatan`,`id_user`,`created_at`,`updated_at`,`deleted_at`) values ('1','10110696','Edi Yulianto','TIM Auditor','cce5d04b-5afb-a349-542b-ad96eccfcc8f',NULL,NULL,NULL);
-
 /*Table structure for table `bukti` */
 
 DROP TABLE IF EXISTS `bukti`;
@@ -172,7 +108,7 @@ CREATE TABLE `group_permissions` (
   `deleted_at` datetime DEFAULT NULL,
   `created_by` varchar(50) DEFAULT NULL,
   `updated_by` varchar(50) DEFAULT NULL,
-  `deleted` int(11) DEFAULT '0',
+  `deleted` int(11) DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `id_group` (`id_group`),
   KEY `id_page` (`id_permission`)
@@ -180,7 +116,7 @@ CREATE TABLE `group_permissions` (
 
 /*Data for the table `group_permissions` */
 
-insert  into `group_permissions`(`id`,`id_group`,`id_permission`,`created_at`,`updated_at`,`deleted_at`,`created_by`,`updated_by`,`deleted`) values ('018c5e1d-a733-48f6-5381-c1e6dc47a1b6','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','dc2516e9-2b32-37c4-5e69-1838813a8ed8',NULL,NULL,NULL,NULL,NULL,0),('05706561-ca89-b009-8794-e681ec4ef2c0','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','a31b42f6-87b7-1ee4-66c6-7afea15d79bb',NULL,NULL,NULL,NULL,NULL,0),('0bfd794f-2fd7-a4e8-2f91-692180aa6563','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','61280fa4-be12-cf43-d442-3c445912460c',NULL,NULL,NULL,NULL,NULL,0),('0c96f054-5a51-2d12-da32-d721f1ec8526','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','71b17d10-c92e-a1b4-8366-b7bd93283a01',NULL,NULL,NULL,NULL,NULL,0),('155c2e6c-b7f5-0433-abb0-a2750b72c200','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','860d064c-0d6a-98c1-e649-3da5086debd8',NULL,NULL,NULL,NULL,NULL,0),('1c0076bd-1db6-18ec-16b6-c2082571ec7e','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','a0c3b466-fb94-2a55-3606-b88666367b28',NULL,NULL,NULL,NULL,NULL,0),('1c8d90c7-d745-fc88-132d-077a5f64b975','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','62b6575a-84c6-d364-5036-23b065dbb3a2',NULL,NULL,NULL,NULL,NULL,0),('1ee9d84b-5abd-8272-324a-2e96e9c715f5','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','7a9ce0e4-9405-d418-cd6f-fe9c9d87e9c9',NULL,NULL,NULL,NULL,NULL,0),('1f69dd65-ef54-f346-16da-d5156647d87c','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','500d2514-029a-e4ea-2e0f-b64417c8a2e8',NULL,NULL,NULL,NULL,NULL,0),('202db14c-0126-e35d-71b3-1885c7e671ab','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','04912205-9620-f291-ab8f-f0aaf8bbc277',NULL,NULL,NULL,NULL,NULL,0),('24dff1a7-f38c-8dbd-df23-c006b20c472a','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','4713f555-5bcc-d71a-a583-70bd0181245b',NULL,NULL,NULL,NULL,NULL,0),('2664cc35-4613-a5dd-339d-2116b2171a0d','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','fdafa577-894b-1a2e-5797-5fe0a3eb3087',NULL,NULL,NULL,NULL,NULL,0),('2991e2a1-f858-7fe1-44a8-afb977d21a54','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','e1e7f693-042f-ec12-9c98-f63ff1ef672e',NULL,NULL,NULL,NULL,NULL,0),('2c51c41a-b4b1-77cb-0ca8-1b9297592ae4','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','9562cb28-234f-faf3-57fb-403d8151589e',NULL,NULL,NULL,NULL,NULL,0),('2e04cb72-d5cb-4876-75a6-3ace0fe192de','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','a78940a0-ad25-b64b-2208-7d2ff40a75e9',NULL,NULL,NULL,NULL,NULL,0),('2f6edeb6-db95-5fb6-ef29-696e446b9446','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','a78940a0-ad25-b64b-2208-7d2ff40a75e9',NULL,NULL,NULL,NULL,NULL,0),('3094a653-dacf-4fd7-1632-17e1ce585593','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','9c9d83bc-82ec-0ebb-03c2-9a8d5833c1d2',NULL,NULL,NULL,NULL,NULL,0),('369d6b89-1154-894b-e506-4eb53b49f9c2','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','db0fbc96-33c6-08dc-9bd0-01fabf7ec271',NULL,NULL,NULL,NULL,NULL,0),('37615b6a-563f-ce23-db8d-7377430211a7','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','9b207d9f-8048-a724-6ded-ff2dad0cc1a9',NULL,NULL,NULL,NULL,NULL,0),('381ea20e-6e76-4082-4bb1-f0dbc5c0d9f7','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','064fdf3a-d101-0a61-cbfb-251aee8c0ee8',NULL,NULL,NULL,NULL,NULL,0),('3b5f5843-f9c4-8e48-79f4-35ede3e99d95','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','c7ad5be3-b11e-8c10-dc31-d9067c9c35b9',NULL,NULL,NULL,NULL,NULL,0),('3eccb1cb-7b4f-0053-d257-49de750cf6bd','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','9c764f31-eb99-d46d-82e7-af377f8fa555',NULL,NULL,NULL,NULL,NULL,0),('3ecd0766-5587-d4e3-4695-7bf7e5f6acaa','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','65a747da-9173-1f7e-46b0-57750a8891b3',NULL,NULL,NULL,NULL,NULL,0),('432eab07-5958-5ac8-8016-f3c860829290','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','b03662a5-8d28-80fd-651b-b212a28307db',NULL,NULL,NULL,NULL,NULL,0),('4952b2cd-37bb-fb05-6e69-d9a72fc0eb35','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','55148f38-0403-e31d-245d-9f7fa0c8f59c',NULL,NULL,NULL,NULL,NULL,0),('4b425c86-c963-f45c-c68a-3475b4424c80','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','9b1fd5e5-da9c-09fe-ced0-a3174fa91722',NULL,NULL,NULL,NULL,NULL,0),('4c72b28b-a269-fd5c-febf-79567dc683d3','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','2b96cb6e-3649-543b-d070-b126945b490a',NULL,NULL,NULL,NULL,NULL,0),('4fb18601-c421-1f8e-51f3-f5ed76855976','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','5ee37adf-284c-6ff6-4c29-4b5ebb5e6773',NULL,NULL,NULL,NULL,NULL,0),('5122d2cb-2748-219c-9204-e9a3aeacf417','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','8bcc4df6-51af-a7d9-a776-6846f085f8a9',NULL,NULL,NULL,NULL,NULL,0),('541c00ef-d38c-5832-f35d-ad3ef36c3c6e','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','8a3bafac-86b3-ea0e-ed3e-abbfa2745668',NULL,NULL,NULL,NULL,NULL,0),('5c4c1049-c6c7-eca4-f74a-602a3270fb92','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','4f0cc249-357f-21c8-1736-958fa52c5698',NULL,NULL,NULL,NULL,NULL,0),('5e6b8933-e96d-6b52-dee4-c6b30e019131','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','95556c22-0546-ddd2-4634-1e072c3c086d',NULL,NULL,NULL,NULL,NULL,0),('5f1f2764-2cf1-9282-c4ec-e6d203b4bedd','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','13657de7-ff77-c499-b6e9-d6eedf568294',NULL,NULL,NULL,NULL,NULL,0),('5f919d5f-1276-5313-b82a-1583fddb19ee','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','a1214e29-ff4b-bc56-96ab-2bcd5cf51c4c',NULL,NULL,NULL,NULL,NULL,0),('640d9b49-3454-3261-6d49-12e9d9a7a9de','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','8020a826-7401-5b90-df8f-afca2e68ace8',NULL,NULL,NULL,NULL,NULL,0),('663e8b9f-6e96-2fa4-7a3f-d51610713cd7','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','1283d910-de9c-6ae0-3601-f6d6c408e764',NULL,NULL,NULL,NULL,NULL,0),('671c4dfb-d199-5b46-2224-c665a5aa0586','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','66d82273-f20f-95c9-afd5-6a5467c2cbbb',NULL,NULL,NULL,NULL,NULL,0),('67a9b9ed-a2fa-c2ae-a12a-327fdea021c2','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','c16d9928-fd82-e45b-4f46-fbca2733f8a0',NULL,NULL,NULL,NULL,NULL,0),('6a9b6791-12a6-aee8-af6c-1f038332698c','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','3e3823bc-4596-68d7-7229-dd12e9151491',NULL,NULL,NULL,NULL,NULL,0),('6abc7398-69fa-420f-181c-38df9f5a176e','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','17aa3771-a467-36e3-b5ba-08b385d2d2fa',NULL,NULL,NULL,NULL,NULL,0),('70b8ebf8-20cd-119d-07a2-dabe8357065c','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','186306bb-3f4c-043a-ede3-88e8555ea7c8',NULL,NULL,NULL,NULL,NULL,0),('72a72d29-a2b0-58f0-2021-095925b9650c','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','0e8218e0-b72b-90fb-315c-c0c8711f0eb0',NULL,NULL,NULL,NULL,NULL,0),('76c7fb82-e57b-2655-9cfa-b6e40c580da4','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','ea276850-1479-91d9-7f6b-09556b89ff20',NULL,NULL,NULL,NULL,NULL,0),('76f5b292-f85c-544e-0b1a-510a80410d5d','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','1bfa8e2c-f43c-2105-6ab0-806d9e9eca0a',NULL,NULL,NULL,NULL,NULL,0),('7c6f0181-6e6b-d31d-2dac-cfc865432e4c','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','5a0490a1-c950-1b70-7df8-8e6abc0bf031',NULL,NULL,NULL,NULL,NULL,0),('7c86fb1b-7f78-3347-1e31-a4e2e7f21b6f','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','3bacacf8-7c14-557a-1a0f-9a7ec28a625f',NULL,NULL,NULL,NULL,NULL,0),('7ce1d4b2-f4bd-cde4-18ee-953111705b75','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','5675e03a-d276-b1a7-13c3-01da23c261c7',NULL,NULL,NULL,NULL,NULL,0),('8485a215-1764-2b92-da65-02d07540832b','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','2c502465-34e0-ca6d-8545-f6163de582cb',NULL,NULL,NULL,NULL,NULL,0),('84cc9ab7-786b-fe64-8c9d-0ef35191c7df','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','dd07084e-a487-8e26-c90e-2e8beb853ba5',NULL,NULL,NULL,NULL,NULL,0),('9059e452-015b-003c-3824-038358f7eff9','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','f9d3d3b3-93b2-f619-dddf-150141e322ac',NULL,NULL,NULL,NULL,NULL,0),('92972301-5f6e-3f3f-3359-34d0529e8232','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','0a98e8c0-d2ef-66fc-0469-5dcdccad17bb',NULL,NULL,NULL,NULL,NULL,0),('99605b90-1d7e-531d-eee3-92e4e975e058','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','dabbe784-d398-bf74-dce7-c70ed3b53624',NULL,NULL,NULL,NULL,NULL,0),('9b7d1025-6ad5-a0d7-2011-f9b41c4f1a44','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','593a132d-b0de-0a86-06a3-7df7d6138347',NULL,NULL,NULL,NULL,NULL,0),('9bf2a0f0-2e57-1f8b-8bf3-f0e666d3ff49','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','011272f8-af48-adeb-87dc-45238df8de13',NULL,NULL,NULL,NULL,NULL,0),('9c2a3ed7-7223-5153-5164-b016fecc66ea','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','89c8eae8-ef47-e53f-15ac-6812bf30c853',NULL,NULL,NULL,NULL,NULL,0),('9c907be2-f036-b97f-6855-996feb327ed2','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','edf73361-5580-cb58-628b-4d3be399748c',NULL,NULL,NULL,NULL,NULL,0),('9e7bc47b-ba3f-20c7-99b0-d657661b1240','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','6ba5aa82-eb22-945c-d331-534603fe9235',NULL,NULL,NULL,NULL,NULL,0),('a323424b-44de-037e-4d9d-5b3676e53d79','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','b77f459b-eb65-5156-6436-a602331700bf',NULL,NULL,NULL,NULL,NULL,0),('a74a8f4c-0912-d7a8-6c2d-5057bc38aea6','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','5cd8d65d-56fd-f2d1-212c-9551b8a12ba8',NULL,NULL,NULL,NULL,NULL,0),('a7590e7e-6d28-e17b-7428-d402c4b21799','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','5b9ded2e-46d3-b891-c653-b8e283bbfba2',NULL,NULL,NULL,NULL,NULL,0),('ac535e60-a5e8-1ce1-e103-ebc01a992540','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','77347ab0-6a0f-04bf-d850-a6160ed2bba8',NULL,NULL,NULL,NULL,NULL,0),('ac68f609-ba7d-c5fd-a54d-f3d83bc9734a','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','e93e3b1b-3f47-816d-24c5-d4f22ead5d0d',NULL,NULL,NULL,NULL,NULL,0),('acaa77a2-3199-50e8-8416-309d3116d387','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','a0a01e8c-2001-fbd3-9c6c-cc7c3b1e74be',NULL,NULL,NULL,NULL,NULL,0),('af6c2072-fdc0-e123-b363-aa96075d7955','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','d98e4740-3200-ce7c-7bcf-3b92d542c01f',NULL,NULL,NULL,NULL,NULL,0),('b5badf49-2d41-3e81-c3e9-b4292788aecd','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','c9697884-ea4e-139c-5456-18688e01196c',NULL,NULL,NULL,NULL,NULL,0),('b6d4f107-3709-21de-f4a1-741f801efe5a','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','a78940a0-ad25-b64b-2208-7d2ff40a75e9',NULL,NULL,NULL,NULL,NULL,0),('b723d052-a271-9d7d-b7bb-205b17278d80','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','2391013a-4f1d-e10e-14ec-2fa36466c322',NULL,NULL,NULL,NULL,NULL,0),('b790b098-ce6a-ee14-fb84-96e81000bca7','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','6fc5fa73-2efb-48b8-672a-198d8967d556',NULL,NULL,NULL,NULL,NULL,0),('bd9d6fe8-c7a6-2d93-b60f-94da1660efc8','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','05caec79-3e39-031e-527d-4c04390c696b',NULL,NULL,NULL,NULL,NULL,0),('c073be33-05d2-9021-637c-0a6a794c4418','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','8c54be8a-b984-80f9-fb28-c753e8343dea',NULL,NULL,NULL,NULL,NULL,0),('c4c97c34-36fd-c9aa-cac7-d6c9078d200d','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','306614ef-7cf0-8dc9-846f-f787be1a8a95',NULL,NULL,NULL,NULL,NULL,0),('c939fb27-6d81-8663-2d9f-1e5db21c3544','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','66c4c4be-553c-fa7c-0213-c641e1e98355',NULL,NULL,NULL,NULL,NULL,0),('cc008365-19f7-0f01-596c-0de27a86982a','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','82461097-d738-b062-fe6a-c67699f5d066',NULL,NULL,NULL,NULL,NULL,0),('ccbd9428-96d3-055e-ee02-f5beec97624f','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','615080e1-0a52-015e-6995-19ce92f971c9',NULL,NULL,NULL,NULL,NULL,0),('d00326a2-9313-14a7-2f9b-c5b6b73a3364','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','a658a42f-cc4f-141d-fe92-b536539a2b49',NULL,NULL,NULL,NULL,NULL,0),('d0dd07ca-b8b4-a709-190b-1d39867692bc','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','9d958397-b822-d308-817e-3893e0c3ca08',NULL,NULL,NULL,NULL,NULL,0),('d30acda7-5496-35b9-5625-4b040d1dc6ef','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','d831738b-b8b1-c329-54f9-659fbe0d484f',NULL,NULL,NULL,NULL,NULL,0),('d3493da2-244e-3826-1dcb-1739146a42b1','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','bc3d18a9-8652-f966-33eb-4c45cbb41df6',NULL,NULL,NULL,NULL,NULL,0),('d3eeb902-da58-0046-30f1-45db7793230b','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','915423b2-5256-e759-e93a-3b6b9baa4bc7',NULL,NULL,NULL,NULL,NULL,0),('d83fef9c-0a9e-8189-7dd0-195bb6fa63a2','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','f1a3f9b4-2abc-cb24-fee2-92b1f045c25e',NULL,NULL,NULL,NULL,NULL,0),('d9b5ecb3-3515-4d45-bed1-5d0aeab9f7b7','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','1ab59ec1-caed-05a8-2b36-76b6460061e1',NULL,NULL,NULL,NULL,NULL,0),('dca45e8e-de36-cd0a-ea11-5a1116976007','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','80411fb5-bf0b-ca21-8cc6-393a060b6999',NULL,NULL,NULL,NULL,NULL,0),('dec19ed4-7833-f0a6-6710-4644fbd01015','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','7c39a5a1-c605-9681-ff0a-49af2156d86e',NULL,NULL,NULL,NULL,NULL,0),('df398cc0-350c-cbe1-71b6-64e025d468a1','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','3d09f70b-f254-92c2-cb7e-cfd7946e59f1',NULL,NULL,NULL,NULL,NULL,0),('df64e222-d510-1ae9-29da-64fb0cdb77c2','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','b1af0409-0a87-c02d-d439-6af59e812f16',NULL,NULL,NULL,NULL,NULL,0),('e046d7fd-4e00-28c7-4d24-fda6d2474191','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','0d7223b8-690a-46f7-0919-53dd2aac363e',NULL,NULL,NULL,NULL,NULL,0),('e4a3dbd9-0d31-42d5-0c89-97910c8d2edd','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','b9ea07e9-8467-28b8-c894-d7da8db4ac88',NULL,NULL,NULL,NULL,NULL,0),('e591a547-4acb-39f6-d756-a35f00dc65fa','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','dc1202f2-c4c2-09c0-e8c5-10be17719954',NULL,NULL,NULL,NULL,NULL,0),('e5ba1ee9-ee25-36fe-1199-996977592eb6','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','92db91f7-564b-baa3-f7aa-5b5a9097479f',NULL,NULL,NULL,NULL,NULL,0),('eae203c8-e3b9-9bc6-d15e-e37f9e63788b','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','260e1bf5-897e-cfdf-45e1-e4c247042f07',NULL,NULL,NULL,NULL,NULL,0),('ed8b8b56-4396-5350-d8dc-7964de93f799','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','9b17c826-a3fb-41b7-83a0-d35bb2ed5192',NULL,NULL,NULL,NULL,NULL,0),('ef5f1136-5a6f-b4f5-a70b-092e459c7ef1','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','208a1309-f846-ce4a-fb07-f85fc3e3e181',NULL,NULL,NULL,NULL,NULL,0),('efcf05b0-02d1-a579-f6ad-f85a5062413e','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','de403dca-1fd6-eda1-80bc-f0e256727c07',NULL,NULL,NULL,NULL,NULL,0),('fff78e2f-f318-3556-6533-6836d271372d','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','13ae0f01-d1da-e442-49f3-261c781a8729',NULL,NULL,NULL,NULL,NULL,0);
+insert  into `group_permissions`(`id`,`id_group`,`id_permission`,`created_at`,`updated_at`,`deleted_at`,`created_by`,`updated_by`,`deleted`) values ('0c96f054-5a51-2d12-da32-d721f1ec8526','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','71b17d10-c92e-a1b4-8366-b7bd93283a01',NULL,NULL,NULL,NULL,NULL,0),('1148d1cc-1598-96bf-2df5-c21ce57188ae','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','a0c3b466-fb94-2a55-3606-b88666367b28',NULL,NULL,NULL,NULL,NULL,0),('18f8ab13-f6cc-ae75-f196-b611abf95bd3','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','5ee37adf-284c-6ff6-4c29-4b5ebb5e6773',NULL,NULL,NULL,NULL,NULL,0),('1c8d90c7-d745-fc88-132d-077a5f64b975','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','62b6575a-84c6-d364-5036-23b065dbb3a2',NULL,NULL,NULL,NULL,NULL,0),('1ee9d84b-5abd-8272-324a-2e96e9c715f5','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','7a9ce0e4-9405-d418-cd6f-fe9c9d87e9c9',NULL,NULL,NULL,NULL,NULL,0),('1f69dd65-ef54-f346-16da-d5156647d87c','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','500d2514-029a-e4ea-2e0f-b64417c8a2e8',NULL,NULL,NULL,NULL,NULL,0),('201c8234-92f1-c29a-a8f4-85fbc5c9ffac','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','2391013a-4f1d-e10e-14ec-2fa36466c322',NULL,NULL,NULL,NULL,NULL,0),('24dff1a7-f38c-8dbd-df23-c006b20c472a','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','4713f555-5bcc-d71a-a583-70bd0181245b',NULL,NULL,NULL,NULL,NULL,0),('2664cc35-4613-a5dd-339d-2116b2171a0d','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','fdafa577-894b-1a2e-5797-5fe0a3eb3087',NULL,NULL,NULL,NULL,NULL,0),('2f6edeb6-db95-5fb6-ef29-696e446b9446','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','a78940a0-ad25-b64b-2208-7d2ff40a75e9',NULL,NULL,NULL,NULL,NULL,0),('369d6b89-1154-894b-e506-4eb53b49f9c2','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','db0fbc96-33c6-08dc-9bd0-01fabf7ec271',NULL,NULL,NULL,NULL,NULL,0),('381ea20e-6e76-4082-4bb1-f0dbc5c0d9f7','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','064fdf3a-d101-0a61-cbfb-251aee8c0ee8',NULL,NULL,NULL,NULL,NULL,0),('432eab07-5958-5ac8-8016-f3c860829290','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','b03662a5-8d28-80fd-651b-b212a28307db',NULL,NULL,NULL,NULL,NULL,0),('4952b2cd-37bb-fb05-6e69-d9a72fc0eb35','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','55148f38-0403-e31d-245d-9f7fa0c8f59c',NULL,NULL,NULL,NULL,NULL,0),('4ae34a81-ff91-183f-0a32-f26278167b6a','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','d831738b-b8b1-c329-54f9-659fbe0d484f',NULL,NULL,NULL,NULL,NULL,0),('4c72b28b-a269-fd5c-febf-79567dc683d3','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','2b96cb6e-3649-543b-d070-b126945b490a',NULL,NULL,NULL,NULL,NULL,0),('4e476dee-40a1-b187-0a3b-ad86002d2aee','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','e1e7f693-042f-ec12-9c98-f63ff1ef672e',NULL,NULL,NULL,NULL,NULL,0),('5122d2cb-2748-219c-9204-e9a3aeacf417','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','8bcc4df6-51af-a7d9-a776-6846f085f8a9',NULL,NULL,NULL,NULL,NULL,0),('51b181b1-76e7-c29a-7474-bd77daafaa39','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','2b166bbd-ad30-4c67-2ded-9c8f55ee003b',NULL,NULL,NULL,NULL,NULL,0),('541c00ef-d38c-5832-f35d-ad3ef36c3c6e','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','8a3bafac-86b3-ea0e-ed3e-abbfa2745668',NULL,NULL,NULL,NULL,NULL,0),('54f56358-5487-1bbf-30db-8e75c502e3ea','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','6fc5fa73-2efb-48b8-672a-198d8967d556',NULL,NULL,NULL,NULL,NULL,0),('5890e0f2-709f-0ec7-f93d-7a31a26b3cae','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','a78940a0-ad25-b64b-2208-7d2ff40a75e9',NULL,NULL,NULL,NULL,NULL,0),('5c4c1049-c6c7-eca4-f74a-602a3270fb92','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','4f0cc249-357f-21c8-1736-958fa52c5698',NULL,NULL,NULL,NULL,NULL,0),('5f1f2764-2cf1-9282-c4ec-e6d203b4bedd','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','13657de7-ff77-c499-b6e9-d6eedf568294',NULL,NULL,NULL,NULL,NULL,0),('61b74fb4-1d6b-e124-9091-3538eb476c89','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','9c9d83bc-82ec-0ebb-03c2-9a8d5833c1d2',NULL,NULL,NULL,NULL,NULL,0),('640d9b49-3454-3261-6d49-12e9d9a7a9de','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','8020a826-7401-5b90-df8f-afca2e68ace8',NULL,NULL,NULL,NULL,NULL,0),('663e8b9f-6e96-2fa4-7a3f-d51610713cd7','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','1283d910-de9c-6ae0-3601-f6d6c408e764',NULL,NULL,NULL,NULL,NULL,0),('671c4dfb-d199-5b46-2224-c665a5aa0586','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','66d82273-f20f-95c9-afd5-6a5467c2cbbb',NULL,NULL,NULL,NULL,NULL,0),('6c523d63-8631-9298-e9a3-b2d708f78bed','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','3e3823bc-4596-68d7-7229-dd12e9151491',NULL,NULL,NULL,NULL,NULL,0),('72a72d29-a2b0-58f0-2021-095925b9650c','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','0e8218e0-b72b-90fb-315c-c0c8711f0eb0',NULL,NULL,NULL,NULL,NULL,0),('72ada26c-e21b-5c42-b122-fdad8b6a4ae6','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','011272f8-af48-adeb-87dc-45238df8de13',NULL,NULL,NULL,NULL,NULL,0),('733189cb-fbb5-0ebf-22ec-3fb0ef7cac3b','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','80411fb5-bf0b-ca21-8cc6-393a060b6999',NULL,NULL,NULL,NULL,NULL,0),('7366e8eb-9efc-c4e8-62df-5649a479900c','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','260e1bf5-897e-cfdf-45e1-e4c247042f07',NULL,NULL,NULL,NULL,NULL,0),('76c7fb82-e57b-2655-9cfa-b6e40c580da4','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','ea276850-1479-91d9-7f6b-09556b89ff20',NULL,NULL,NULL,NULL,NULL,0),('76f5b292-f85c-544e-0b1a-510a80410d5d','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','1bfa8e2c-f43c-2105-6ab0-806d9e9eca0a',NULL,NULL,NULL,NULL,NULL,0),('7bba184f-a2e9-2234-c321-45b7e7cad405','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','a31b42f6-87b7-1ee4-66c6-7afea15d79bb',NULL,NULL,NULL,NULL,NULL,0),('7c6f0181-6e6b-d31d-2dac-cfc865432e4c','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','5a0490a1-c950-1b70-7df8-8e6abc0bf031',NULL,NULL,NULL,NULL,NULL,0),('7c86fb1b-7f78-3347-1e31-a4e2e7f21b6f','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','3bacacf8-7c14-557a-1a0f-9a7ec28a625f',NULL,NULL,NULL,NULL,NULL,0),('7ce1d4b2-f4bd-cde4-18ee-953111705b75','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','5675e03a-d276-b1a7-13c3-01da23c261c7',NULL,NULL,NULL,NULL,NULL,0),('8485a215-1764-2b92-da65-02d07540832b','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','2c502465-34e0-ca6d-8545-f6163de582cb',NULL,NULL,NULL,NULL,NULL,0),('851cc765-f928-ef43-d97a-ab8f83f6521c','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','04912205-9620-f291-ab8f-f0aaf8bbc277',NULL,NULL,NULL,NULL,NULL,0),('88e554e1-eb60-83ec-32d3-95792b8921c5','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','95556c22-0546-ddd2-4634-1e072c3c086d',NULL,NULL,NULL,NULL,NULL,0),('8ad95bcc-ccc8-a182-c7a3-f600df78685b','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','65a747da-9173-1f7e-46b0-57750a8891b3',NULL,NULL,NULL,NULL,NULL,0),('8fe61581-50ef-4ebe-4b73-1db62d1e7467','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','f1a3f9b4-2abc-cb24-fee2-92b1f045c25e',NULL,NULL,NULL,NULL,NULL,0),('9029d7e7-df7f-4f31-8f6b-d5f7f6d33844','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','94771c14-3fe5-52ab-ca7d-ed470ba1ef1e',NULL,NULL,NULL,NULL,NULL,0),('9059e452-015b-003c-3824-038358f7eff9','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','f9d3d3b3-93b2-f619-dddf-150141e322ac',NULL,NULL,NULL,NULL,NULL,0),('9359f6d9-6841-5f89-5838-00db0b780c6f','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','420532c2-d7e0-a90c-8285-2917a2e8851b',NULL,NULL,NULL,NULL,NULL,0),('962ebb0e-5225-05d2-d523-b6cb9bda5834','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','186306bb-3f4c-043a-ede3-88e8555ea7c8',NULL,NULL,NULL,NULL,NULL,0),('99605b90-1d7e-531d-eee3-92e4e975e058','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','dabbe784-d398-bf74-dce7-c70ed3b53624',NULL,NULL,NULL,NULL,NULL,0),('9c2a3ed7-7223-5153-5164-b016fecc66ea','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','89c8eae8-ef47-e53f-15ac-6812bf30c853',NULL,NULL,NULL,NULL,NULL,0),('9c907be2-f036-b97f-6855-996feb327ed2','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','edf73361-5580-cb58-628b-4d3be399748c',NULL,NULL,NULL,NULL,NULL,0),('9e7bc47b-ba3f-20c7-99b0-d657661b1240','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','6ba5aa82-eb22-945c-d331-534603fe9235',NULL,NULL,NULL,NULL,NULL,0),('a2eb13ff-edb3-f79c-7661-36a75034e920','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','bc3d18a9-8652-f966-33eb-4c45cbb41df6',NULL,NULL,NULL,NULL,NULL,0),('a323424b-44de-037e-4d9d-5b3676e53d79','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','b77f459b-eb65-5156-6436-a602331700bf',NULL,NULL,NULL,NULL,NULL,0),('a74a8f4c-0912-d7a8-6c2d-5057bc38aea6','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','5cd8d65d-56fd-f2d1-212c-9551b8a12ba8',NULL,NULL,NULL,NULL,NULL,0),('a7590e7e-6d28-e17b-7428-d402c4b21799','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','5b9ded2e-46d3-b891-c653-b8e283bbfba2',NULL,NULL,NULL,NULL,NULL,0),('aa7a9b78-0b67-a8e8-442f-5dd5662d504e','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','61280fa4-be12-cf43-d442-3c445912460c',NULL,NULL,NULL,NULL,NULL,0),('ac535e60-a5e8-1ce1-e103-ebc01a992540','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','77347ab0-6a0f-04bf-d850-a6160ed2bba8',NULL,NULL,NULL,NULL,NULL,0),('ac68f609-ba7d-c5fd-a54d-f3d83bc9734a','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','e93e3b1b-3f47-816d-24c5-d4f22ead5d0d',NULL,NULL,NULL,NULL,NULL,0),('acaa77a2-3199-50e8-8416-309d3116d387','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','a0a01e8c-2001-fbd3-9c6c-cc7c3b1e74be',NULL,NULL,NULL,NULL,NULL,0),('af6c2072-fdc0-e123-b363-aa96075d7955','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','d98e4740-3200-ce7c-7bcf-3b92d542c01f',NULL,NULL,NULL,NULL,NULL,0),('b06252c0-7748-05d0-a732-511246cd59ec','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','9b207d9f-8048-a724-6ded-ff2dad0cc1a9',NULL,NULL,NULL,NULL,NULL,0),('b4ea26ab-98d0-0a5a-3f3f-19fac27cfafe','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','9b1fd5e5-da9c-09fe-ced0-a3174fa91722',NULL,NULL,NULL,NULL,NULL,0),('b6d4f107-3709-21de-f4a1-741f801efe5a','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','a78940a0-ad25-b64b-2208-7d2ff40a75e9',NULL,NULL,NULL,NULL,NULL,0),('b71a0f7b-a78a-b361-8688-c482b20eae76','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','9d958397-b822-d308-817e-3893e0c3ca08',NULL,NULL,NULL,NULL,NULL,0),('bd9d6fe8-c7a6-2d93-b60f-94da1660efc8','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','05caec79-3e39-031e-527d-4c04390c696b',NULL,NULL,NULL,NULL,NULL,0),('bedd01e2-41ec-37b8-3a25-6d1c488525a1','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','915423b2-5256-e759-e93a-3b6b9baa4bc7',NULL,NULL,NULL,NULL,NULL,0),('bf24d68c-d5b2-7a61-7c4f-f814fc8ee7a7','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','8c54be8a-b984-80f9-fb28-c753e8343dea',NULL,NULL,NULL,NULL,NULL,0),('bf8afbfd-3687-35a6-9393-45845c3db085','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','c7ad5be3-b11e-8c10-dc31-d9067c9c35b9',NULL,NULL,NULL,NULL,NULL,0),('bfd12be6-5c8d-5251-b4b7-8d5b3bc3be4e','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','ba4d3681-1414-88b3-bb2d-f5ca337076e9',NULL,NULL,NULL,NULL,NULL,0),('c3c40403-9828-9b94-4ab4-3c829402a27f','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','9562cb28-234f-faf3-57fb-403d8151589e',NULL,NULL,NULL,NULL,NULL,0),('c6068f30-f3d2-5b76-478e-c343ae407af7','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','a1214e29-ff4b-bc56-96ab-2bcd5cf51c4c',NULL,NULL,NULL,NULL,NULL,0),('c85a7ad2-4223-13f8-9e82-56d25fb50d2d','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','c16d9928-fd82-e45b-4f46-fbca2733f8a0',NULL,NULL,NULL,NULL,NULL,0),('c939fb27-6d81-8663-2d9f-1e5db21c3544','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','66c4c4be-553c-fa7c-0213-c641e1e98355',NULL,NULL,NULL,NULL,NULL,0),('c96208c2-e565-6f59-fc53-3069f184da75','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','593a132d-b0de-0a86-06a3-7df7d6138347',NULL,NULL,NULL,NULL,NULL,0),('ccbd9428-96d3-055e-ee02-f5beec97624f','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','615080e1-0a52-015e-6995-19ce92f971c9',NULL,NULL,NULL,NULL,NULL,0),('ce38d0cc-d9cc-2ae6-cd42-ccfc0e5fd5c4','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','306614ef-7cf0-8dc9-846f-f787be1a8a95',NULL,NULL,NULL,NULL,NULL,0),('d00326a2-9313-14a7-2f9b-c5b6b73a3364','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','a658a42f-cc4f-141d-fe92-b536539a2b49',NULL,NULL,NULL,NULL,NULL,0),('d4907e2d-22d8-0ab4-3065-f16bb26c95ff','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','c9697884-ea4e-139c-5456-18688e01196c',NULL,NULL,NULL,NULL,NULL,0),('d8c2b94c-c6d6-e362-cf32-4a0a4d1eae34','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','dd07084e-a487-8e26-c90e-2e8beb853ba5',NULL,NULL,NULL,NULL,NULL,0),('d9b5ecb3-3515-4d45-bed1-5d0aeab9f7b7','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','1ab59ec1-caed-05a8-2b36-76b6460061e1',NULL,NULL,NULL,NULL,NULL,0),('d9e28e90-6974-48d4-3d82-32e5cfcdea8c','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','208a1309-f846-ce4a-fb07-f85fc3e3e181',NULL,NULL,NULL,NULL,NULL,0),('ddafa471-e69e-dbef-2d07-946967519cb8','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','17aa3771-a467-36e3-b5ba-08b385d2d2fa',NULL,NULL,NULL,NULL,NULL,0),('dec19ed4-7833-f0a6-6710-4644fbd01015','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','7c39a5a1-c605-9681-ff0a-49af2156d86e',NULL,NULL,NULL,NULL,NULL,0),('df398cc0-350c-cbe1-71b6-64e025d468a1','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','3d09f70b-f254-92c2-cb7e-cfd7946e59f1',NULL,NULL,NULL,NULL,NULL,0),('df64e222-d510-1ae9-29da-64fb0cdb77c2','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','b1af0409-0a87-c02d-d439-6af59e812f16',NULL,NULL,NULL,NULL,NULL,0),('e046d7fd-4e00-28c7-4d24-fda6d2474191','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','0d7223b8-690a-46f7-0919-53dd2aac363e',NULL,NULL,NULL,NULL,NULL,0),('e4a3dbd9-0d31-42d5-0c89-97910c8d2edd','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','b9ea07e9-8467-28b8-c894-d7da8db4ac88',NULL,NULL,NULL,NULL,NULL,0),('e591a547-4acb-39f6-d756-a35f00dc65fa','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','dc1202f2-c4c2-09c0-e8c5-10be17719954',NULL,NULL,NULL,NULL,NULL,0),('e5ba1ee9-ee25-36fe-1199-996977592eb6','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','92db91f7-564b-baa3-f7aa-5b5a9097479f',NULL,NULL,NULL,NULL,NULL,0),('ec2f8bf5-d83c-aef5-e027-f665b4c09765','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','82461097-d738-b062-fe6a-c67699f5d066',NULL,NULL,NULL,NULL,NULL,0),('ed8b8b56-4396-5350-d8dc-7964de93f799','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','9b17c826-a3fb-41b7-83a0-d35bb2ed5192',NULL,NULL,NULL,NULL,NULL,0),('ee121822-ea36-8af5-78ff-c0b11c98baab','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','860d064c-0d6a-98c1-e649-3da5086debd8',NULL,NULL,NULL,NULL,NULL,0),('f1832dee-8637-ddc6-a7c2-11e310572e17','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','6041170b-5b01-707c-707a-a8f5fcd9b66c',NULL,NULL,NULL,NULL,NULL,0),('f4b3759d-2eb9-9624-7804-8057d85b12cd','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','de403dca-1fd6-eda1-80bc-f0e256727c07',NULL,NULL,NULL,NULL,NULL,0),('f54aaecd-6112-c54e-33b0-9bc93f23ce04','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','6e47d3ee-292c-1b28-210c-65939aef36ed',NULL,NULL,NULL,NULL,NULL,0),('f8da81dd-980e-9c4b-ae12-04e651853b5a','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','9c764f31-eb99-d46d-82e7-af377f8fa555',NULL,NULL,NULL,NULL,NULL,0),('fc746a40-a6b9-c314-ec21-087d9023ef74','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','dc2516e9-2b32-37c4-5e69-1838813a8ed8',NULL,NULL,NULL,NULL,NULL,0),('ff75ed3a-fb1a-7a40-da08-b32488a02f93','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','0a98e8c0-d2ef-66fc-0469-5dcdccad17bb',NULL,NULL,NULL,NULL,NULL,0),('fff78e2f-f318-3556-6533-6836d271372d','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','13ae0f01-d1da-e442-49f3-261c781a8729',NULL,NULL,NULL,NULL,NULL,0);
 
 /*Table structure for table `groups` */
 
@@ -191,19 +127,19 @@ CREATE TABLE `groups` (
   `name` varchar(100) DEFAULT NULL,
   `description` varchar(255) NOT NULL,
   `landing_page` varchar(100) NOT NULL,
-  `active` int(1) unsigned DEFAULT '1',
+  `active` int(1) unsigned DEFAULT 1,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
   `created_by` varchar(50) DEFAULT NULL,
   `updated_by` varchar(50) DEFAULT NULL,
-  `deleted` int(11) DEFAULT '0',
+  `deleted` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `groups` */
 
-insert  into `groups`(`id`,`name`,`description`,`landing_page`,`active`,`created_at`,`updated_at`,`deleted_at`,`created_by`,`updated_by`,`deleted`) values ('0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','Administrator','Administrator','a78940a0-ad25-b64b-2208-7d2ff40a75e9',1,'2020-11-18 21:08:25','2020-11-25 02:13:26',NULL,NULL,NULL,0),('1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','Auditor','For role Auditor','a78940a0-ad25-b64b-2208-7d2ff40a75e9',1,'2020-08-19 11:44:55','2020-11-22 22:19:11',NULL,NULL,NULL,0),('ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','Auditee','Auditee','b1af0409-0a87-c02d-d439-6af59e812f16',1,'2020-08-19 11:44:03','2020-11-22 18:04:21',NULL,NULL,NULL,0);
+insert  into `groups`(`id`,`name`,`description`,`landing_page`,`active`,`created_at`,`updated_at`,`deleted_at`,`created_by`,`updated_by`,`deleted`) values ('0a065a3b-c9b3-951f-7fda-3bdc7a7944ca','Administrator','Administrator','a78940a0-ad25-b64b-2208-7d2ff40a75e9',1,'2020-11-18 21:08:25','2020-11-26 17:50:57',NULL,NULL,NULL,0),('1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','Auditor','For role Auditor','a78940a0-ad25-b64b-2208-7d2ff40a75e9',1,'2020-08-19 11:44:55','2020-11-22 22:19:11',NULL,NULL,NULL,0),('ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','Auditee','Auditee','b1af0409-0a87-c02d-d439-6af59e812f16',1,'2020-08-19 11:44:03','2020-11-22 18:04:21',NULL,NULL,NULL,0);
 
 /*Table structure for table `jenis` */
 
@@ -302,7 +238,7 @@ DROP TABLE IF EXISTS `kelurahan`;
 CREATE TABLE `kelurahan` (
   `id_kel` char(10) NOT NULL,
   `id_kec` char(6) DEFAULT NULL,
-  `nama` tinytext,
+  `nama` tinytext DEFAULT NULL,
   `id_jenis` int(11) NOT NULL,
   PRIMARY KEY (`id_kel`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -357,8 +293,6 @@ CREATE TABLE `pegawai` (
   `id_satuan_kerja` varchar(50) DEFAULT NULL,
   `id_user` varchar(50) DEFAULT NULL,
   `type` varchar(20) DEFAULT NULL,
-  `id_provinsi` varchar(50) DEFAULT NULL,
-  `id_kabupaten` varchar(50) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
@@ -367,7 +301,7 @@ CREATE TABLE `pegawai` (
 
 /*Data for the table `pegawai` */
 
-insert  into `pegawai`(`id`,`nip`,`nama`,`jabatan`,`id_satuan_kerja`,`id_user`,`type`,`id_provinsi`,`id_kabupaten`,`created_at`,`updated_at`,`deleted_at`) values ('a75d3933-95e1-ae70-7e34-3ac6168b37e3','10110738','Tarkiman','Pimpinan Satuan Kerja Jakarta Pusat','3171','12e3bd32-0129-64f5-cf54-208fdbba48a4','AUDITEE','31','3171','2020-11-22 01:14:16','2020-11-22 03:34:28',NULL),('c740fed4-6130-a26f-0929-332c129a096f','10110736','Auditee','Jabatan Auditee','3273','68215f0c-9edd-8be1-37aa-e22cf2952364','AUDITEE','32','3273','2020-11-22 02:28:42','2020-11-22 02:28:42',NULL),('c79118fd-35f6-c6ed-286f-8628a2d576db','10110696','Auditor','Jabatan Auditor',NULL,'0b9b43b9-894f-4cc1-2677-0461af057227','AUDITOR',NULL,NULL,'2020-11-22 02:31:53','2020-11-22 02:31:53',NULL);
+insert  into `pegawai`(`id`,`nip`,`nama`,`jabatan`,`id_satuan_kerja`,`id_user`,`type`,`created_at`,`updated_at`,`deleted_at`) values ('e1442868-4ec7-cc76-03b1-bc1641630dff','10110738','Auditee',NULL,'a4acf9a8-a709-ac81-e513-2ad247d0e638','4a7dc494-e3fa-2add-5bcb-a9fdc53ca7d0','AUDITEE','2020-11-26 17:12:47','2020-11-26 17:12:47',NULL);
 
 /*Table structure for table `penanggung_jawab` */
 
@@ -393,13 +327,13 @@ CREATE TABLE `permissions` (
   `id` varchar(50) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
   `uri` varchar(255) NOT NULL,
-  `active` int(1) unsigned DEFAULT '1',
+  `active` int(1) unsigned DEFAULT 1,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
   `created_by` varchar(50) DEFAULT NULL,
   `updated_by` varchar(50) DEFAULT NULL,
-  `deleted` int(11) DEFAULT '0',
+  `deleted` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -429,12 +363,12 @@ CREATE TABLE `rekomendasi` (
   `id` varchar(50) NOT NULL,
   `no_rekomendasi` varchar(50) DEFAULT NULL,
   `id_jenis_rekomendasi` varchar(50) DEFAULT NULL,
-  `memo_rekomendasi` text,
+  `memo_rekomendasi` text DEFAULT NULL,
   `nilai_rekomendasi` int(11) DEFAULT NULL,
   `nama_penanggung_jawab` varchar(100) DEFAULT NULL,
   `id_sebab` varchar(50) DEFAULT NULL,
   `status` varchar(20) DEFAULT 'BELUM_TL',
-  `alasan_tidak_di_tl` text,
+  `alasan_tidak_di_tl` text DEFAULT NULL,
   `lampiran_tidak_di_tl` varchar(100) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -480,7 +414,7 @@ DROP TABLE IF EXISTS `sebab`;
 CREATE TABLE `sebab` (
   `id` varchar(50) NOT NULL,
   `no_sebab` varchar(50) DEFAULT NULL,
-  `memo_sebab` text,
+  `memo_sebab` text DEFAULT NULL,
   `id_temuan` varchar(50) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -500,7 +434,7 @@ DROP TABLE IF EXISTS `temuan`;
 CREATE TABLE `temuan` (
   `id` varchar(50) NOT NULL,
   `no_temuan` varchar(50) DEFAULT NULL,
-  `memo_temuan` text,
+  `memo_temuan` text DEFAULT NULL,
   `id_jenis_temuan1` varchar(50) DEFAULT NULL,
   `id_jenis_temuan2` varchar(50) DEFAULT NULL,
   `id_jenis_temuan3` varchar(50) DEFAULT NULL,
@@ -527,10 +461,10 @@ CREATE TABLE `tindak_lanjut` (
   `nilai_sisa_rekomendasi` int(11) DEFAULT NULL,
   `nilai_akhir_rekomendasi` int(11) DEFAULT NULL,
   `id_rekomendasi` varchar(50) DEFAULT NULL,
-  `remark_auditor` text,
-  `remark_auditee` text,
+  `remark_auditor` text DEFAULT NULL,
+  `remark_auditee` text DEFAULT NULL,
   `status` varchar(20) DEFAULT NULL,
-  `read_status` int(11) DEFAULT '0',
+  `read_status` int(11) DEFAULT 0,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
@@ -555,7 +489,7 @@ CREATE TABLE `user_groups` (
   `deleted_at` datetime DEFAULT NULL,
   `created_by` varchar(50) DEFAULT NULL,
   `updated_by` varchar(50) DEFAULT NULL,
-  `deleted` int(11) DEFAULT '0',
+  `deleted` int(11) DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   KEY `id_group` (`id_group`)
@@ -563,7 +497,7 @@ CREATE TABLE `user_groups` (
 
 /*Data for the table `user_groups` */
 
-insert  into `user_groups`(`id`,`id_user`,`id_group`,`created_at`,`updated_at`,`deleted_at`,`created_by`,`updated_by`,`deleted`) values ('2a8ca86e-3c93-f39a-696b-682a85d37e42','12e3bd32-0129-64f5-cf54-208fdbba48a4','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf',NULL,NULL,NULL,NULL,NULL,0),('376fe042-383c-12c0-8d29-17fc6bb8e8a6','b645b141-0450-47da-cb5a-2335d4e64021','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca',NULL,NULL,NULL,NULL,NULL,0),('5a2bbf9c-5bfb-6d45-03c7-17582ee82a2c','68215f0c-9edd-8be1-37aa-e22cf2952364','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','2020-11-22 02:28:42','2020-11-22 02:28:42',NULL,NULL,NULL,0),('69439557-bb4a-1ae9-688f-c96ed8b57992','0b9b43b9-894f-4cc1-2677-0461af057227','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e',NULL,NULL,NULL,NULL,NULL,0);
+insert  into `user_groups`(`id`,`id_user`,`id_group`,`created_at`,`updated_at`,`deleted_at`,`created_by`,`updated_by`,`deleted`) values ('7d624b70-46be-a5f6-383f-ff0a464ac953','b645b141-0450-47da-cb5a-2335d4e64021','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca',NULL,NULL,NULL,NULL,NULL,0),('bd7f5b4a-d8da-d36d-582c-a1e9613de3eb','4a7dc494-e3fa-2add-5bcb-a9fdc53ca7d0','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','2020-11-26 17:12:47','2020-11-26 17:12:47',NULL,NULL,NULL,0),('e4a17646-2729-e8d0-5973-dd61c7df54a7','12e3bd32-0129-64f5-cf54-208fdbba48a4','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca',NULL,NULL,NULL,NULL,NULL,0);
 
 /*Table structure for table `users` */
 
@@ -575,7 +509,7 @@ CREATE TABLE `users` (
   `password` varchar(255) CHARACTER SET utf8 NOT NULL,
   `email` varchar(100) CHARACTER SET utf8 NOT NULL,
   `last_login` datetime DEFAULT NULL,
-  `active` int(1) unsigned DEFAULT '1',
+  `active` int(1) unsigned DEFAULT 1,
   `name` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `phone` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
   `image` varchar(50) CHARACTER SET utf8 DEFAULT 'default.png',
@@ -585,7 +519,7 @@ CREATE TABLE `users` (
   `deleted_at` datetime DEFAULT NULL,
   `created_by` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `updated_by` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
-  `deleted` int(11) DEFAULT '0',
+  `deleted` int(11) DEFAULT 0,
   `session_id` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `last_session` datetime DEFAULT NULL,
   `token_password` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
@@ -596,7 +530,7 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`username`,`password`,`email`,`last_login`,`active`,`name`,`phone`,`image`,`language`,`created_at`,`updated_at`,`deleted_at`,`created_by`,`updated_by`,`deleted`,`session_id`,`last_session`,`token_password`,`token_password_expired`,`nip`) values ('0b9b43b9-894f-4cc1-2677-0461af057227','auditor','fb2d634f1868a1353228c05cf0bd1273c612f10e','tarkiman.mail@gmail.com',NULL,1,'Auditor',NULL,'0852-2224-1987.jpg','english','2020-11-22 02:31:53','2020-11-22 02:35:38',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL),('12e3bd32-0129-64f5-cf54-208fdbba48a4','tarkiman','928fe970463574b152f07f98b72dddf8221ee312','tarkiman.zone@gmail.com',NULL,1,'Tarkiman',NULL,'tarkiman.jpg','english','2020-11-22 01:14:16','2020-11-22 03:34:28',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL),('68215f0c-9edd-8be1-37aa-e22cf2952364','auditee','b1b6302758ccf30b9feff189436c31937ada8325','tarkiman.mail@gmail.com',NULL,1,'Auditee',NULL,'admin.jpg','english','2020-11-22 02:28:42','2020-11-22 02:28:42',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL),('b645b141-0450-47da-cb5a-2335d4e64021','admin','d033e22ae348aeb5660fc2140aec35850c4da997','tarkiman.zone@gmail.com',NULL,1,'Administrator',NULL,'0852-2224-1987.jpg','english','2020-11-21 19:57:45','2020-11-22 02:24:18',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL);
+insert  into `users`(`id`,`username`,`password`,`email`,`last_login`,`active`,`name`,`phone`,`image`,`language`,`created_at`,`updated_at`,`deleted_at`,`created_by`,`updated_by`,`deleted`,`session_id`,`last_session`,`token_password`,`token_password_expired`,`nip`) values ('12e3bd32-0129-64f5-cf54-208fdbba48a4','tarkiman','928fe970463574b152f07f98b72dddf8221ee312','tarkiman.zone@gmail.com',NULL,1,'Tarkiman',NULL,'tarkiman.jpg','english','2020-11-22 01:14:16','2020-11-26 17:01:55',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL),('4a7dc494-e3fa-2add-5bcb-a9fdc53ca7d0','auditee','b1b6302758ccf30b9feff189436c31937ada8325','suenahwati@gmail.com',NULL,1,'Auditee',NULL,'default.png','english','2020-11-26 17:12:47','2020-11-26 17:12:47',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL),('b645b141-0450-47da-cb5a-2335d4e64021','admin','d033e22ae348aeb5660fc2140aec35850c4da997','tarkiman.zone@gmail.com',NULL,1,'Administrator',NULL,'0852-2224-1987.jpg','english','2020-11-21 19:57:45','2020-11-26 17:01:40',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

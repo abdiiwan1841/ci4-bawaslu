@@ -3,24 +3,23 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
-// use App\Models\GroupModel;
+use App\Models\GroupModel;
 use App\Models\UserGroupModel;
-// use App\Models\AuthModel;
-use App\Models\AuditeeModel;
+use App\Models\PegawaiModel;
 
 class Auditee extends BaseController
 {
 
-	protected $auditeeModel;
+	protected $pegawaiModel;
 	protected $userModel;
 	protected $userGroupModel;
 
 	public function __construct()
 	{
 		$this->userModel = new UserModel();
-		// $this->groupModel = new GroupModel();
+		$this->groupModel = new GroupModel();
 		$this->userGroupModel = new UserGroupModel();
-		$this->auditeeModel = new AuditeeModel();
+		$this->pegawaiModel = new PegawaiModel();
 	}
 
 	public function index()
@@ -45,26 +44,15 @@ class Auditee extends BaseController
 				a.`nama`,
 				a.`jabatan`,
 				a.`id_satuan_kerja`,
-				c.wilayah,
+				c.`nama` AS satuan_kerja,
 				a.`id_user`,
 				b.username,
 				a.`created_at`,
 				a.`updated_at`,
 				a.`deleted_at`
-				FROM `auditee` a
-				LEFT JOIN users b ON b.id=a.id_user
-				LEFT JOIN (
-							SELECT
-							x.`id`,
-							x.`nama_provinsi` AS wilayah
-							FROM provinsi `x` 
-							UNION
-							SELECT 
-							y.id,
-							y.nama_kabupaten AS wilayah
-							FROM
-							kabupaten `y`
-							) c ON c.id=a.`id_satuan_kerja`
+				FROM `pegawai` a
+				LEFT JOIN users b ON b.id=a.id_user 
+				LEFT JOIN eselon c ON c.`id`=a.`id_satuan_kerja`
 				WHERE a.deleted_at IS NULL 
 				AND a.type='AUDITEE'
 				ORDER BY a.nama ASC
@@ -75,12 +63,11 @@ class Auditee extends BaseController
 			array('db' => 'id', 'dt' => 0),
 			array('db' => 'nip', 'dt' => 1),
 			array('db' => 'nama', 'dt' => 2),
-			array('db' => 'jabatan', 'dt' => 3),
-			array('db' => 'wilayah', 'dt' => 4),
-			array('db' => 'username', 'dt' => 5),
+			array('db' => 'satuan_kerja', 'dt' => 3),
+			array('db' => 'username', 'dt' => 4),
 			array(
 				'db'        => 'id',
-				'dt'        => 6,
+				'dt'        => 5,
 				'formatter' => function ($i, $row) {
 					$html = '
 					<center>
@@ -103,30 +90,33 @@ class Auditee extends BaseController
 	public function create()
 	{
 
-		$provinsi_options = array();
+		$groups_options = array();
 
-		$provinsi = $this->auditeeModel->getProvinsi();
-		foreach ($provinsi as $r) {
-			$provinsi_options[$r->id] = $r->nama_provinsi;
+		$groups = $this->groupModel->getData();
+		foreach ($groups as $r) {
+			$groups_options[$r->id] = $r->name;
+		}
+
+		$eselon1_options = array();
+
+		$eselon1 = $this->pegawaiModel->getEselon1();
+		foreach ($eselon1 as $r) {
+			$eselon1_options[$r->id] = $r->nama;
 		}
 
 		$data = [
 			'title' => 'Create New Auditee',
 			'active' => 'auditee',
-			'provinsi_options' => $provinsi_options,
+			'eselon1_options' => $eselon1_options,
+			'groups_options' => $groups_options,
 			'validation' => \Config\Services::validation()
 		];
 		return view('auditee/create', $data);
 	}
 
-	public function ajaxGetKabupatenByProvinsiId($idProvinsi)
-	{
-		$response['data'] = $this->auditeeModel->getKabupaten($idProvinsi);
-		echo json_encode($response);
-	}
-
 	public function save()
 	{
+
 		if (!$this->validate([
 			'nip' => [
 				'rules' => 'required',
@@ -140,13 +130,7 @@ class Auditee extends BaseController
 					// 'required' => '{field} harus diisi.'
 				]
 			],
-			'jabatan' => [
-				'rules' => 'required',
-				'errors' => [
-					// 'required' => '{field} harus diisi.'
-				]
-			],
-			'provinsi' => [
+			'eselon1' => [
 				'rules' => 'required',
 				'errors' => [
 					// 'required' => '{field} harus diisi.'
@@ -213,17 +197,28 @@ class Auditee extends BaseController
 				$file->move('images', $namaFile); //kalau di buar random nama file dijadikan parameter
 			}
 
-			$idSatuanKerja = ($this->request->getVar('kabupaten')) ? $this->request->getVar('kabupaten') : $this->request->getVar('provinsi');
+			$eselon1 = $this->request->getVar('eselon1');
+			$eselon2 = $this->request->getVar('eselon2');
+			$eselon3 = $this->request->getVar('eselon3');
 
-			$this->auditeeModel->insert([
+			$idSatuanKerja = $eselon1;
+
+			if ($eselon3) {
+				$idSatuanKerja = $eselon3;
+			} else {
+				if ($eselon2) {
+					$idSatuanKerja = $eselon2;
+				} else {
+					$idSatuanKerja = $eselon1;
+				}
+			}
+
+			$this->pegawaiModel->insert([
 				'id' => get_uuid(),
 				'nip' => $this->request->getVar('nip'),
 				'nama' => $this->request->getVar('nama'),
-				'jabatan' => $this->request->getVar('jabatan'),
 				'id_user' => $idUser,
 				'id_satuan_kerja' => $idSatuanKerja,
-				'id_provinsi' => $this->request->getVar('provinsi'),
-				'id_kabupaten' => $this->request->getVar('kabupaten'),
 				'type' => 'AUDITEE'
 			]);
 
@@ -260,25 +255,26 @@ class Auditee extends BaseController
 	public function edit($id)
 	{
 
-		$provinsi_options = array();
+		$groups_options = array();
 
-		$provinsi = $this->auditeeModel->getProvinsi();
-		foreach ($provinsi as $r) {
-			$provinsi_options[$r->id] = $r->nama_provinsi;
+		$groups = $this->groupModel->getData();
+		foreach ($groups as $r) {
+			$groups_options[$r->id] = $r->name;
 		}
 
-		$kabupaten_options = array();
-		$kabupaten = $this->auditeeModel->getKabupaten();
-		foreach ($kabupaten as $r) {
-			$kabupaten_options[$r->id] = $r->nama_kabupaten;
+		$eselon1_options = array();
+
+		$eselon1 = $this->pegawaiModel->getEselon1();
+		foreach ($eselon1 as $r) {
+			$eselon1_options[$r->id] = $r->nama;
 		}
 
 		$data = [
 			'title' => 'Edit Auditee',
 			'active' => 'auditee',
-			'provinsi_options' => $provinsi_options,
-			'kabupaten_options' => $kabupaten_options,
-			'data' => $this->auditeeModel->getDataById($id),
+			'eselon1_options' => $eselon1_options,
+			'groups_options' => $groups_options,
+			'data' => $this->pegawaiModel->getDataById($id),
 			'validation' => \Config\Services::validation()
 		];
 		return view('/auditee/edit', $data);
@@ -391,7 +387,7 @@ class Auditee extends BaseController
 
 				$idSatuanKerja = ($this->request->getVar('kabupaten')) ? $this->request->getVar('kabupaten') : $this->request->getVar('provinsi');
 
-				$this->auditeeModel->save([
+				$this->pegawaiModel->save([
 					'id' => $id,
 					'nip' => $this->request->getVar('nip'),
 					'nama' => $this->request->getVar('nama'),
@@ -417,5 +413,17 @@ class Auditee extends BaseController
 			}
 			return redirect()->to('/auditee');
 		}
+	}
+
+	public function ajaxGetEselon2($idEselon1)
+	{
+		$response['data'] = $this->laporanModel->getEselon2($idEselon1);
+		echo json_encode($response);
+	}
+
+	public function ajaxGetEselon3($idEselon2)
+	{
+		$response['data'] = $this->laporanModel->getEselon3($idEselon2);
+		echo json_encode($response);
 	}
 }

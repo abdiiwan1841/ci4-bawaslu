@@ -46,10 +46,10 @@
         var table = $('#datatables').DataTable({
             "dom": 'Bfrtip',
             "buttons": [
-                <?php if (in_array('auditee/create', session()->get('user_permissions'))) : ?> {
+                <?php if (in_array('pegawai/create', session()->get('user_permissions'))) : ?> {
                         text: 'Create New',
                         action: function(e, dt, node, config) {
-                            window.location.href = "<?= base_url('/auditee/create'); ?>";
+                            window.location.href = "<?= base_url('/pegawai/create'); ?>";
                         }
                     }
                 <?php endif; ?>
@@ -62,7 +62,7 @@
             "search": {
                 "caseInsensitive": false
             },
-            "ajax": "<?= base_url('auditee/datatables'); ?>",
+            "ajax": "<?= base_url('pegawai/datatables'); ?>",
             "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 var info = table.page.info();
                 var page = info.page;

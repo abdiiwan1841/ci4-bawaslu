@@ -119,7 +119,7 @@ class AuthModel extends Model
             a.`created_at`,
             a.`updated_at`,
             a.`deleted_at`
-            FROM `auditee` a
+            FROM `pegawai` a
             LEFT JOIN users b ON b.id=a.id_user
             LEFT JOIN eselon c ON c.id=a.id_satuan_kerja
             WHERE a.deleted_at IS NULL

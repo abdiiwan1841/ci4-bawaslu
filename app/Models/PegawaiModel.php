@@ -24,9 +24,7 @@ class PegawaiModel extends Model
         'jabatan',
         'id_satuan_kerja',
         'id_user',
-        'type',
-        'id_provinsi',
-        'id_kabupaten'
+        'type'
     ];
 
     protected $useTimestamps = true;
@@ -47,9 +45,7 @@ class PegawaiModel extends Model
         jabatan,
         id_satuan_kerja,
         id_user,
-        type,
-        id_provinsi,
-        id_kabupaten');
+        type');
         $this->orderBy('nama', 'ASC');
         $query = $this->get();
         $data = $query->getResult();
@@ -58,28 +54,6 @@ class PegawaiModel extends Model
         }
         return array();
     }
-
-    // public function getDataById($id)
-    // {
-    //     $this->select('
-    //     id,
-    //     nip,
-    //     nama,
-    //     jabatan,
-    //     id_satuan_kerja,
-    //     id_user,
-    //     type,
-    //     id_provinsi,
-    //     id_kabupaten');
-    //     $this->orderBy('nama', 'ASC');
-    //     $this->where('id', $id);
-    //     $query = $this->get();
-    //     $data = $query->getRow();
-    //     if (isset($data)) {
-    //         return $data;
-    //     }
-    //     return array();
-    // }
 
     public function getDataById($id)
     {
@@ -90,10 +64,8 @@ class PegawaiModel extends Model
             a.`nama`,
             a.`jabatan`,
             a.`id_satuan_kerja`,
-            c.wilayah,
-            a.`id_user`,
-            a.id_provinsi,
-            a.id_kabupaten,
+            c.`nama` AS satuan_kerja,
+            b.id AS id_user,
             b.username,
             b.email,
             b.image,
@@ -102,21 +74,10 @@ class PegawaiModel extends Model
             a.`deleted_at`
             FROM `pegawai` a
             LEFT JOIN users b ON b.id=a.id_user
-            LEFT JOIN (
-                        SELECT
-                        x.`id`,
-                        x.`nama_provinsi` AS wilayah
-                        FROM provinsi `x` 
-                        UNION
-                        SELECT 
-                        y.id,
-                        y.nama_kabupaten AS wilayah
-                        FROM
-                        kabupaten `y`
-                    ) c ON c.id=a.`id_satuan_kerja`
+            LEFT JOIN eselon c ON c.`id`=a.`id_satuan_kerja`
             WHERE a.deleted_at IS NULL
             AND a.id=?
-            ORDER BY a.nama ASC;";
+            ORDER BY a.nama ASC";
             $query = $this->query($sql, [$id]);
             $data = $query->getRow();
             if (isset($data)) {
