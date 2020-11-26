@@ -24,7 +24,6 @@
                     <hr>
                     <?= input_text($field_name = 'nip', $label = 'NIP', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                     <?= input_text($field_name = 'nama', $label = 'Nama', $value = '', $required = true, $readonly = false, $disabled = false); ?>
-                    <?= input_select($field_name = 'groups', $label = 'Group / Jabatan', $groups_options, $selected = '', $required = true, $disabled = ''); ?>
 
                     <h5>Informasi Akun</h5>
                     <hr>

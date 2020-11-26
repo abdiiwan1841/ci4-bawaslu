@@ -193,7 +193,7 @@ class Auditor extends BaseController
                 'nip' => $this->request->getVar('nip'),
                 'nama' => $this->request->getVar('nama'),
                 'id_user' => $idUser,
-                'type' => 'AUDITEE'
+                'type' => 'AUDITOR'
             ]);
 
             $this->userModel->insert([
@@ -210,7 +210,7 @@ class Auditor extends BaseController
             $userGroupdata = array(
                 'id' => get_uuid(),
                 'id_user' => $idUser,
-                'id_group' => 'ccc95e11-a95f-e106-a8e8-34fb8f5bdccf' //id group AUDITEE
+                'id_group' => '1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e' //id group AUDITOR
             );
 
             $this->userGroupModel->insert($userGroupdata);

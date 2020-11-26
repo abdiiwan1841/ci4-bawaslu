@@ -301,7 +301,7 @@ CREATE TABLE `pegawai` (
 
 /*Data for the table `pegawai` */
 
-insert  into `pegawai`(`id`,`nip`,`nama`,`jabatan`,`id_satuan_kerja`,`id_user`,`type`,`created_at`,`updated_at`,`deleted_at`) values ('e1442868-4ec7-cc76-03b1-bc1641630dff','10110738','Auditee',NULL,'a4acf9a8-a709-ac81-e513-2ad247d0e638','4a7dc494-e3fa-2add-5bcb-a9fdc53ca7d0','AUDITEE','2020-11-26 17:12:47','2020-11-26 17:12:47',NULL);
+insert  into `pegawai`(`id`,`nip`,`nama`,`jabatan`,`id_satuan_kerja`,`id_user`,`type`,`created_at`,`updated_at`,`deleted_at`) values ('e1442868-4ec7-cc76-03b1-bc1641630dff','10110738','Auditee',NULL,'a4acf9a8-a709-ac81-e513-2ad247d0e638','4a7dc494-e3fa-2add-5bcb-a9fdc53ca7d0','AUDITEE','2020-11-26 17:12:47','2020-11-26 17:12:47',NULL),('f8b4fad4-b543-38fa-5cb7-41757de8efb2','10110736','Auditor',NULL,NULL,'7b283bee-199e-7f08-b5e6-82d9f819d47b','AUDITOR','2020-11-26 18:29:00','2020-11-26 18:29:00',NULL);
 
 /*Table structure for table `penanggung_jawab` */
 
@@ -497,7 +497,7 @@ CREATE TABLE `user_groups` (
 
 /*Data for the table `user_groups` */
 
-insert  into `user_groups`(`id`,`id_user`,`id_group`,`created_at`,`updated_at`,`deleted_at`,`created_by`,`updated_by`,`deleted`) values ('7d624b70-46be-a5f6-383f-ff0a464ac953','b645b141-0450-47da-cb5a-2335d4e64021','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca',NULL,NULL,NULL,NULL,NULL,0),('bd7f5b4a-d8da-d36d-582c-a1e9613de3eb','4a7dc494-e3fa-2add-5bcb-a9fdc53ca7d0','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf','2020-11-26 17:12:47','2020-11-26 17:12:47',NULL,NULL,NULL,0),('e4a17646-2729-e8d0-5973-dd61c7df54a7','12e3bd32-0129-64f5-cf54-208fdbba48a4','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca',NULL,NULL,NULL,NULL,NULL,0);
+insert  into `user_groups`(`id`,`id_user`,`id_group`,`created_at`,`updated_at`,`deleted_at`,`created_by`,`updated_by`,`deleted`) values ('1cfb1e5f-7c6a-aa8d-bb1c-ec7fecb3740c','7b283bee-199e-7f08-b5e6-82d9f819d47b','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','2020-11-26 18:29:00','2020-11-26 18:29:00',NULL,NULL,NULL,0),('7d624b70-46be-a5f6-383f-ff0a464ac953','b645b141-0450-47da-cb5a-2335d4e64021','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca',NULL,NULL,NULL,NULL,NULL,0),('e4a17646-2729-e8d0-5973-dd61c7df54a7','12e3bd32-0129-64f5-cf54-208fdbba48a4','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca',NULL,NULL,NULL,NULL,NULL,0);
 
 /*Table structure for table `users` */
 
@@ -530,7 +530,7 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`username`,`password`,`email`,`last_login`,`active`,`name`,`phone`,`image`,`language`,`created_at`,`updated_at`,`deleted_at`,`created_by`,`updated_by`,`deleted`,`session_id`,`last_session`,`token_password`,`token_password_expired`,`nip`) values ('12e3bd32-0129-64f5-cf54-208fdbba48a4','tarkiman','928fe970463574b152f07f98b72dddf8221ee312','tarkiman.zone@gmail.com',NULL,1,'Tarkiman',NULL,'tarkiman.jpg','english','2020-11-22 01:14:16','2020-11-26 17:01:55',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL),('4a7dc494-e3fa-2add-5bcb-a9fdc53ca7d0','auditee','b1b6302758ccf30b9feff189436c31937ada8325','suenahwati@gmail.com',NULL,1,'Auditee',NULL,'default.png','english','2020-11-26 17:12:47','2020-11-26 17:12:47',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL),('b645b141-0450-47da-cb5a-2335d4e64021','admin','d033e22ae348aeb5660fc2140aec35850c4da997','tarkiman.zone@gmail.com',NULL,1,'Administrator',NULL,'0852-2224-1987.jpg','english','2020-11-21 19:57:45','2020-11-26 17:01:40',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL);
+insert  into `users`(`id`,`username`,`password`,`email`,`last_login`,`active`,`name`,`phone`,`image`,`language`,`created_at`,`updated_at`,`deleted_at`,`created_by`,`updated_by`,`deleted`,`session_id`,`last_session`,`token_password`,`token_password_expired`,`nip`) values ('12e3bd32-0129-64f5-cf54-208fdbba48a4','tarkiman','928fe970463574b152f07f98b72dddf8221ee312','tarkiman.zone@gmail.com',NULL,1,'Tarkiman',NULL,'tarkiman.jpg','english','2020-11-22 01:14:16','2020-11-26 17:01:55',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL),('4a7dc494-e3fa-2add-5bcb-a9fdc53ca7d0','auditee','b1b6302758ccf30b9feff189436c31937ada8325','suenahwati@gmail.com',NULL,1,'Auditee',NULL,'default.png','english','2020-11-26 17:12:47','2020-11-26 17:12:47',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL),('7b283bee-199e-7f08-b5e6-82d9f819d47b','auditor','fb2d634f1868a1353228c05cf0bd1273c612f10e','tarkiman_zone@yahoo.co.id',NULL,1,'Auditor',NULL,'default.png','english','2020-11-26 18:29:00','2020-11-26 18:29:00',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL),('b645b141-0450-47da-cb5a-2335d4e64021','admin','d033e22ae348aeb5660fc2140aec35850c4da997','tarkiman.zone@gmail.com',NULL,1,'Administrator',NULL,'0852-2224-1987.jpg','english','2020-11-21 19:57:45','2020-11-26 17:01:40',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
