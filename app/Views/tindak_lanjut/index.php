@@ -43,16 +43,25 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Nilai Rekomendasi</th>
-                                    <th>Nilai Akhir Rekomendasi</th>
+                                    <th>Nilai Tindak Lanjut</th>
+                                    <th>Nilai Verifikasi Auditor</th>
                                     <th>Nilai Sisa Rekomendasi</th>
-                                    <th>Remark Auditee</th>
                                     <th>Remark Auditor</th>
-                                    <th>Status TL</th>
+                                    <th>Remark Auditee</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="2">Total</th>
+                                    <th style="text-align:right">1000.000</th>
+                                    <th style="text-align:right">950.000</th>
+                                    <th colspan="4"></th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
                         </table>
                         <div class="form-actions no-margin">
                             <?php if ($show_button_sesuai) : ?>

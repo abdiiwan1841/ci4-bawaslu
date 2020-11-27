@@ -158,6 +158,7 @@ class Laporan extends BaseController
                 'db'        => 'id',
                 'dt'        => 15,
                 'formatter' => function ($i, $row) {
+
                     $html = '
                     <center>
                     <a href="' . base_url('laporan/edit/' . $i) . '" class="btn btn-primary btn-small" data-original-title="Edit">
@@ -233,7 +234,7 @@ class Laporan extends BaseController
                 'audit_anggaran' => $this->request->getVar('audit_anggaran'),
                 'jenis_anggaran' => $this->request->getVar('jenis_anggaran'),
                 'id_auditor' => session()->get('id_user'),
-                'id_satuan_kerja' => session()->get('id_wilayah')
+                'id_satuan_kerja' => session()->get('id_satuan_kerja')
             ]);
 
             $db->transComplete();
@@ -241,6 +242,7 @@ class Laporan extends BaseController
                 return redirect()->to('/laporan/create')->withInput();
             } else {
                 session()->setFlashData('messages', 'new data added successfully');
+                return redirect()->to('/laporan/list/' . session()->get('id_satuan_kerja'));
             }
         } catch (\Exception $e) {
             return redirect()->to('/laporan/create')->withInput()->with('messages', $e->getMessage());

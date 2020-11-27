@@ -249,6 +249,7 @@ class LaporanAuditeeModel extends Model
                     a.`nilai_rekomendasi`,
                     a.`nilai_sisa_rekomendasi`,
                     a.`nilai_akhir_rekomendasi`,
+                    a.`remark_auditee`,
                     a.`id_rekomendasi`,
                     a.`created_at`,
                     a.`updated_at`,

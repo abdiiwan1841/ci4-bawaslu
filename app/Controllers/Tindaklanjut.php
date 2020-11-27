@@ -87,27 +87,31 @@ class Tindaklanjut extends BaseController
                 }
             ),
             array(
-                'db'        => 'nilai_sisa_rekomendasi',
+                'db'        => 'nilai_akhir_rekomendasi',
                 'dt'        => 3,
                 'formatter' => function ($i, $row) {
                     $html = format_number($i);
                     return $html;
                 }
             ),
-            array('db' => 'remark_auditor', 'dt' => 4),
-            array('db' => 'remark_auditee', 'dt' => 5),
-            array('db' => 'status', 'dt' => 6),
+            array(
+                'db'        => 'nilai_sisa_rekomendasi',
+                'dt'        => 4,
+                'formatter' => function ($i, $row) {
+                    $html = format_number($i);
+                    return $html;
+                }
+            ),
+            array('db' => 'remark_auditor', 'dt' => 5),
+            array('db' => 'remark_auditee', 'dt' => 6),
             array(
                 'db'        => 'id',
                 'dt'        => 7,
                 'formatter' => function ($i, $row) {
                     $html = '
                     <center>
-                    <a href="' . base_url('tindaklanjut/tolak/' . $i) . '" onclick="return confirm(\'Yakin akan menolak ini ?\');" class="btn btn-danger btn-small" data-original-title="Edit">
-                    Tolak
-                    </a>
                     <a href="' . base_url('tindaklanjut/terima/' . $i) . '" onclick="return confirm(\'Yakin akan menerima ini ?\');" class="btn btn-success btn-small" data-original-title="Edit">
-                    Terima
+                    Verifikasi
                     </a>
                     <a href="' . base_url('bukti/index/' . $i) . '" class="btn btn-primary btn-small" data-original-title="Edit">
                     Bukti

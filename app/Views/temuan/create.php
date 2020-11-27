@@ -38,7 +38,7 @@
                                 <?= input_select($field_name = 'id_jenis_temuan1', $label = 'Jenis Temuan', $jenis_temuan_options, $selected = '', $required = true, $disabled = ''); ?>
                                 <?= input_select($field_name = 'id_jenis_temuan2', $label = '&nbsp;', [], $selected = '', $required = false, $disabled = ''); ?>
                                 <?= input_select($field_name = 'id_jenis_temuan3', $label = '&nbsp;', [], $selected = '', $required = false, $disabled = ''); ?>
-                                <?= input_number($field_name = 'nilai_temuan', $label = 'Nilai Temuan', $value = '', $required = true, $readonly = false, $disabled = false); ?>
+                                <?= input_number($field_name = 'nilai_temuan', $label = 'Nilai Temuan', $value = '', $required = false, $readonly = false, $disabled = false); ?>
                                 <?= input_hidden($field_name = 'id_laporan', $value = $id_laporan); ?>
                                 <div class="form-actions no-margin">
                                     <button type="submit" class="btn btn-primary">Submit</button>

@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v9.63 
-MySQL - 5.5.5-10.4.10-MariaDB : Database - bawaslu
+MySQL - 5.6.45 : Database - humasjay_demo
 *********************************************************************
 */
 
@@ -12,6 +12,70 @@ MySQL - 5.5.5-10.4.10-MariaDB : Database - bawaslu
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*Table structure for table `auditee` */
+
+DROP TABLE IF EXISTS `auditee`;
+
+CREATE TABLE `auditee` (
+  `id` varchar(50) NOT NULL,
+  `nip` varchar(50) DEFAULT NULL,
+  `nama` varchar(100) DEFAULT NULL,
+  `jabatan` varchar(50) DEFAULT NULL,
+  `id_satuan_kerja` varchar(50) DEFAULT NULL,
+  `id_user` varchar(50) DEFAULT NULL,
+  `type` varchar(20) DEFAULT NULL,
+  `id_provinsi` varchar(50) DEFAULT NULL,
+  `id_kabupaten` varchar(50) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `auditee` */
+
+insert  into `auditee`(`id`,`nip`,`nama`,`jabatan`,`id_satuan_kerja`,`id_user`,`type`,`id_provinsi`,`id_kabupaten`,`created_at`,`updated_at`,`deleted_at`) values ('a75d3933-95e1-ae70-7e34-3ac6168b37e3','10110738','Tarkiman','Pimpinan Satuan Kerja Jakarta Pusat','a4acf9a8-a709-ac81-e513-2ad247d0e638','12e3bd32-0129-64f5-cf54-208fdbba48a4','AUDITEE','31','3171','2020-11-22 01:14:16','2020-11-22 03:34:28',NULL),('c740fed4-6130-a26f-0929-332c129a096f','10110736','Auditee','Jabatan Auditee','a4acf9a8-a709-ac81-e513-2ad247d0e638','68215f0c-9edd-8be1-37aa-e22cf2952364','AUDITEE','32','3273','2020-11-22 02:28:42','2020-11-22 02:28:42',NULL),('c79118fd-35f6-c6ed-286f-8628a2d576db','10110696','Auditor','Jabatan Auditor','a4acf9a8-a709-ac81-e513-2ad247d0e638','0b9b43b9-894f-4cc1-2677-0461af057227','AUDITOR',NULL,NULL,'2020-11-22 02:31:53','2020-11-22 02:31:53',NULL);
+
+/*Table structure for table `auditi` */
+
+DROP TABLE IF EXISTS `auditi`;
+
+CREATE TABLE `auditi` (
+  `id` varchar(50) NOT NULL,
+  `nip` varchar(50) DEFAULT NULL,
+  `nama` varchar(100) DEFAULT NULL,
+  `jabatan` varchar(50) DEFAULT NULL,
+  `id_user` varchar(50) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `auditi` */
+
+insert  into `auditi`(`id`,`nip`,`nama`,`jabatan`,`id_user`,`created_at`,`updated_at`,`deleted_at`) values ('1','10110738','Tarkiman','Pimpinan','cce5d04b-5afb-a349-542b-ad96eccfcc8f',NULL,NULL,NULL);
+
+/*Table structure for table `auditor` */
+
+DROP TABLE IF EXISTS `auditor`;
+
+CREATE TABLE `auditor` (
+  `id` varchar(50) NOT NULL,
+  `nip` varchar(50) DEFAULT NULL,
+  `nama` varchar(100) DEFAULT NULL,
+  `jabatan` varchar(50) DEFAULT NULL,
+  `id_user` varchar(50) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `auditor` */
+
+insert  into `auditor`(`id`,`nip`,`nama`,`jabatan`,`id_user`,`created_at`,`updated_at`,`deleted_at`) values ('1','10110696','Edi Yulianto','TIM Auditor','cce5d04b-5afb-a349-542b-ad96eccfcc8f',NULL,NULL,NULL);
+
 /*Table structure for table `bukti` */
 
 DROP TABLE IF EXISTS `bukti`;
@@ -108,7 +172,7 @@ CREATE TABLE `group_permissions` (
   `deleted_at` datetime DEFAULT NULL,
   `created_by` varchar(50) DEFAULT NULL,
   `updated_by` varchar(50) DEFAULT NULL,
-  `deleted` int(11) DEFAULT 0,
+  `deleted` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `id_group` (`id_group`),
   KEY `id_page` (`id_permission`)
@@ -127,13 +191,13 @@ CREATE TABLE `groups` (
   `name` varchar(100) DEFAULT NULL,
   `description` varchar(255) NOT NULL,
   `landing_page` varchar(100) NOT NULL,
-  `active` int(1) unsigned DEFAULT 1,
+  `active` int(1) unsigned DEFAULT '1',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
   `created_by` varchar(50) DEFAULT NULL,
   `updated_by` varchar(50) DEFAULT NULL,
-  `deleted` int(11) DEFAULT 0,
+  `deleted` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -238,7 +302,7 @@ DROP TABLE IF EXISTS `kelurahan`;
 CREATE TABLE `kelurahan` (
   `id_kel` char(10) NOT NULL,
   `id_kec` char(6) DEFAULT NULL,
-  `nama` tinytext DEFAULT NULL,
+  `nama` tinytext,
   `id_jenis` int(11) NOT NULL,
   PRIMARY KEY (`id_kel`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -279,7 +343,7 @@ CREATE TABLE `laporan` (
 
 /*Data for the table `laporan` */
 
-insert  into `laporan`(`id`,`no_laporan`,`tanggal_laporan`,`nama_laporan`,`no_surat_tugas`,`tanggal_surat_tugas`,`unit_pelaksana`,`nip_pimpinan`,`pimpinan_satuan_kerja`,`nama_satuan_kerja`,`tahun_anggaran`,`nilai_anggaran`,`realisasi_anggaran`,`audit_anggaran`,`jenis_anggaran`,`id_auditor`,`id_satuan_kerja`,`created_at`,`updated_at`,`deleted_at`) values ('b80aa572-930f-50ec-db8c-4ec7101fd0bd','LHP 1234/LBV/5/2019','2019-11-10','Laporan Hasil pemeriksaan BPK','19391/ST/BPK/2018','2020-11-21','BPK','13917931748108410740','Suryo','BPK',2019,2147483647,2147483647,'Januari - Desember','APBN','04cc7b92-5e4d-7caa-a7d8-0224fd2e8bc3','a4acf9a8-a709-ac81-e513-2ad247d0e638','2020-11-14 19:53:36','2020-11-21 17:44:21',NULL),('bc5de997-1827-b445-9707-a8afd5785eb3','LHP 1235/LBV/10/2020','2020-10-11','Tets Laporan 2','19391/ST/BPK/2020','2020-11-21','Bandung','10110738','Tarkiman','Bandung',2020,20000000,19500000,'Januari - Desember','B','3','a4acf9a8-a709-ac81-e513-2ad247d0e638','2020-11-14 20:10:04','2020-11-21 17:41:10',NULL),('fa680bcb-fc76-41f5-8235-3d6cc8185673','LHP 1236/LBV/11/2020','2020-11-11','Tets Laporan 3','19391/ST/BPK/2020','2020-11-15','Bandung','10110738','Tarkiman','Bandung',2020,15000000,14000000,'Januari - Desember','C','3','a4acf9a8-a709-ac81-e513-2ad247d0e638','2020-11-14 20:10:51','2020-11-15 02:24:47',NULL);
+insert  into `laporan`(`id`,`no_laporan`,`tanggal_laporan`,`nama_laporan`,`no_surat_tugas`,`tanggal_surat_tugas`,`unit_pelaksana`,`nip_pimpinan`,`pimpinan_satuan_kerja`,`nama_satuan_kerja`,`tahun_anggaran`,`nilai_anggaran`,`realisasi_anggaran`,`audit_anggaran`,`jenis_anggaran`,`id_auditor`,`id_satuan_kerja`,`created_at`,`updated_at`,`deleted_at`) values ('b058d31f-bb9d-eed6-c21d-093fa6269951','LHP 1237/LBV/11/2020','2020-11-26','Laporan Hasil pemeriksaan KPK','19391/ST/BPK/2019','2020-11-26','BPK','13917931748108410740','Suryo','Kota Bandung - Jawa Barat',2020,2000000,2000000,'Januair - Desember 2020','APBN','7b283bee-199e-7f08-b5e6-82d9f819d47b','a4acf9a8-a709-ac81-e513-2ad247d0e638','2020-11-26 20:14:56','2020-11-26 20:14:56',NULL),('b80aa572-930f-50ec-db8c-4ec7101fd0bd','LHP 1234/LBV/5/2019','2019-11-10','Laporan Hasil pemeriksaan BPK','19391/ST/BPK/2018','2020-11-21','BPK','13917931748108410740','Suryo','BPK',2019,2147483647,2147483647,'Januari - Desember','APBN','04cc7b92-5e4d-7caa-a7d8-0224fd2e8bc3','a4acf9a8-a709-ac81-e513-2ad247d0e638','2020-11-14 19:53:36','2020-11-21 17:44:21',NULL),('bc5de997-1827-b445-9707-a8afd5785eb3','LHP 1235/LBV/10/2020','2020-10-11','Tets Laporan 2','19391/ST/BPK/2020','2020-11-21','Bandung','10110738','Tarkiman','Bandung',2020,20000000,19500000,'Januari - Desember','B','3','a4acf9a8-a709-ac81-e513-2ad247d0e638','2020-11-14 20:10:04','2020-11-21 17:41:10',NULL),('fa680bcb-fc76-41f5-8235-3d6cc8185673','LHP 1236/LBV/11/2020','2020-11-11','Tets Laporan 3','19391/ST/BPK/2020','2020-11-15','Bandung','10110738','Tarkiman','Bandung',2020,15000000,14000000,'Januari - Desember','C','3','a4acf9a8-a709-ac81-e513-2ad247d0e638','2020-11-14 20:10:51','2020-11-15 02:24:47',NULL);
 
 /*Table structure for table `pegawai` */
 
@@ -327,13 +391,13 @@ CREATE TABLE `permissions` (
   `id` varchar(50) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
   `uri` varchar(255) NOT NULL,
-  `active` int(1) unsigned DEFAULT 1,
+  `active` int(1) unsigned DEFAULT '1',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
   `created_by` varchar(50) DEFAULT NULL,
   `updated_by` varchar(50) DEFAULT NULL,
-  `deleted` int(11) DEFAULT 0,
+  `deleted` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -363,12 +427,12 @@ CREATE TABLE `rekomendasi` (
   `id` varchar(50) NOT NULL,
   `no_rekomendasi` varchar(50) DEFAULT NULL,
   `id_jenis_rekomendasi` varchar(50) DEFAULT NULL,
-  `memo_rekomendasi` text DEFAULT NULL,
+  `memo_rekomendasi` text,
   `nilai_rekomendasi` int(11) DEFAULT NULL,
   `nama_penanggung_jawab` varchar(100) DEFAULT NULL,
   `id_sebab` varchar(50) DEFAULT NULL,
   `status` varchar(20) DEFAULT 'BELUM_TL',
-  `alasan_tidak_di_tl` text DEFAULT NULL,
+  `alasan_tidak_di_tl` text,
   `lampiran_tidak_di_tl` varchar(100) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -379,7 +443,7 @@ CREATE TABLE `rekomendasi` (
 
 /*Data for the table `rekomendasi` */
 
-insert  into `rekomendasi`(`id`,`no_rekomendasi`,`id_jenis_rekomendasi`,`memo_rekomendasi`,`nilai_rekomendasi`,`nama_penanggung_jawab`,`id_sebab`,`status`,`alasan_tidak_di_tl`,`lampiran_tidak_di_tl`,`created_at`,`updated_at`,`deleted_at`) values ('046f7540-da92-d56c-c650-0b9edd8b7833','R004','9cd562f8-09d5-c9b2-dd3f-b581fc5c3023','Test rekomendasi ',5000000,'Tarkiman','1be44899-f3f3-3423-3f48-25730803d4ab','BELUM_TL',NULL,NULL,'2020-11-21 17:45:17','2020-11-26 02:09:25',NULL),('50bf94b5-6365-81de-8a29-1d21b213a89b','R003','9256c3fa-97f1-180b-2f49-f51e8d1bb961','Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque esse quaerat quam necessitatibus alias quod nostrum fugiat architecto? Reiciendis fuga obcaecati quo incidunt accusamus voluptates molestias autem magnam placeat aperiam.',5000000,'Tarkiman','1be44899-f3f3-3423-3f48-25730803d4ab','BELUM_TL',NULL,NULL,'2020-11-15 02:27:04','2020-11-26 02:09:16',NULL),('ec1d8127-3e12-77a7-4997-166a87f39958','R002','f634f9de-a739-0a0b-5099-27dab392cea2','Test Rekomendasi ke 2',100000,'Tarkiman','e92631c0-5514-b79b-5fce-59a01c0dd0af','TIDAK_DAPAT_DI_TL','Test Alasan Tidak Dapat Di TL','1606149663_cef89389cec2b896aa8b.jpeg','2020-11-15 02:16:41','2020-11-26 02:10:53',NULL),('f23e6174-d39e-664d-0edc-d75765de7ff4','R001','5d6b7327-16db-9727-5787-2555f6a1818c','Test Memo Rekomendasi',1000000,'Tarkiman','e92631c0-5514-b79b-5fce-59a01c0dd0af','SESUAI',NULL,NULL,'2020-11-15 02:14:32','2020-11-26 02:10:42',NULL);
+insert  into `rekomendasi`(`id`,`no_rekomendasi`,`id_jenis_rekomendasi`,`memo_rekomendasi`,`nilai_rekomendasi`,`nama_penanggung_jawab`,`id_sebab`,`status`,`alasan_tidak_di_tl`,`lampiran_tidak_di_tl`,`created_at`,`updated_at`,`deleted_at`) values ('046f7540-da92-d56c-c650-0b9edd8b7833','R004','9cd562f8-09d5-c9b2-dd3f-b581fc5c3023','Test rekomendasi ',5000000,'Tarkiman','1be44899-f3f3-3423-3f48-25730803d4ab','BELUM_TL',NULL,NULL,'2020-11-21 17:45:17','2020-11-26 02:09:25',NULL),('50bf94b5-6365-81de-8a29-1d21b213a89b','R003','9256c3fa-97f1-180b-2f49-f51e8d1bb961','Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque esse quaerat quam necessitatibus alias quod nostrum fugiat architecto? Reiciendis fuga obcaecati quo incidunt accusamus voluptates molestias autem magnam placeat aperiam.',5000000,'Tarkiman','1be44899-f3f3-3423-3f48-25730803d4ab','BELUM_TL',NULL,NULL,'2020-11-15 02:27:04','2020-11-26 02:09:16',NULL),('8e7c40e8-a221-6f04-3906-a01bc07f3608','R009','5057ea49-f00f-114a-2293-d24033f8bfc4','test rekomendasi',5000000,'Tarkiman','37d629e5-5a90-374c-95c7-3df8b38697f7','BELUM_TL',NULL,NULL,'2020-11-26 20:17:01','2020-11-26 20:17:01',NULL),('ec1d8127-3e12-77a7-4997-166a87f39958','R002','f634f9de-a739-0a0b-5099-27dab392cea2','Test Rekomendasi ke 2',100000,'Tarkiman','e92631c0-5514-b79b-5fce-59a01c0dd0af','TIDAK_DAPAT_DI_TL','Test Alasan Tidak Dapat Di TL','1606149663_cef89389cec2b896aa8b.jpeg','2020-11-15 02:16:41','2020-11-26 02:10:53',NULL),('f23e6174-d39e-664d-0edc-d75765de7ff4','R001','5d6b7327-16db-9727-5787-2555f6a1818c','Test Memo Rekomendasi',1000000,'Tarkiman','e92631c0-5514-b79b-5fce-59a01c0dd0af','SESUAI',NULL,NULL,'2020-11-15 02:14:32','2020-11-26 02:10:42',NULL);
 
 /*Table structure for table `satuan_kerja` */
 
@@ -414,7 +478,7 @@ DROP TABLE IF EXISTS `sebab`;
 CREATE TABLE `sebab` (
   `id` varchar(50) NOT NULL,
   `no_sebab` varchar(50) DEFAULT NULL,
-  `memo_sebab` text DEFAULT NULL,
+  `memo_sebab` text,
   `id_temuan` varchar(50) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -425,7 +489,7 @@ CREATE TABLE `sebab` (
 
 /*Data for the table `sebab` */
 
-insert  into `sebab`(`id`,`no_sebab`,`memo_sebab`,`id_temuan`,`created_at`,`updated_at`,`deleted_at`) values ('1be44899-f3f3-3423-3f48-25730803d4ab','S-001','banyak surat suara rusak','8f533eed-33e4-6d6a-fb2c-1b79bb5e6517','2020-11-18 10:43:40','2020-11-18 10:44:10',NULL),('e92631c0-5514-b79b-5fce-59a01c0dd0af','S-002','Pandemi','4d926060-bf8b-4a17-c16e-88661ba1ff42','2020-11-18 10:46:06','2020-11-18 10:46:06',NULL);
+insert  into `sebab`(`id`,`no_sebab`,`memo_sebab`,`id_temuan`,`created_at`,`updated_at`,`deleted_at`) values ('1be44899-f3f3-3423-3f48-25730803d4ab','S-001','banyak surat suara rusak','8f533eed-33e4-6d6a-fb2c-1b79bb5e6517','2020-11-18 10:43:40','2020-11-18 10:44:10',NULL),('37d629e5-5a90-374c-95c7-3df8b38697f7','S-003','test sebab','0e09f102-6f0d-2818-09b2-5e1b3e0d6305','2020-11-26 20:16:09','2020-11-26 20:16:09',NULL),('e92631c0-5514-b79b-5fce-59a01c0dd0af','S-002','Pandemi','4d926060-bf8b-4a17-c16e-88661ba1ff42','2020-11-18 10:46:06','2020-11-18 10:46:06',NULL);
 
 /*Table structure for table `temuan` */
 
@@ -434,7 +498,7 @@ DROP TABLE IF EXISTS `temuan`;
 CREATE TABLE `temuan` (
   `id` varchar(50) NOT NULL,
   `no_temuan` varchar(50) DEFAULT NULL,
-  `memo_temuan` text DEFAULT NULL,
+  `memo_temuan` text,
   `id_jenis_temuan1` varchar(50) DEFAULT NULL,
   `id_jenis_temuan2` varchar(50) DEFAULT NULL,
   `id_jenis_temuan3` varchar(50) DEFAULT NULL,
@@ -449,7 +513,7 @@ CREATE TABLE `temuan` (
 
 /*Data for the table `temuan` */
 
-insert  into `temuan`(`id`,`no_temuan`,`memo_temuan`,`id_jenis_temuan1`,`id_jenis_temuan2`,`id_jenis_temuan3`,`nilai_temuan`,`id_laporan`,`created_at`,`updated_at`,`deleted_at`) values ('4d926060-bf8b-4a17-c16e-88661ba1ff42','T-010','Test Temuan  - Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque esse quaerat quam necessitatibus alias quod nostrum fugiat architecto? Reiciendis fuga obcaecati quo incidunt accusamus voluptates molestias autem magnam placeat aperiam.','a197d8db-2947-b63e-2ac5-5e8b6e02a35a','8768f52e-638d-aebf-9425-7bfc5241dcee','bdff7538-abbb-1192-4033-5432ed1589b5',20000000,'b80aa572-930f-50ec-db8c-4ec7101fd0bd','2020-11-18 10:45:34','2020-11-25 18:56:19',NULL),('8f533eed-33e4-6d6a-fb2c-1b79bb5e6517','123','Test Temuan 2 - Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque esse quaerat quam necessitatibus alias quod nostrum fugiat architecto? Reiciendis fuga obcaecati quo incidunt accusamus voluptates molestias autem magnam placeat aperiam.','a197d8db-2947-b63e-2ac5-5e8b6e02a35a','8768f52e-638d-aebf-9425-7bfc5241dcee','71e39bb4-80d8-5bd1-fc91-4ddda0f76766',1000000,'bc5de997-1827-b445-9707-a8afd5785eb3','2020-11-15 01:39:21','2020-11-15 02:25:07',NULL),('a2edc539-1225-d223-b023-bf8f90788994','T0002','test temuan','a197d8db-2947-b63e-2ac5-5e8b6e02a35a','8768f52e-638d-aebf-9425-7bfc5241dcee','71e39bb4-80d8-5bd1-fc91-4ddda0f76766',1000000,'b80aa572-930f-50ec-db8c-4ec7101fd0bd','2020-11-25 18:31:04','2020-11-25 18:31:04',NULL);
+insert  into `temuan`(`id`,`no_temuan`,`memo_temuan`,`id_jenis_temuan1`,`id_jenis_temuan2`,`id_jenis_temuan3`,`nilai_temuan`,`id_laporan`,`created_at`,`updated_at`,`deleted_at`) values ('0e09f102-6f0d-2818-09b2-5e1b3e0d6305','1.2.3','test memo temuan','7998677f-0868-63f8-db47-df7bc35a8ef5','e06391a2-a0ca-a76c-2e75-d611c4cf28e6','d2e23336-fdfc-731f-2708-f9dae5e30ed2',20000000,'b058d31f-bb9d-eed6-c21d-093fa6269951','2020-11-26 20:15:35','2020-11-26 20:15:35',NULL),('4d926060-bf8b-4a17-c16e-88661ba1ff42','T-010','Test Temuan  - Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque esse quaerat quam necessitatibus alias quod nostrum fugiat architecto? Reiciendis fuga obcaecati quo incidunt accusamus voluptates molestias autem magnam placeat aperiam.','a197d8db-2947-b63e-2ac5-5e8b6e02a35a','8768f52e-638d-aebf-9425-7bfc5241dcee','bdff7538-abbb-1192-4033-5432ed1589b5',20000000,'b80aa572-930f-50ec-db8c-4ec7101fd0bd','2020-11-18 10:45:34','2020-11-25 18:56:19',NULL),('8f533eed-33e4-6d6a-fb2c-1b79bb5e6517','123','Test Temuan 2 - Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque esse quaerat quam necessitatibus alias quod nostrum fugiat architecto? Reiciendis fuga obcaecati quo incidunt accusamus voluptates molestias autem magnam placeat aperiam.','a197d8db-2947-b63e-2ac5-5e8b6e02a35a','8768f52e-638d-aebf-9425-7bfc5241dcee','71e39bb4-80d8-5bd1-fc91-4ddda0f76766',1000000,'bc5de997-1827-b445-9707-a8afd5785eb3','2020-11-15 01:39:21','2020-11-15 02:25:07',NULL),('a2edc539-1225-d223-b023-bf8f90788994','T0002','test temuan','a197d8db-2947-b63e-2ac5-5e8b6e02a35a','8768f52e-638d-aebf-9425-7bfc5241dcee','71e39bb4-80d8-5bd1-fc91-4ddda0f76766',1000000,'b80aa572-930f-50ec-db8c-4ec7101fd0bd','2020-11-25 18:31:04','2020-11-25 18:31:04',NULL);
 
 /*Table structure for table `tindak_lanjut` */
 
@@ -461,10 +525,10 @@ CREATE TABLE `tindak_lanjut` (
   `nilai_sisa_rekomendasi` int(11) DEFAULT NULL,
   `nilai_akhir_rekomendasi` int(11) DEFAULT NULL,
   `id_rekomendasi` varchar(50) DEFAULT NULL,
-  `remark_auditor` text DEFAULT NULL,
-  `remark_auditee` text DEFAULT NULL,
+  `remark_auditor` text,
+  `remark_auditee` text,
   `status` varchar(20) DEFAULT NULL,
-  `read_status` int(11) DEFAULT 0,
+  `read_status` int(11) DEFAULT '0',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
@@ -474,7 +538,7 @@ CREATE TABLE `tindak_lanjut` (
 
 /*Data for the table `tindak_lanjut` */
 
-insert  into `tindak_lanjut`(`id`,`nilai_rekomendasi`,`nilai_sisa_rekomendasi`,`nilai_akhir_rekomendasi`,`id_rekomendasi`,`remark_auditor`,`remark_auditee`,`status`,`read_status`,`created_at`,`updated_at`,`deleted_at`) values ('26941d53-f444-ec62-999a-6ab884bb8c84',1000000,100000,4500000,'50bf94b5-6365-81de-8a29-1d21b213a89b',NULL,NULL,NULL,0,'2020-11-21 14:00:24','2020-11-21 16:07:44',NULL),('9452ae23-4cfa-3486-5ae2-5ce2b732fab1',5000000,500000,4500000,'f23e6174-d39e-664d-0edc-d75765de7ff4',NULL,NULL,'TERIMA',0,'2020-11-15 02:56:25','2020-11-23 23:15:41',NULL),('ba8cf286-5b7f-b6e7-d49c-375ddc33c6ec',5000000,100000,900000,'50bf94b5-6365-81de-8a29-1d21b213a89b',NULL,NULL,NULL,0,'2020-11-21 14:00:03','2020-11-21 15:09:42',NULL),('dd776c50-0627-4b74-cfa1-ba9d4febc54e',5000000,1000000,4500000,'046f7540-da92-d56c-c650-0b9edd8b7833',NULL,NULL,NULL,0,'2020-11-21 17:49:47','2020-11-21 17:49:47',NULL),('eaa23d84-311b-9f67-4af6-781f324961fb',1000000,100000,900000,'f23e6174-d39e-664d-0edc-d75765de7ff4',NULL,NULL,'TOLAK',0,'2020-11-15 02:54:34','2020-11-23 23:03:59',NULL);
+insert  into `tindak_lanjut`(`id`,`nilai_rekomendasi`,`nilai_sisa_rekomendasi`,`nilai_akhir_rekomendasi`,`id_rekomendasi`,`remark_auditor`,`remark_auditee`,`status`,`read_status`,`created_at`,`updated_at`,`deleted_at`) values ('26941d53-f444-ec62-999a-6ab884bb8c84',1000000,100000,4500000,'50bf94b5-6365-81de-8a29-1d21b213a89b',NULL,NULL,NULL,0,'2020-11-21 14:00:24','2020-11-21 16:07:44',NULL),('9452ae23-4cfa-3486-5ae2-5ce2b732fab1',5000000,500000,4500000,'f23e6174-d39e-664d-0edc-d75765de7ff4',NULL,NULL,'TERIMA',0,'2020-11-15 02:56:25','2020-11-23 23:15:41',NULL),('ba8cf286-5b7f-b6e7-d49c-375ddc33c6ec',5000000,100000,900000,'50bf94b5-6365-81de-8a29-1d21b213a89b',NULL,NULL,NULL,0,'2020-11-21 14:00:03','2020-11-21 15:09:42',NULL),('dd776c50-0627-4b74-cfa1-ba9d4febc54e',5000000,1000000,4500000,'046f7540-da92-d56c-c650-0b9edd8b7833',NULL,NULL,NULL,0,'2020-11-21 17:49:47','2020-11-21 17:49:47',NULL),('eaa23d84-311b-9f67-4af6-781f324961fb',1000000,100000,900000,'f23e6174-d39e-664d-0edc-d75765de7ff4',NULL,NULL,'TOLAK',0,'2020-11-15 02:54:34','2020-11-23 23:03:59',NULL),('faefa96f-f214-b758-aca9-23c35e50fc06',5000000,500000,4500000,'8e7c40e8-a221-6f04-3906-a01bc07f3608',NULL,'test remark auditee',NULL,0,'2020-11-26 20:48:16','2020-11-26 20:48:16',NULL);
 
 /*Table structure for table `user_groups` */
 
@@ -489,7 +553,7 @@ CREATE TABLE `user_groups` (
   `deleted_at` datetime DEFAULT NULL,
   `created_by` varchar(50) DEFAULT NULL,
   `updated_by` varchar(50) DEFAULT NULL,
-  `deleted` int(11) DEFAULT 0,
+  `deleted` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   KEY `id_group` (`id_group`)
@@ -497,7 +561,7 @@ CREATE TABLE `user_groups` (
 
 /*Data for the table `user_groups` */
 
-insert  into `user_groups`(`id`,`id_user`,`id_group`,`created_at`,`updated_at`,`deleted_at`,`created_by`,`updated_by`,`deleted`) values ('1cfb1e5f-7c6a-aa8d-bb1c-ec7fecb3740c','7b283bee-199e-7f08-b5e6-82d9f819d47b','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','2020-11-26 18:29:00','2020-11-26 18:29:00',NULL,NULL,NULL,0),('7d624b70-46be-a5f6-383f-ff0a464ac953','b645b141-0450-47da-cb5a-2335d4e64021','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca',NULL,NULL,NULL,NULL,NULL,0),('e4a17646-2729-e8d0-5973-dd61c7df54a7','12e3bd32-0129-64f5-cf54-208fdbba48a4','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca',NULL,NULL,NULL,NULL,NULL,0);
+insert  into `user_groups`(`id`,`id_user`,`id_group`,`created_at`,`updated_at`,`deleted_at`,`created_by`,`updated_by`,`deleted`) values ('1cc4e568-7714-c1bc-b4cd-ca4744d81928','4a7dc494-e3fa-2add-5bcb-a9fdc53ca7d0','ccc95e11-a95f-e106-a8e8-34fb8f5bdccf',NULL,NULL,NULL,NULL,NULL,0),('1cfb1e5f-7c6a-aa8d-bb1c-ec7fecb3740c','7b283bee-199e-7f08-b5e6-82d9f819d47b','1f20964c-c8e4-c8f6-bb00-2d092bf8bb5e','2020-11-26 18:29:00','2020-11-26 18:29:00',NULL,NULL,NULL,0),('7d624b70-46be-a5f6-383f-ff0a464ac953','b645b141-0450-47da-cb5a-2335d4e64021','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca',NULL,NULL,NULL,NULL,NULL,0),('e4a17646-2729-e8d0-5973-dd61c7df54a7','12e3bd32-0129-64f5-cf54-208fdbba48a4','0a065a3b-c9b3-951f-7fda-3bdc7a7944ca',NULL,NULL,NULL,NULL,NULL,0);
 
 /*Table structure for table `users` */
 
@@ -509,7 +573,7 @@ CREATE TABLE `users` (
   `password` varchar(255) CHARACTER SET utf8 NOT NULL,
   `email` varchar(100) CHARACTER SET utf8 NOT NULL,
   `last_login` datetime DEFAULT NULL,
-  `active` int(1) unsigned DEFAULT 1,
+  `active` int(1) unsigned DEFAULT '1',
   `name` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `phone` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
   `image` varchar(50) CHARACTER SET utf8 DEFAULT 'default.png',
@@ -519,7 +583,7 @@ CREATE TABLE `users` (
   `deleted_at` datetime DEFAULT NULL,
   `created_by` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `updated_by` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
-  `deleted` int(11) DEFAULT 0,
+  `deleted` int(11) DEFAULT '0',
   `session_id` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `last_session` datetime DEFAULT NULL,
   `token_password` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
@@ -530,7 +594,7 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`username`,`password`,`email`,`last_login`,`active`,`name`,`phone`,`image`,`language`,`created_at`,`updated_at`,`deleted_at`,`created_by`,`updated_by`,`deleted`,`session_id`,`last_session`,`token_password`,`token_password_expired`,`nip`) values ('12e3bd32-0129-64f5-cf54-208fdbba48a4','tarkiman','928fe970463574b152f07f98b72dddf8221ee312','tarkiman.zone@gmail.com',NULL,1,'Tarkiman',NULL,'tarkiman.jpg','english','2020-11-22 01:14:16','2020-11-26 17:01:55',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL),('4a7dc494-e3fa-2add-5bcb-a9fdc53ca7d0','auditee','b1b6302758ccf30b9feff189436c31937ada8325','suenahwati@gmail.com',NULL,1,'Auditee',NULL,'default.png','english','2020-11-26 17:12:47','2020-11-26 17:12:47',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL),('7b283bee-199e-7f08-b5e6-82d9f819d47b','auditor','fb2d634f1868a1353228c05cf0bd1273c612f10e','tarkiman_zone@yahoo.co.id',NULL,1,'Auditor',NULL,'default.png','english','2020-11-26 18:29:00','2020-11-26 18:29:00',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL),('b645b141-0450-47da-cb5a-2335d4e64021','admin','d033e22ae348aeb5660fc2140aec35850c4da997','tarkiman.zone@gmail.com',NULL,1,'Administrator',NULL,'0852-2224-1987.jpg','english','2020-11-21 19:57:45','2020-11-26 17:01:40',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL);
+insert  into `users`(`id`,`username`,`password`,`email`,`last_login`,`active`,`name`,`phone`,`image`,`language`,`created_at`,`updated_at`,`deleted_at`,`created_by`,`updated_by`,`deleted`,`session_id`,`last_session`,`token_password`,`token_password_expired`,`nip`) values ('12e3bd32-0129-64f5-cf54-208fdbba48a4','tarkiman','928fe970463574b152f07f98b72dddf8221ee312','tarkiman.zone@gmail.com',NULL,1,'Tarkiman',NULL,'tarkiman.jpg','english','2020-11-22 01:14:16','2020-11-26 17:01:55',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL),('4a7dc494-e3fa-2add-5bcb-a9fdc53ca7d0','auditee','b1b6302758ccf30b9feff189436c31937ada8325','suenahwati@gmail.com',NULL,1,'Auditee',NULL,'tarkiman.jpg','english','2020-11-26 17:12:47','2020-11-26 20:21:57',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL),('7b283bee-199e-7f08-b5e6-82d9f819d47b','auditor','fb2d634f1868a1353228c05cf0bd1273c612f10e','tarkiman_zone@yahoo.co.id',NULL,1,'Auditor',NULL,'admin.png','english','2020-11-26 18:29:00','2020-11-26 18:29:00',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL),('b645b141-0450-47da-cb5a-2335d4e64021','admin','d033e22ae348aeb5660fc2140aec35850c4da997','tarkiman.zone@gmail.com',NULL,1,'Administrator',NULL,'0852-2224-1987.jpg','english','2020-11-21 19:57:45','2020-11-26 17:01:40',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

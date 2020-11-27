@@ -132,10 +132,11 @@
                     <thead>
                         <tr>
                             <th style="width:10%; text-align:center;">No.</th>
-                            <th style="width:15%; text-align:center;">Tanggal</th>
-                            <th style="width:20%; text-align:center;">Nilai Rekomendasi</th>
-                            <th style="width:20%; text-align:center;">Nilai Sisa Rekomendasi</th>
-                            <th style="width:20%; text-align:center;">Nilai Akhir Rekomendasi</th>
+                            <th style="width:10%; text-align:center;">Tanggal</th>
+                            <th style="width:10%; text-align:center;">Nilai Rekomendasi</th>
+                            <th style="width:10%; text-align:center;">Nilai Sisa Rekomendasi</th>
+                            <th style="width:10%; text-align:center;">Nilai Tindal Lanjut</th>
+                            <th style="width:20%; text-align:center;">Remark Auditee</th>
                             <th style="width:15%; text-align:center;">Action</th>
                         </tr>
                     </thead>
@@ -148,6 +149,7 @@
                                 <td style="text-align:right;"><?= format_number($r->nilai_rekomendasi, true); ?></td>
                                 <td style="text-align:right;"><?= format_number($r->nilai_sisa_rekomendasi, true); ?></td>
                                 <td style="text-align:right;"><?= format_number($r->nilai_akhir_rekomendasi, true); ?></td>
+                                <td style="text-align:left;"><?= $r->remark_auditee; ?></td>
                                 <td style="text-align:center;">
                                     <a href="<?= base_url('laporanauditee/edittindaklanjut/' . $r->id); ?>" class="btn btn-default">Edit</a>
                                     <a href="<?= base_url('laporanauditee/bukti/' . $r->id); ?>" class="btn btn-success">Bukti</a>
