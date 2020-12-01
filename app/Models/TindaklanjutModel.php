@@ -20,8 +20,9 @@ class TindaklanjutModel extends Model
     protected $allowedFields = [
         'id',
         'nilai_rekomendasi',
+        'nilai_tindak_lanjut',
+        'nilai_terverifikasi',
         'nilai_sisa_rekomendasi',
-        'nilai_akhir_rekomendasi',
         'id_rekomendasi',
         'remark_auditor',
         'remark_auditee',
@@ -43,8 +44,9 @@ class TindaklanjutModel extends Model
         $this->select('
         id,
         nilai_rekomendasi,
+        nilai_tindak_lanjut,
+        nilai_terverifikasi,
         nilai_sisa_rekomendasi,
-        nilai_akhir_rekomendasi,
         id_rekomendasi,
         remark_auditor,
         remark_auditee,
@@ -64,8 +66,9 @@ class TindaklanjutModel extends Model
         $this->select('
         id,
         nilai_rekomendasi,
+        nilai_tindak_lanjut,
+        nilai_terverifikasi,
         nilai_sisa_rekomendasi,
-        nilai_akhir_rekomendasi,
         id_rekomendasi,
         remark_auditor,
         remark_auditee,

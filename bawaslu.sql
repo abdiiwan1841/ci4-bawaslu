@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v9.63 
-MySQL - 5.6.45 : Database - humasjay_demo
+MySQL - 5.5.5-10.4.10-MariaDB : Database - bawaslu
 *********************************************************************
 */
 
@@ -172,7 +172,7 @@ CREATE TABLE `group_permissions` (
   `deleted_at` datetime DEFAULT NULL,
   `created_by` varchar(50) DEFAULT NULL,
   `updated_by` varchar(50) DEFAULT NULL,
-  `deleted` int(11) DEFAULT '0',
+  `deleted` int(11) DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `id_group` (`id_group`),
   KEY `id_page` (`id_permission`)
@@ -191,13 +191,13 @@ CREATE TABLE `groups` (
   `name` varchar(100) DEFAULT NULL,
   `description` varchar(255) NOT NULL,
   `landing_page` varchar(100) NOT NULL,
-  `active` int(1) unsigned DEFAULT '1',
+  `active` int(1) unsigned DEFAULT 1,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
   `created_by` varchar(50) DEFAULT NULL,
   `updated_by` varchar(50) DEFAULT NULL,
-  `deleted` int(11) DEFAULT '0',
+  `deleted` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -302,7 +302,7 @@ DROP TABLE IF EXISTS `kelurahan`;
 CREATE TABLE `kelurahan` (
   `id_kel` char(10) NOT NULL,
   `id_kec` char(6) DEFAULT NULL,
-  `nama` tinytext,
+  `nama` tinytext DEFAULT NULL,
   `id_jenis` int(11) NOT NULL,
   PRIMARY KEY (`id_kel`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -391,13 +391,13 @@ CREATE TABLE `permissions` (
   `id` varchar(50) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
   `uri` varchar(255) NOT NULL,
-  `active` int(1) unsigned DEFAULT '1',
+  `active` int(1) unsigned DEFAULT 1,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
   `created_by` varchar(50) DEFAULT NULL,
   `updated_by` varchar(50) DEFAULT NULL,
-  `deleted` int(11) DEFAULT '0',
+  `deleted` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -427,12 +427,12 @@ CREATE TABLE `rekomendasi` (
   `id` varchar(50) NOT NULL,
   `no_rekomendasi` varchar(50) DEFAULT NULL,
   `id_jenis_rekomendasi` varchar(50) DEFAULT NULL,
-  `memo_rekomendasi` text,
+  `memo_rekomendasi` text DEFAULT NULL,
   `nilai_rekomendasi` int(11) DEFAULT NULL,
   `nama_penanggung_jawab` varchar(100) DEFAULT NULL,
   `id_sebab` varchar(50) DEFAULT NULL,
   `status` varchar(20) DEFAULT 'BELUM_TL',
-  `alasan_tidak_di_tl` text,
+  `alasan_tidak_di_tl` text DEFAULT NULL,
   `lampiran_tidak_di_tl` varchar(100) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -478,7 +478,7 @@ DROP TABLE IF EXISTS `sebab`;
 CREATE TABLE `sebab` (
   `id` varchar(50) NOT NULL,
   `no_sebab` varchar(50) DEFAULT NULL,
-  `memo_sebab` text,
+  `memo_sebab` text DEFAULT NULL,
   `id_temuan` varchar(50) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -498,7 +498,7 @@ DROP TABLE IF EXISTS `temuan`;
 CREATE TABLE `temuan` (
   `id` varchar(50) NOT NULL,
   `no_temuan` varchar(50) DEFAULT NULL,
-  `memo_temuan` text,
+  `memo_temuan` text DEFAULT NULL,
   `id_jenis_temuan1` varchar(50) DEFAULT NULL,
   `id_jenis_temuan2` varchar(50) DEFAULT NULL,
   `id_jenis_temuan3` varchar(50) DEFAULT NULL,
@@ -522,13 +522,14 @@ DROP TABLE IF EXISTS `tindak_lanjut`;
 CREATE TABLE `tindak_lanjut` (
   `id` varchar(50) NOT NULL,
   `nilai_rekomendasi` int(11) DEFAULT NULL,
+  `nilai_tindak_lanjut` int(11) DEFAULT NULL,
+  `nilai_terverifikasi` int(11) DEFAULT NULL,
   `nilai_sisa_rekomendasi` int(11) DEFAULT NULL,
-  `nilai_akhir_rekomendasi` int(11) DEFAULT NULL,
   `id_rekomendasi` varchar(50) DEFAULT NULL,
-  `remark_auditor` text,
-  `remark_auditee` text,
+  `remark_auditor` text DEFAULT NULL,
+  `remark_auditee` text DEFAULT NULL,
   `status` varchar(20) DEFAULT NULL,
-  `read_status` int(11) DEFAULT '0',
+  `read_status` int(11) DEFAULT 0,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
@@ -538,7 +539,7 @@ CREATE TABLE `tindak_lanjut` (
 
 /*Data for the table `tindak_lanjut` */
 
-insert  into `tindak_lanjut`(`id`,`nilai_rekomendasi`,`nilai_sisa_rekomendasi`,`nilai_akhir_rekomendasi`,`id_rekomendasi`,`remark_auditor`,`remark_auditee`,`status`,`read_status`,`created_at`,`updated_at`,`deleted_at`) values ('2379d016-0b9d-9a79-8a64-91e9883cf4a3',1000000,50000,50000,'7587c6d5-cb50-5b6e-8b53-e75555e5ba09',NULL,'test lunasin',NULL,0,'2020-11-26 22:59:53','2020-11-26 22:59:53',NULL),('26941d53-f444-ec62-999a-6ab884bb8c84',1000000,100000,4500000,'50bf94b5-6365-81de-8a29-1d21b213a89b',NULL,NULL,NULL,0,'2020-11-21 14:00:24','2020-11-21 16:07:44',NULL),('9452ae23-4cfa-3486-5ae2-5ce2b732fab1',5000000,500000,4500000,'f23e6174-d39e-664d-0edc-d75765de7ff4',NULL,NULL,'TERIMA',0,'2020-11-15 02:56:25','2020-11-23 23:15:41',NULL),('b3ae986e-1274-3710-0174-d0474724a1f5',1000000,100000,900000,'7587c6d5-cb50-5b6e-8b53-e75555e5ba09',NULL,'maaf kurang','TERIMA',0,'2020-11-26 22:11:26','2020-11-26 22:18:07',NULL),('ba8cf286-5b7f-b6e7-d49c-375ddc33c6ec',5000000,100000,900000,'50bf94b5-6365-81de-8a29-1d21b213a89b',NULL,NULL,NULL,0,'2020-11-21 14:00:03','2020-11-21 15:09:42',NULL),('dd776c50-0627-4b74-cfa1-ba9d4febc54e',5000000,1000000,4500000,'046f7540-da92-d56c-c650-0b9edd8b7833',NULL,NULL,NULL,0,'2020-11-21 17:49:47','2020-11-21 17:49:47',NULL),('eaa23d84-311b-9f67-4af6-781f324961fb',1000000,100000,900000,'f23e6174-d39e-664d-0edc-d75765de7ff4',NULL,NULL,'TOLAK',0,'2020-11-15 02:54:34','2020-11-26 22:07:49',NULL),('faefa96f-f214-b758-aca9-23c35e50fc06',5000000,500000,4500000,'8e7c40e8-a221-6f04-3906-a01bc07f3608',NULL,'test remark auditee',NULL,0,'2020-11-26 20:48:16','2020-11-26 20:48:16',NULL);
+insert  into `tindak_lanjut`(`id`,`nilai_rekomendasi`,`nilai_tindak_lanjut`,`nilai_terverifikasi`,`nilai_sisa_rekomendasi`,`id_rekomendasi`,`remark_auditor`,`remark_auditee`,`status`,`read_status`,`created_at`,`updated_at`,`deleted_at`) values ('24fe6818-e138-5f61-cc34-01ec24c7e9cf',1000000,900000,NULL,100000,'f23e6174-d39e-664d-0edc-d75765de7ff4',NULL,'Test TL 1',NULL,0,'2020-12-01 19:23:46','2020-12-01 19:23:46',NULL),('e1e63425-31bb-65d4-3498-002310c4fa00',1000000,50000,NULL,950000,'f23e6174-d39e-664d-0edc-d75765de7ff4',NULL,'Test TL 2',NULL,0,'2020-12-01 19:24:21','2020-12-01 19:24:21',NULL);
 
 /*Table structure for table `user_groups` */
 
@@ -553,7 +554,7 @@ CREATE TABLE `user_groups` (
   `deleted_at` datetime DEFAULT NULL,
   `created_by` varchar(50) DEFAULT NULL,
   `updated_by` varchar(50) DEFAULT NULL,
-  `deleted` int(11) DEFAULT '0',
+  `deleted` int(11) DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   KEY `id_group` (`id_group`)
@@ -573,7 +574,7 @@ CREATE TABLE `users` (
   `password` varchar(255) CHARACTER SET utf8 NOT NULL,
   `email` varchar(100) CHARACTER SET utf8 NOT NULL,
   `last_login` datetime DEFAULT NULL,
-  `active` int(1) unsigned DEFAULT '1',
+  `active` int(1) unsigned DEFAULT 1,
   `name` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `phone` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
   `image` varchar(50) CHARACTER SET utf8 DEFAULT 'default.png',
@@ -583,7 +584,7 @@ CREATE TABLE `users` (
   `deleted_at` datetime DEFAULT NULL,
   `created_by` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `updated_by` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
-  `deleted` int(11) DEFAULT '0',
+  `deleted` int(11) DEFAULT 0,
   `session_id` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `last_session` datetime DEFAULT NULL,
   `token_password` varchar(100) CHARACTER SET utf8 DEFAULT NULL,

@@ -248,7 +248,8 @@ class LaporanAuditeeModel extends Model
                     a.`id`,
                     a.`nilai_rekomendasi`,
                     a.`nilai_sisa_rekomendasi`,
-                    a.`nilai_akhir_rekomendasi`,
+                    a.`nilai_tindak_lanjut`,
+                    a.`nilai_terverifikasi`,
                     a.`remark_auditee`,
                     a.`id_rekomendasi`,
                     a.`created_at`,
@@ -339,6 +340,24 @@ class LaporanAuditeeModel extends Model
                 return $data;
             }
             return array();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getTotalNilaiTerverifikasi($idRekomendasi)
+    {
+        try {
+            $sql = "SELECT 
+            IFNULL(SUM(nilai_terverifikasi),0) AS total
+            FROM tindak_lanjut 
+            WHERE id_rekomendasi=?";
+            $query = $this->query($sql, [$idRekomendasi]);
+            $data = $query->getRow();
+            if (isset($data)) {
+                return $data->total;
+            }
+            return 0;
         } catch (\Exception $e) {
             return $e->getMessage();
         }

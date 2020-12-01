@@ -156,6 +156,7 @@ class Laporanauditee extends BaseController
             'title' => 'Buat Tindak Lanjut Baru',
             'active' => 'Laporan Auditee',
             'id_rekomendasi' => $idRekomendasi,
+            'total_terverifikasi' => $this->laporanAuditeeModel->getTotalNilaiTerverifikasi($idRekomendasi),
             'data' => $this->rekomendasiModel->getDataById($idRekomendasi),
             'validation' => \Config\Services::validation()
         ];
@@ -167,6 +168,8 @@ class Laporanauditee extends BaseController
 
     public function savetindaklanjut()
     {
+
+        // dd($_POST);
         $idRekomendasi = $this->request->getVar('id_rekomendasi');
         if (!$this->validate([
             'nilai_rekomendasi' => [
@@ -176,7 +179,13 @@ class Laporanauditee extends BaseController
                     // 'is_unique' => '{field} sudah terdaftar'
                 ]
             ],
-            'nilai_akhir_rekomendasi' => [
+            'total_nilai_terverifikasi' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'nilai_tindak_lanjut' => [
                 'rules' => 'required',
                 'errors' => [
                     // 'required' => '{field} harus diisi.'
@@ -200,8 +209,9 @@ class Laporanauditee extends BaseController
             $this->tindaklanjutModel->insert([
                 'id' => get_uuid(),
                 'nilai_rekomendasi' => $this->request->getVar('nilai_rekomendasi'),
+                'total_nilai_terverifikasi' => $this->request->getVar('total_nilai_terverifikasi'),
+                'nilai_tindak_lanjut' => $this->request->getVar('nilai_tindak_lanjut'),
                 'nilai_sisa_rekomendasi' => $this->request->getVar('nilai_sisa_rekomendasi'),
-                'nilai_akhir_rekomendasi' => $this->request->getVar('nilai_akhir_rekomendasi'),
                 'remark_auditee' => $this->request->getVar('remark_auditee'),
                 'id_rekomendasi' => $this->request->getVar('id_rekomendasi')
             ]);
