@@ -112,16 +112,16 @@ class LaporanAuditeeModel extends Model
         $result = [];
         try {
             $sql = "SELECT
-                    a.`id`,
-                    a.`no_temuan`,
-                    a.`memo_temuan`,
-                    a.`id_jenis_temuan3`,
-                    a.`nilai_temuan`,
-                    a.`id_laporan`,
-                    a.`created_at`,
-                    a.`updated_at`,
-                    a.`deleted_at`
-                    FROM `temuan` a 
+                    a.id,
+                    a.no_temuan,
+                    a.memo_temuan,
+                    a.id_jenis_temuan3,
+                    a.nilai_temuan,
+                    a.id_laporan,
+                    a.created_at,
+                    a.updated_at,
+                    a.deleted_at
+                    FROM temuan a 
                     WHERE a.id_laporan=?
                     ORDER BY a.no_temuan ASC";
             $query = $this->query($sql, [$idLaporan]);
@@ -143,16 +143,16 @@ class LaporanAuditeeModel extends Model
     {
         try {
             $sql = "SELECT
-                    a.`id`,
-                    a.`no_rekomendasi`,
-                    a.`memo_rekomendasi`,
-                    a.`nilai_rekomendasi`,
-                    a.`nama_penanggung_jawab`,
-                    a.`id_sebab`,
-                    a.`created_at`,
-                    a.`updated_at`,
-                    a.`deleted_at`
-                    FROM `rekomendasi` a
+                    a.id,
+                    a.no_rekomendasi,
+                    a.memo_rekomendasi,
+                    a.nilai_rekomendasi,
+                    a.nama_penanggung_jawab,
+                    a.id_sebab,
+                    a.created_at,
+                    a.updated_at,
+                    a.deleted_at
+                    FROM rekomendasi a
                     WHERE a.id_sebab=?
                     ORDER BY a.no_rekomendasi ASC";
             $query = $this->query($sql, [$idSebab]);
@@ -171,14 +171,14 @@ class LaporanAuditeeModel extends Model
         $result = [];
         try {
             $sql = "SELECT
-                    a.`id`,
-                    a.`no_sebab`,
-                    a.`memo_sebab`,
-                    a.`id_temuan`,
-                    a.`created_at`,
-                    a.`updated_at`,
-                    a.`deleted_at`
-                    FROM `sebab` a
+                    a.id,
+                    a.no_sebab,
+                    a.memo_sebab,
+                    a.id_temuan,
+                    a.created_at,
+                    a.updated_at,
+                    a.deleted_at
+                    FROM sebab a
                     WHERE a.id_temuan=?
                     ORDER BY a.no_sebab ASC";
             $query = $this->query($sql, [$idTemuan]);
@@ -200,31 +200,31 @@ class LaporanAuditeeModel extends Model
     {
         try {
             $sql = "SELECT
-                    a.`id`,
-                    a.`no_rekomendasi`,
+                    a.id,
+                    a.no_rekomendasi,
                     e.deskripsi AS jenis_rekomendasi,
-                    a.`memo_rekomendasi`,
-                    a.`nama_penanggung_jawab`,
-                    a.`nilai_rekomendasi`,
+                    a.memo_rekomendasi,
+                    a.nama_penanggung_jawab,
+                    a.nilai_rekomendasi,
                     b.id AS id_sebab,
                     b.no_sebab,
                     b.memo_sebab,
-                    c.`no_temuan`,
+                    c.no_temuan,
                     f.deskripsi AS jenis_temuan,
-                    c.`memo_temuan`,
-                    c.`id_jenis_temuan3`,
-                    c.`nilai_temuan`,
+                    c.memo_temuan,
+                    c.id_jenis_temuan3,
+                    c.nilai_temuan,
                     d.id AS id_laporan,
-                    d.`no_laporan`,
-                    d.`nama_laporan`,
-                    d.`nilai_anggaran`,
-                    d.`audit_anggaran`,
-                    d.`tanggal_laporan`,
-                    d.`tahun_anggaran`
+                    d.no_laporan,
+                    d.nama_laporan,
+                    d.nilai_anggaran,
+                    d.audit_anggaran,
+                    d.tanggal_laporan,
+                    d.tahun_anggaran
                     FROM rekomendasi a
-                    JOIN sebab b ON b.`id`=a.`id_sebab` 
-                    JOIN temuan c ON c.`id`=b.`id_temuan` 
-                    JOIN laporan d ON d.`id`=c.`id_laporan`
+                    JOIN sebab b ON b.id=a.id_sebab 
+                    JOIN temuan c ON c.id=b.id_temuan 
+                    JOIN laporan d ON d.id=c.id_laporan
                     LEFT JOIN jenis_rekomendasi e ON e.id=a.id_jenis_rekomendasi
                     LEFT JOIN jenis_temuan f ON f.id=c.id_jenis_temuan3
                     WHERE a.id=?
@@ -245,17 +245,19 @@ class LaporanAuditeeModel extends Model
     {
         try {
             $sql = "SELECT
-                    a.`id`,
-                    a.`nilai_rekomendasi`,
-                    a.`nilai_sisa_rekomendasi`,
-                    a.`nilai_tindak_lanjut`,
-                    a.`nilai_terverifikasi`,
-                    a.`remark_auditee`,
-                    a.`id_rekomendasi`,
-                    a.`created_at`,
-                    a.`updated_at`,
-                    a.`deleted_at`
-                    FROM `tindak_lanjut` a
+                    a.id,
+                    a.no_tindak_lanjut,
+                    a.nilai_rekomendasi,
+                    a.nilai_sisa_rekomendasi,
+                    a.nilai_tindak_lanjut,
+                    a.nilai_terverifikasi,
+                    a.remark_auditee,
+                    a.remark_auditor,
+                    a.id_rekomendasi,
+                    a.created_at,
+                    a.updated_at,
+                    a.deleted_at
+                    FROM tindak_lanjut a
                     WHERE a.id_rekomendasi=?
                     ORDER BY a.created_at DESC";
             $query = $this->query($sql, [$idRekomendasi]);
@@ -274,34 +276,36 @@ class LaporanAuditeeModel extends Model
         try {
             $sql = "SELECT
                     a.id,
-                    a.`nilai_rekomendasi`,
-                    a.`nilai_akhir_rekomendasi`,
-                    a.`nilai_sisa_rekomendasi`,
+                    a.no_tindak_lanjut,
+                    a.nilai_tindak_lanjut,
+                    a.nilai_terverifikasi,
+                    a.remark_auditee,
+                    a.remark_auditor,
                     b.id AS id_rekomendasi,
-                    b.`no_rekomendasi`,
+                    b.no_rekomendasi,
                     f.deskripsi AS jenis_rekomendasi,
-                    b.`memo_rekomendasi`,
-                    b.`nama_penanggung_jawab`,
-                    b.`nilai_rekomendasi`,
+                    b.memo_rekomendasi,
+                    b.nama_penanggung_jawab,
+                    b.nilai_rekomendasi,
                     c.id AS id_sebab,
                     c.no_sebab,
                     c.memo_sebab,
-                    d.`no_temuan`,
-                    d.`memo_temuan`,
-                    d.`id_jenis_temuan3`,
+                    d.no_temuan,
+                    d.memo_temuan,
+                    d.id_jenis_temuan3,
                     g.deskripsi AS jenis_temuan,
-                    d.`nilai_temuan`,
-                    e.`no_laporan`,
-                    e.`nama_laporan`,
-                    e.`nilai_anggaran`,
-                    e.`audit_anggaran`,
-                    e.`tanggal_laporan`,
-                    e.`tahun_anggaran`
+                    d.nilai_temuan,
+                    e.no_laporan,
+                    e.nama_laporan,
+                    e.nilai_anggaran,
+                    e.audit_anggaran,
+                    e.tanggal_laporan,
+                    e.tahun_anggaran
                     FROM tindak_lanjut a
                     JOIN rekomendasi b ON b.id=a.id_rekomendasi
-                    JOIN sebab c ON c.`id`=b.`id_sebab` 
-                    JOIN temuan d ON d.`id`=c.`id_temuan` 
-                    JOIN laporan e ON e.`id`=d.`id_laporan`
+                    JOIN sebab c ON c.id=b.id_sebab 
+                    JOIN temuan d ON d.id=c.id_temuan 
+                    JOIN laporan e ON e.id=d.id_laporan
                     LEFT JOIN jenis_rekomendasi f ON f.id=b.id_jenis_rekomendasi
                     LEFT JOIN jenis_temuan g ON g.id=d.id_jenis_temuan3
                     WHERE a.id=?
@@ -322,16 +326,16 @@ class LaporanAuditeeModel extends Model
     {
         try {
             $sql = "SELECT
-                    a.`id`,
-                    a.`no_bukti`,
-                    a.`nama_bukti`,
-                    a.`nilai_bukti`,
-                    a.`id_tindak_lanjut`,
-                    a.`lampiran`,
-                    a.`created_at`,
-                    a.`updated_at`,
-                    a.`deleted_at`
-                    FROM `bukti` a
+                    a.id,
+                    a.no_bukti,
+                    a.nama_bukti,
+                    a.nilai_bukti,
+                    a.id_tindak_lanjut,
+                    a.lampiran,
+                    a.created_at,
+                    a.updated_at,
+                    a.deleted_at
+                    FROM bukti a
                     WHERE a.id_tindak_lanjut=?
                     ORDER BY a.created_at DESC";
             $query = $this->query($sql, [$idTindakLanjut]);
@@ -358,6 +362,44 @@ class LaporanAuditeeModel extends Model
                 return $data->total;
             }
             return 0;
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function counter($idRekomendasi)
+    {
+        try {
+            $sql = "SELECT
+            CONCAT(b.no_rekomendasi,'.',COUNT(a.id)+1) AS counter
+            FROM tindak_lanjut a 
+            JOIN rekomendasi b ON b.id=a.id_rekomendasi
+            WHERE a.id_rekomendasi=?";
+            $query = $this->query($sql, [$idRekomendasi]);
+            $data = $query->getRow();
+            if (isset($data)) {
+                return $data->counter;
+            }
+            return '';
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function counterBukti($idTindakLanjut)
+    {
+        try {
+            $sql = "SELECT
+            CONCAT(b.no_tindak_lanjut,'.',COUNT(a.id)+1) AS counter
+            FROM bukti a 
+            JOIN tindak_lanjut b ON b.id=a.id_tindak_lanjut
+            WHERE a.id_tindak_lanjut=?";
+            $query = $this->query($sql, [$idTindakLanjut]);
+            $data = $query->getRow();
+            if (isset($data)) {
+                return $data->counter;
+            }
+            return '';
         } catch (\Exception $e) {
             return $e->getMessage();
         }

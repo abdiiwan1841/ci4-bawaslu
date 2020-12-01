@@ -33,7 +33,7 @@
                             <form action="<?= base_url('rekomendasi/update/' . $data->id); ?>" method="POST" enctype="multipart/form-data" class="form-horizontal no-margin">
 
                                 <?= csrf_field(); ?>
-                                <?= input_text($field_name = 'no_rekomendasi', $label = 'No. Rekomendasi', $value = $data->no_rekomendasi, $required = true, $readonly = false, $disabled = false); ?>
+                                <?= input_text($field_name = 'no_rekomendasi', $label = 'No. Rekomendasi', $value = $data->no_rekomendasi, $required = true, $readonly = true, $disabled = false); ?>
                                 <?= input_select($field_name = 'id_jenis_rekomendasi', $label = 'Jenis Rekomendasi', $jenis_rekomendasi_options, $selected = $data->id_jenis_rekomendasi, $required = true, $disabled = ''); ?>
                                 <?= input_textarea($field_name = 'memo_rekomendasi', $label = 'Memo Rekomendasi', $value = $data->memo_rekomendasi, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_number($field_name = 'nilai_rekomendasi', $label = 'Nilai Rekomendasi', $value = $data->nilai_rekomendasi, $required = true, $readonly = false, $disabled = false); ?>

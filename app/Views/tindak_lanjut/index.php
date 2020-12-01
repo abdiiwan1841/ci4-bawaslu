@@ -42,10 +42,9 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Nilai Rekomendasi</th>
+                                    <th>Tanggal Dibuat</th>
                                     <th>Nilai Tindak Lanjut</th>
                                     <th>Nilai Verifikasi Auditor</th>
-                                    <th>Nilai Sisa Rekomendasi</th>
                                     <th>Remark Auditor</th>
                                     <th>Remark Auditee</th>
                                     <th>Action</th>
@@ -55,16 +54,28 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th colspan="2">Total</th>
-                                    <th style="text-align:right">1000.000</th>
-                                    <th style="text-align:right">950.000</th>
-                                    <th colspan="4"></th>
+                                    <th colspan="2" style="text-align:right;">Total</th>
+                                    <th style="text-align:right;"><?= format_number($summary->total_nilai_tindak_lanjut, true); ?></th>
+                                    <th style="text-align:right;"><?= format_number($summary->total_nilai_terverifikasi, true); ?></th>
+                                    <th colspan="3">&nbsp;</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2" style="text-align:right;">Nilai Rekomendasi</th>
+                                    <th style="text-align:right;">&nbsp;</th>
+                                    <th style="text-align:right;"><?= format_number($summary->nilai_rekomendasi, true); ?></th>
+                                    <th colspan="3">&nbsp;</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2" style="text-align:right;">Sisa Nilai Rekomendasi</th>
+                                    <th style="text-align:right;">&nbsp;</th>
+                                    <th style="text-align:right;"><?= format_number($summary->sisa_nilai_rekomendasi, true); ?></th>
+                                    <th colspan="3">&nbsp;</th>
                                 </tr>
                             </tfoot>
                             <tbody>
                         </table>
                         <div class="form-actions no-margin">
-                            <?php if ($show_button_sesuai) : ?>
+                            <?php if ($summary->sisa_nilai_rekomendasi == 0) : ?>
                                 <a href="<?= base_url('rekomendasi/updateStatusRekomendasiSesuai/' . session()->get('id_rekomendasi')); ?>" onclick="return confirm('Yakin TL sudah sesuai rekomendasi ini ?');" class="btn btn-success">TL Sudah Sesuai Rekomendasi</a>
                             <?php endif; ?>
 
@@ -127,9 +138,9 @@
                 var length = info.length;
                 var index = (page * length + (iDisplayIndex + 1));
                 $('td:first', nRow).html(index);
-                $('th').css("text-align", "center");
+                $('tr:eq(0) th').css("text-align", "center");
                 $('td:eq(0)', nRow).css("text-align", "center");
-                $('td:eq(1)', nRow).css("text-align", "right");
+                $('td:eq(1)', nRow).css("text-align", "left");
                 $('td:eq(2)', nRow).css("text-align", "right");
                 $('td:eq(3)', nRow).css("text-align", "right");
                 $('td:eq(4)', nRow).css("text-align", "center");

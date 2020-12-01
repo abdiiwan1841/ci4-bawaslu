@@ -22,6 +22,7 @@
                         <form action="<?= base_url('laporanauditee/savetindaklanjut'); ?>" method="POST" enctype="multipart/form-data" class="form-horizontal no-margin">
 
                             <?= csrf_field(); ?>
+                            <?= input_text($field_name = 'no_tindak_lanjut', $label = 'No Tindak Lanjut', $value = $no_tindak_lanjut, $required = true, $readonly = true, $disabled = false); ?>
                             <?= input_number($field_name = 'nilai_rekomendasi', $label = 'Nilai Rekomendasi', $value = $data->nilai_rekomendasi, $required = true, $readonly = true, $disabled = false); ?>
                             <?= input_number($field_name = 'total_nilai_terverifikasi', $label = 'Total Nilai Terverifikasi', $value = $total_terverifikasi, $required = true, $readonly = true, $disabled = false); ?>
                             <?= input_number($field_name = 'nilai_tindak_lanjut', $label = 'Nilai Tindak Lanjut', $value = '', $required = true, $readonly = false, $disabled = false); ?>

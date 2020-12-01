@@ -186,6 +186,7 @@ class Laporan extends BaseController
         $data = [
             'title' => 'Buat Laporan Baru',
             'active' => 'Laporan',
+            'no_laporan' => $this->laporanModel->counter(),
             'validation' => \Config\Services::validation()
         ];
         return view('laporan/create', $data);
@@ -193,6 +194,8 @@ class Laporan extends BaseController
 
     public function save()
     {
+
+        $_POST['no_laporan'] = $this->laporanModel->counter();
 
         if (!$this->validate([
             'no_laporan' => [
@@ -203,6 +206,79 @@ class Laporan extends BaseController
                 ]
             ],
             'tanggal_laporan' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'nama_laporan' => [
+                'rules' => 'required',
+                'label' => 'Nama Laporan',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'no_surat_tugas' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'tanggal_surat_tugas' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'unit_pelaksana' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'nip_pimpinan' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'pimpinan_satuan_kerja' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'nama_satuan_kerja' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'tahun_anggaran' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'nilai_anggaran' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'realisasi_anggaran' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'audit_anggaran' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'jenis_anggaran' => [
                 'rules' => 'required',
                 'errors' => [
                     // 'required' => '{field} harus diisi.'
@@ -280,11 +356,84 @@ class Laporan extends BaseController
                 'errors' => [
                     // 'required' => '{field} harus diisi.'
                 ]
+            ],
+            'nama_laporan' => [
+                'rules' => 'required',
+                'label' => 'Nama Laporan',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'no_surat_tugas' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'tanggal_surat_tugas' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'unit_pelaksana' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'nip_pimpinan' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'pimpinan_satuan_kerja' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'nama_satuan_kerja' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'tahun_anggaran' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'nilai_anggaran' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'realisasi_anggaran' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'audit_anggaran' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'jenis_anggaran' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
             ]
         ];
 
         if (!$this->validate($validation)) {
-            return redirect()->to('/temuan/edit/' . $id)->withInput()->with('messages', 'Validation Error');
+            return redirect()->to('/laporan/edit/' . $id)->withInput()->with('messages', 'Validation Error');
         } else {
 
             try {
@@ -294,7 +443,7 @@ class Laporan extends BaseController
 
                 $data = [
                     'id' => $id,
-                    'no_laporan' => $this->request->getVar('no_laporan'),
+                    // 'no_laporan' => $this->request->getVar('no_laporan'),
                     'tanggal_laporan' => $this->request->getVar('tanggal_laporan'),
                     'nama_laporan' => $this->request->getVar('nama_laporan'),
                     'no_surat_tugas' => $this->request->getVar('no_surat_tugas'),

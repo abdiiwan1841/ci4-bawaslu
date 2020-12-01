@@ -114,6 +114,7 @@ class Temuan extends BaseController
             'title' => 'Buat Temuan Baru',
             'active' => 'temuan',
             'id_laporan' => $idLaporan,
+            'no_temuan' => $this->temuanModel->counter($idLaporan),
             'jenis_temuan_options' => $jenis_temuan_options,
             'validation' => \Config\Services::validation()
         ];
@@ -123,6 +124,9 @@ class Temuan extends BaseController
     public function save()
     {
         $idLaporan = $this->request->getVar('id_laporan');
+
+        $_POST['no_temuan'] = $this->temuanModel->counter($idLaporan);
+
         if (!$this->validate([
             'no_temuan' => [
                 'rules' => 'required|is_unique[temuan.no_temuan]',
@@ -233,7 +237,7 @@ class Temuan extends BaseController
 
                 $data = [
                     'id' => $id,
-                    'no_temuan' => $this->request->getVar('no_temuan'),
+                    // 'no_temuan' => $this->request->getVar('no_temuan'),
                     'memo_temuan' => $this->request->getVar('memo_temuan'),
                     'id_jenis_temuan1' => $this->request->getVar('id_jenis_temuan1'),
                     'id_jenis_temuan2' => $this->request->getVar('id_jenis_temuan2'),

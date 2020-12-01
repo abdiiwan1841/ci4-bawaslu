@@ -128,19 +128,29 @@
                                     <blockquote class="message">
                                         <table>
                                             <tr>
-                                                <td>Nilai Rekomendasi</td>
+                                                <td>No. Tindak Lanjut</td>
                                                 <td>:</td>
-                                                <td style="text-align:right;"><?= format_number($data->nilai_rekomendasi, true); ?></td>
+                                                <td style="text-align:left;"><?= $data->no_tindak_lanjut; ?></td>
                                             </tr>
                                             <tr>
-                                                <td>Nilai Sisa Rekomendasi</td>
+                                                <td>Nilai Tindak Lanjut</td>
                                                 <td>:</td>
-                                                <td style="text-align:right;"><?= format_number($data->nilai_sisa_rekomendasi, true); ?></td>
+                                                <td style="text-align:right;"><?= format_number($data->nilai_tindak_lanjut, true); ?></td>
                                             </tr>
                                             <tr>
-                                                <td>Nilai Akhir Rekomendasi</td>
+                                                <td>Nilai Terverifikasi</td>
                                                 <td>:</td>
-                                                <td style="text-align:right;"><?= format_number($data->nilai_akhir_rekomendasi, true); ?></td>
+                                                <td style="text-align:right;"><?= format_number($data->nilai_terverifikasi, true); ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Remark Auditee</td>
+                                                <td>:</td>
+                                                <td style="text-align:right;"><?= $data->remark_auditee; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Remark Auditor</td>
+                                                <td>:</td>
+                                                <td style="text-align:right;"><?= $data->remark_auditor; ?></td>
                                             </tr>
                                         </table>
                                     </blockquote>

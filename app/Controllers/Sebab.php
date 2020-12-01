@@ -90,6 +90,7 @@ class Sebab extends BaseController
             'title' => 'Buat Sebab Baru',
             'active' => 'sebab',
             'id_temuan' => $idTemuan,
+            'no_sebab' => $this->sebabModel->counter($idTemuan),
             'validation' => \Config\Services::validation()
         ];
         return view('sebab/create', $data);
@@ -98,6 +99,9 @@ class Sebab extends BaseController
     public function save()
     {
         $idTemuan = $this->request->getVar('id_temuan');
+
+        $_POST['no_sebab'] = $this->sebabModel->counter($idTemuan);
+
         if (!$this->validate([
             'no_sebab' => [
                 'rules' => 'required|is_unique[sebab.no_sebab]',
@@ -184,7 +188,7 @@ class Sebab extends BaseController
 
                 $data = [
                     'id' => $id,
-                    'no_sebab' => $this->request->getVar('no_sebab'),
+                    // 'no_sebab' => $this->request->getVar('no_sebab'),
                     'memo_sebab' => $this->request->getVar('memo_sebab'),
                     'id_temuan' => $this->request->getVar('id_temuan')
                 ];

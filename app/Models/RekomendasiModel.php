@@ -103,4 +103,47 @@ class RekomendasiModel extends Model
             return $e->getMessage();
         }
     }
+
+    public function isStatusBelumTL($id)
+    {
+        try {
+            $sql = "SELECT
+                    a.status
+                    FROM rekomendasi a 
+                    WHERE a.deleted_at IS NULL
+                    AND a.id=?";
+            $query = $this->query($sql, [$id]);
+            $data = $query->getRow();
+            if (isset($data)) {
+                if ($data->status == 'BELUM_TL') {
+                    return true;
+                }
+            }
+            return false;
+        } catch (\Exception $e) {
+            // return $e->getMessage();
+            return false;
+        }
+
+        return false;
+    }
+
+    public function counter($idSebab)
+    {
+        try {
+            $sql = "SELECT
+            CONCAT(b.no_sebab,'.',COUNT(a.id)+1) AS counter
+            FROM rekomendasi a 
+            JOIN sebab b ON b.id=a.id_sebab
+            WHERE a.id_sebab=?";
+            $query = $this->query($sql, [$idSebab]);
+            $data = $query->getRow();
+            if (isset($data)) {
+                return $data->counter;
+            }
+            return '';
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

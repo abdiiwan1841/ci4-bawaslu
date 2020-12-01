@@ -156,6 +156,7 @@ class Laporanauditee extends BaseController
             'title' => 'Buat Tindak Lanjut Baru',
             'active' => 'Laporan Auditee',
             'id_rekomendasi' => $idRekomendasi,
+            'no_tindak_lanjut' => $this->laporanAuditeeModel->counter($idRekomendasi),
             'total_terverifikasi' => $this->laporanAuditeeModel->getTotalNilaiTerverifikasi($idRekomendasi),
             'data' => $this->rekomendasiModel->getDataById($idRekomendasi),
             'validation' => \Config\Services::validation()
@@ -168,10 +169,17 @@ class Laporanauditee extends BaseController
 
     public function savetindaklanjut()
     {
-
         // dd($_POST);
         $idRekomendasi = $this->request->getVar('id_rekomendasi');
+        $_POST['no_tindak_lanjut'] = $this->laporanAuditeeModel->counter($idRekomendasi);
         if (!$this->validate([
+            'no_tindak_lanjut' => [
+                'rules' => 'required|is_unique[tindak_lanjut.no_tindak_lanjut]',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.',
+                    // 'is_unique' => '{field} sudah terdaftar'
+                ]
+            ],
             'nilai_rekomendasi' => [
                 'rules' => 'required',
                 'errors' => [
@@ -206,15 +214,26 @@ class Laporanauditee extends BaseController
 
             $db->transStart();
 
+            $idRekomendasi = $this->request->getVar('id_rekomendasi');
+
             $this->tindaklanjutModel->insert([
                 'id' => get_uuid(),
+                'no_tindak_lanjut' => $this->request->getVar('no_tindak_lanjut'),
                 'nilai_rekomendasi' => $this->request->getVar('nilai_rekomendasi'),
                 'total_nilai_terverifikasi' => $this->request->getVar('total_nilai_terverifikasi'),
                 'nilai_tindak_lanjut' => $this->request->getVar('nilai_tindak_lanjut'),
                 'nilai_sisa_rekomendasi' => $this->request->getVar('nilai_sisa_rekomendasi'),
                 'remark_auditee' => $this->request->getVar('remark_auditee'),
-                'id_rekomendasi' => $this->request->getVar('id_rekomendasi')
+                'id_rekomendasi' => $idRekomendasi
             ]);
+
+            if ($this->rekomendasiModel->isStatusBelumTL($idRekomendasi)) {
+                $dataUpdateRekomendasi = [
+                    'id' => $idRekomendasi,
+                    'status' => 'BELUM_SESUAI'
+                ];
+                $this->rekomendasiModel->save($dataUpdateRekomendasi);
+            }
 
             $db->transComplete();
             if ($db->transStatus() === FALSE) {
@@ -231,13 +250,16 @@ class Laporanauditee extends BaseController
 
     public function edittindaklanjut($idTindakLanjut)
     {
+        $r = $this->tindaklanjutModel->getDataById($idTindakLanjut);
+
         $data = [
             'title' => 'Edit Tindak Lanjut',
             'active' => 'Laporan Auditee',
-            'data' => $this->tindaklanjutModel->getDataById($idTindakLanjut),
+            'id_rekomendasi' => $r->id_rekomendasi,
+            'total_terverifikasi' => $this->laporanAuditeeModel->getTotalNilaiTerverifikasi($r->id_rekomendasi),
+            'data' => $r,
             'validation' => \Config\Services::validation()
         ];
-
         // dd($data['data']);
         return view('laporan_auditee/edit_tindaklanjut', $data);
     }
@@ -251,10 +273,17 @@ class Laporanauditee extends BaseController
             'nilai_rekomendasi' => [
                 'rules' => 'required',
                 'errors' => [
+                    // 'required' => '{field} harus diisi.',
+                    // 'is_unique' => '{field} sudah terdaftar'
+                ]
+            ],
+            'total_nilai_terverifikasi' => [
+                'rules' => 'required',
+                'errors' => [
                     // 'required' => '{field} harus diisi.'
                 ]
             ],
-            'nilai_akhir_rekomendasi' => [
+            'nilai_tindak_lanjut' => [
                 'rules' => 'required',
                 'errors' => [
                     // 'required' => '{field} harus diisi.'
@@ -280,10 +309,10 @@ class Laporanauditee extends BaseController
                 $data = [
                     'id' => $id,
                     'nilai_rekomendasi' => $this->request->getVar('nilai_rekomendasi'),
+                    'total_nilai_terverifikasi' => $this->request->getVar('total_nilai_terverifikasi'),
+                    'nilai_tindak_lanjut' => $this->request->getVar('nilai_tindak_lanjut'),
                     'nilai_sisa_rekomendasi' => $this->request->getVar('nilai_sisa_rekomendasi'),
-                    'nilai_akhir_rekomendasi' => $this->request->getVar('nilai_akhir_rekomendasi'),
-                    'remark_auditee' => $this->request->getVar('remark_auditee'),
-                    'id_rekomendasi' => $this->request->getVar('id_rekomendasi')
+                    'remark_auditee' => $this->request->getVar('remark_auditee')
                 ];
 
                 /*Update data ke table Positions berdasarkan ID */
@@ -324,6 +353,7 @@ class Laporanauditee extends BaseController
             'title' => 'Buat Bukti Baru',
             'active' => 'Laporan Auditee',
             'id_tindak_lanjut' => $idTindakLanjut,
+            'no_bukti' => $this->laporanAuditeeModel->counterBukti($idTindakLanjut),
             'validation' => \Config\Services::validation()
         ];
 
@@ -335,6 +365,7 @@ class Laporanauditee extends BaseController
     public function savebukti()
     {
         $idTindakLanjut = $this->request->getVar('id_tindak_lanjut');
+        $_POST['no_bukti'] = $this->laporanAuditeeModel->counterBukti($idTindakLanjut);
         if (!$this->validate([
             'no_bukti' => [
                 'rules' => 'required|is_unique[bukti.no_bukti]',
@@ -470,7 +501,7 @@ class Laporanauditee extends BaseController
 
                 $data = [
                     'id' => $id,
-                    'no_bukti' => $this->request->getVar('no_bukti'),
+                    // 'no_bukti' => $this->request->getVar('no_bukti'),
                     'nama_bukti' => $this->request->getVar('nama_bukti'),
                     'nilai_bukti' => $this->request->getVar('nilai_bukti'),
                     'id_tindak_lanjut' => $this->request->getVar('id_tindak_lanjut'),
@@ -484,12 +515,17 @@ class Laporanauditee extends BaseController
                 if ($db->transStatus() === FALSE) {
                     return redirect()->to('/laporanauditee/editbukti/' . $id)->withInput();
                 } else {
-                    //hapus file lama jika bukan file default
-                    if ($this->request->getVar('old_lampiran') != 'default.png') {
-                        try {
-                            unlink('uploads/' . $this->request->getVar('old_lampiran'));
-                        } catch (\Exception $e) {
-                            $exceptionMessages = '<br/>' . $e->getMessage();
+                    //cek gambar apakah ada perubahan
+                    if ($file->getError() == 4) { //4 = ga ada file yang di upload
+
+                    } else {
+                        //hapus file lama jika bukan file default
+                        if ($this->request->getVar('old_lampiran') != 'default.png') {
+                            try {
+                                unlink('uploads/' . $this->request->getVar('old_lampiran'));
+                            } catch (\Exception $e) {
+                                $exceptionMessages = '<br/>' . $e->getMessage();
+                            }
                         }
                     }
                     session()->setFlashData('messages', 'Data was successfully updated');

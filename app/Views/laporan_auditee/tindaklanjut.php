@@ -125,7 +125,15 @@
                 <h5>List Tindak Lanjut</h5>
                 <hr />
 
-                <a href="<?= base_url('laporanauditee/createtindaklanjut/' . $data->id) ?>" class="btn btn-info">Tambah Data</a>
+                <?php if (session()->getFlashData('messages')) : ?>
+                    <div class="alert alert-success" role="alert">
+                        <?= session()->getFlashData('messages') ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (true) : ?>
+                    <a href="<?= base_url('laporanauditee/createtindaklanjut/' . $data->id) ?>" class="btn btn-info">Tambah Data</a>
+                <?php endif; ?>
                 <a href="<?= base_url('laporanauditee/detail/' . $data->id_laporan) ?>" class="btn btn-default">Kembali</a>
                 <div class="clearfix" style="margin-bottom: 5px;"></div>
                 <table class="table table-condensed table-striped table-bordered table-hover no-margin">
@@ -133,28 +141,36 @@
                         <tr>
                             <th style="width:10%; text-align:center;">No.</th>
                             <th style="width:10%; text-align:center;">Tanggal</th>
-                            <th style="width:10%; text-align:center;">Nilai Rekomendasi</th>
+                            <th style="width:10%; text-align:center;">No.Tindal Lanjut</th>
                             <th style="width:10%; text-align:center;">Nilai Tindal Lanjut</th>
                             <th style="width:10%; text-align:center;">Nilai Terverifikasi</th>
                             <th style="width:20%; text-align:center;">Remark Auditee</th>
+                            <th style="width:10%; text-align:center;">Remark Auditor</th>
                             <th style="width:15%; text-align:center;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $no = 1; ?>
+                        <?php $totalNilaiTidakLanjut = 0; ?>
+                        <?php $totalNilaiTerverifikasi = 0; ?>
                         <?php foreach ($data->tindak_lanjut as $r) : ?>
                             <tr>
-                                <td><?= '#' . $no++; ?></td>
-                                <td><?= $r->created_at; ?></td>
-                                <td style="text-align:right;"><?= format_number($r->nilai_rekomendasi, true); ?></td>
+                                <td style="text-align:center;"><?= '#' . $no++; ?></td>
+                                <td style="text-align:left;"><?= $r->created_at; ?></td>
+                                <td style="text-align:left;"><?= $r->no_tindak_lanjut; ?></td>
                                 <td style="text-align:right;"><?= format_number($r->nilai_tindak_lanjut, true); ?></td>
                                 <td style="text-align:right;"><?= format_number($r->nilai_terverifikasi, true); ?></td>
                                 <td style="text-align:left;"><?= $r->remark_auditee; ?></td>
+                                <td style="text-align:left;"><?= $r->remark_auditor; ?></td>
                                 <td style="text-align:center;">
-                                    <a href="<?= base_url('laporanauditee/edittindaklanjut/' . $r->id); ?>" class="btn btn-default">Edit</a>
+                                    <?php if ($r->nilai_terverifikasi == 0 || $r->nilai_terverifikasi == '') : ?>
+                                        <a href="<?= base_url('laporanauditee/edittindaklanjut/' . $r->id); ?>" class="btn btn-default">Edit</a>
+                                    <?php endif; ?>
                                     <a href="<?= base_url('laporanauditee/bukti/' . $r->id); ?>" class="btn btn-success">Bukti</a>
                                 </td>
                             </tr>
+                            <?php $totalNilaiTidakLanjut += $r->nilai_tindak_lanjut; ?>
+                            <?php $totalNilaiTerverifikasi += $r->nilai_terverifikasi; ?>
                         <?php endforeach; ?>
                         <?php if ($no == 1) : ?>
                             <tr>
@@ -162,6 +178,26 @@
                             </tr>
                         <?php endif; ?>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="3" style="text-align:right;">Total</th>
+                            <th style="text-align:right;"><?= format_number($totalNilaiTidakLanjut, true); ?></th>
+                            <th style="text-align:right;"><?= format_number($totalNilaiTerverifikasi, true); ?></th>
+                            <th colspan="3">&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th colspan="3" style="text-align:right;">Nilai Rekomendasi</th>
+                            <th style="text-align:right;">&nbsp;</th>
+                            <th style="text-align:right;"><?= format_number($data->nilai_rekomendasi, true); ?></th>
+                            <th colspan="3">&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th colspan="3" style="text-align:right;">Sisa Nilai Rekomendasi</th>
+                            <th style="text-align:right;">&nbsp;</th>
+                            <th style="text-align:right;"><?= format_number($data->nilai_rekomendasi - $totalNilaiTerverifikasi, true); ?></th>
+                            <th colspan="3">&nbsp;</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

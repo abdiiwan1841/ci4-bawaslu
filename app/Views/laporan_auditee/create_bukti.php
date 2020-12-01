@@ -19,7 +19,7 @@
                 <form action="<?= base_url('laporanauditee/savebukti'); ?>" method="POST" enctype="multipart/form-data" class="form-horizontal no-margin">
 
                     <?= csrf_field(); ?>
-                    <?= input_text($field_name = 'no_bukti', $label = 'No. Bukti', $value = '', $required = true, $readonly = false, $disabled = false); ?>
+                    <?= input_text($field_name = 'no_bukti', $label = 'No. Bukti', $value = $no_bukti, $required = true, $readonly = true, $disabled = false); ?>
                     <?= input_text($field_name = 'nama_bukti', $label = 'Nama Bukti', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                     <?= input_number($field_name = 'nilai_bukti', $label = 'Nilai Bukti', $value = '', $required = false, $readonly = false, $disabled = false); ?>
                     <?= input_file($field_name = 'lampiran', $label = 'Lampiran', $file_name = 'default.png', $required = false, $readonly = false, $path = 'uploads', $tips = '*.jpg | .png |.pdf |.xls | .xlsx |.doc | .docx'); ?>

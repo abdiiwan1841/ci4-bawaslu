@@ -65,4 +65,23 @@ class SebabModel extends Model
         }
         return array();
     }
+
+    public function counter($idTemuan)
+    {
+        try {
+            $sql = "SELECT
+            CONCAT(b.no_temuan,'.',COUNT(a.id)+1) AS counter
+            FROM sebab a 
+            JOIN temuan b ON b.id=a.id_temuan
+            WHERE a.id_temuan=?";
+            $query = $this->query($sql, [$idTemuan]);
+            $data = $query->getRow();
+            if (isset($data)) {
+                return $data->counter;
+            }
+            return '';
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

@@ -30,16 +30,17 @@ class Tindaklanjut extends BaseController
         session()->set('id_tindak_lanjut', '');
         session()->set('id_bukti', '');
 
-        $r = $this->tindaklanjutModel->showButtonSesuai($idRekomendasi);
+        $r = $this->tindaklanjutModel->showButton($idRekomendasi);
 
-        $showButtonSesuai = ($r->status_terima > 0) ? true : false;
+        // $showButtonSesuai = ($r->status_terima > 0) ? true : false;
         $showButtonTidakDapatDiTL = ($r->jumlah_tl > 0) ? false : true;
 
         $data = [
             'title' => 'Tindak Lanjut',
             'active' => 'tindaklanjut',
+            'summary' => $this->tindaklanjutModel->getSisaNilaiRekomendasi($idRekomendasi),
             'id_rekomendasi' => $idRekomendasi,
-            'show_button_sesuai' => $showButtonSesuai,
+            // 'show_button_sesuai' => $showButtonSesuai,
             'show_button_tidak_dapat_di_tl' => $showButtonTidakDapatDiTL
         ];
         // dd($data);
@@ -54,13 +55,15 @@ class Tindaklanjut extends BaseController
                 SELECT 
                 a.id,
                 a.nilai_rekomendasi,
-                a.nilai_sisa_rekomendasi,
-                a.nilai_akhir_rekomendasi,
+                a.`nilai_tindak_lanjut`,
+                a.`nilai_terverifikasi`,
+                a.`nilai_sisa_rekomendasi`,
                 a.id_rekomendasi,
                 a.remark_auditor,
                 a.remark_auditee,
                 a.status,
-                a.read_status
+                a.read_status,
+                a.created_at
                 FROM tindak_lanjut a
                 WHERE a.deleted_at IS NULL 
                 AND a.id_rekomendasi='" . $idRekomendasi . "'
@@ -70,16 +73,9 @@ class Tindaklanjut extends BaseController
 
         $columns = array(
             array('db' => 'id', 'dt' => 0),
+            array('db' => 'created_at', 'dt' => 1),
             array(
-                'db'        => 'nilai_rekomendasi',
-                'dt'        => 1,
-                'formatter' => function ($i, $row) {
-                    $html = format_number($i);
-                    return $html;
-                }
-            ),
-            array(
-                'db'        => 'nilai_akhir_rekomendasi',
+                'db'        => 'nilai_tindak_lanjut',
                 'dt'        => 2,
                 'formatter' => function ($i, $row) {
                     $html = format_number($i);
@@ -87,30 +83,22 @@ class Tindaklanjut extends BaseController
                 }
             ),
             array(
-                'db'        => 'nilai_akhir_rekomendasi',
+                'db'        => 'nilai_terverifikasi',
                 'dt'        => 3,
                 'formatter' => function ($i, $row) {
                     $html = format_number($i);
                     return $html;
                 }
             ),
-            array(
-                'db'        => 'nilai_sisa_rekomendasi',
-                'dt'        => 4,
-                'formatter' => function ($i, $row) {
-                    $html = format_number($i);
-                    return $html;
-                }
-            ),
-            array('db' => 'remark_auditor', 'dt' => 5),
-            array('db' => 'remark_auditee', 'dt' => 6),
+            array('db' => 'remark_auditor', 'dt' => 4),
+            array('db' => 'remark_auditee', 'dt' => 5),
             array(
                 'db'        => 'id',
-                'dt'        => 7,
+                'dt'        => 6,
                 'formatter' => function ($i, $row) {
                     $html = '
                     <center>
-                    <a href="' . base_url('tindaklanjut/terima/' . $i) . '" onclick="return confirm(\'Yakin akan menerima ini ?\');" class="btn btn-success btn-small" data-original-title="Edit">
+                    <a href="' . base_url('tindaklanjut/verifikasi/' . $i) . '" class="btn btn-success btn-small" data-original-title="Verifikasi">
                     Verifikasi
                     </a>
                     <a href="' . base_url('bukti/index/' . $i) . '" class="btn btn-primary btn-small" data-original-title="Edit">
@@ -307,5 +295,67 @@ class Tindaklanjut extends BaseController
         }
 
         return redirect()->to('/tindaklanjut/index/' . session()->get('id_rekomendasi'));
+    }
+
+    public function verifikasi($idTindakLanjut)
+    {
+        $r = $this->tindaklanjutModel->getDataById($idTindakLanjut);
+
+        $data = [
+            'title' => 'Verifikasi Tindak Lanjut',
+            'active' => 'tindaklanjut',
+            'id_rekomendasi' => $r->id_rekomendasi,
+            'total_terverifikasi' => $this->tindaklanjutModel->getTotalNilaiTerverifikasi($r->id_rekomendasi),
+            'data' => $r,
+            'validation' => \Config\Services::validation()
+        ];
+        // dd($data['data']);
+        return view('tindak_lanjut/verifikasi', $data);
+    }
+
+    public function saveVerifikasi($id)
+    {
+        $idRekomendasi = $this->request->getVar('id_rekomendasi');
+
+        $validation = [
+            'nilai_terverifikasi' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ]
+        ];
+
+        if (!$this->validate($validation)) {
+            return redirect()->to('/tindaklanjut/verifikasi/' . $id)->withInput()->with('messages', 'Validation Error');
+        } else {
+
+            try {
+                $db      = \Config\Database::connect();
+
+                $db->transStart();
+
+                $data = [
+                    'id' => $id,
+                    'nilai_terverifikasi' => $this->request->getVar('nilai_terverifikasi'),
+                    'remark_auditor' => $this->request->getVar('remark_auditor')
+                ];
+
+                /*Update data ke table Positions berdasarkan ID */
+                $this->tindaklanjutModel->save($data);
+
+                $db->transComplete();
+                if ($db->transStatus() === FALSE) {
+                    return redirect()->to('/tindaklanjut/verifikasi/' . $id)->withInput();
+                } else {
+
+                    session()->setFlashData('messages', 'Data was successfully updated');
+                }
+            } catch (\Exception $e) {
+                return redirect()->to('/tindaklanjut/verifikasi/' . $id)->withInput()->with('messages', $e->getMessage());
+            }
+
+            return redirect()->to('/tindaklanjut/index/' . $idRekomendasi);
+        }
     }
 }

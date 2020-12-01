@@ -33,7 +33,7 @@
                             <form action="<?= base_url('temuan/save'); ?>" method="POST" enctype="multipart/form-data" class="form-horizontal no-margin">
 
                                 <?= csrf_field(); ?>
-                                <?= input_text($field_name = 'no_temuan', $label = 'No. Temuan', $value = '', $required = true, $readonly = false, $disabled = false); ?>
+                                <?= input_text($field_name = 'no_temuan', $label = 'No. Temuan', $value = $no_temuan, $required = true, $readonly = true, $disabled = false); ?>
                                 <?= input_textarea($field_name = 'memo_temuan', $label = 'Memo Temuan', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_select($field_name = 'id_jenis_temuan1', $label = 'Jenis Temuan', $jenis_temuan_options, $selected = '', $required = true, $disabled = ''); ?>
                                 <?= input_select($field_name = 'id_jenis_temuan2', $label = '&nbsp;', [], $selected = '', $required = false, $disabled = ''); ?>

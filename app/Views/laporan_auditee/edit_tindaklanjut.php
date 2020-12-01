@@ -22,11 +22,14 @@
                     <form action="<?= base_url('laporanauditee/updatetindaklanjut/' . $data->id); ?>" method="POST" enctype="multipart/form-data" class="form-horizontal no-margin">
 
                         <?= csrf_field(); ?>
+                        <?= input_text($field_name = 'no_tindak_lanjut', $label = 'No Tindak Lanjut', $value = $data->no_tindak_lanjut, $required = true, $readonly = true, $disabled = false); ?>
                         <?= input_number($field_name = 'nilai_rekomendasi', $label = 'Nilai Rekomendasi', $value = $data->nilai_rekomendasi, $required = true, $readonly = true, $disabled = false); ?>
-                        <?= input_number($field_name = 'nilai_akhir_rekomendasi', $label = 'Nilai Tindak Lanjut', $value = $data->nilai_akhir_rekomendasi, $required = true, $readonly = false, $disabled = false); ?>
-                        <?= input_number($field_name = 'nilai_sisa_rekomendasi', $label = 'Nilai Sisa Rekomendasi', $value = $data->nilai_sisa_rekomendasi, $required = true, $readonly = true, $disabled = false); ?>
+                        <?= input_number($field_name = 'total_nilai_terverifikasi', $label = 'Total Nilai Terverifikasi', $value = $total_terverifikasi, $required = true, $readonly = true, $disabled = false); ?>
+                        <?= input_number($field_name = 'nilai_tindak_lanjut', $label = 'Nilai Tindak Lanjut', $value = $data->nilai_tindak_lanjut, $required = true, $readonly = false, $disabled = false); ?>
+                        <?= input_number($field_name = 'nilai_sisa_rekomendasi', $label = 'Nilai Sisa Rekomendasi', $value = '', $required = true, $readonly = true, $disabled = false); ?>
                         <?= input_textarea($field_name = 'remark_auditee', $label = 'Remark Auditee', $value = $data->remark_auditee, $required = false, $readonly = false, $disabled = false); ?>
-                        <?= input_hidden($field_name = 'id_rekomendasi', $value = $data->id_rekomendasi); ?>
+                        <?= input_hidden($field_name = 'id_rekomendasi', $value = $id_rekomendasi); ?>
+
                         <div class="form-actions no-margin">
                             <button type="submit" class="btn btn-primary">Submit</button>
                             <button type="button" class="btn" onclick="window.history.back();">Cancel</button>
@@ -40,16 +43,20 @@
 
 <script>
     $(document).ready(function() {
-        $("#nilai_akhir_rekomendasi").keyup(function() {
-            var nilai_akhir_rekomendasi = $(this).val();
+        $("#nilai_tindak_lanjut").keyup(function() {
+            var nilai_tindak_lanjut = $(this).val();
             var nilai_rekomendasi = $("#nilai_rekomendasi").val();
+            var total_nilai_terverifikasi = $("#total_nilai_terverifikasi").val();
 
-            nilai_akhir_rekomendasi = untarkiman(nilai_akhir_rekomendasi);
             nilai_rekomendasi = untarkiman(nilai_rekomendasi);
+            nilai_tindak_lanjut = untarkiman(nilai_tindak_lanjut);
+            total_nilai_terverifikasi = untarkiman(total_nilai_terverifikasi);
 
-            nilai_sisa_rekomendasi = nilai_rekomendasi - nilai_akhir_rekomendasi;
+            nilai_sisa_rekomendasi = nilai_rekomendasi - (total_nilai_terverifikasi + nilai_tindak_lanjut);
             $("#nilai_sisa_rekomendasi").val(nilai_sisa_rekomendasi.toLocaleString('en-US'));
         });
+
+        $("#nilai_tindak_lanjut").trigger('keyup');
     });
 </script>
 

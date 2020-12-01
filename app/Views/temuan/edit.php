@@ -33,7 +33,7 @@
                             <form action="<?= base_url('temuan/update/' . $data->id); ?>" method="POST" enctype="multipart/form-data" class="form-horizontal no-margin">
 
                                 <?= csrf_field(); ?>
-                                <?= input_text($field_name = 'no_temuan', $label = 'No. Temuan', $value = $data->no_temuan, $required = true, $readonly = false, $disabled = false); ?>
+                                <?= input_text($field_name = 'no_temuan', $label = 'No. Temuan', $value = $data->no_temuan, $required = true, $readonly = true, $disabled = false); ?>
                                 <!-- no temuan autonumber/ increment -->
                                 <?= input_textarea($field_name = 'memo_temuan', $label = 'Memo Temuan', $value = $data->memo_temuan, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_select($field_name = 'id_jenis_temuan1', $label = 'Jenis Temuan', $jenis_temuan_options, $selected = $data->id_jenis_temuan1, $required = true, $disabled = ''); ?>

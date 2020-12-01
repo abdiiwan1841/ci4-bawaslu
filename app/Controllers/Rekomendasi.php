@@ -139,6 +139,7 @@ class Rekomendasi extends BaseController
             'title' => 'Buat Rekomendasi Baru',
             'active' => 'rekomendasi',
             'id_sebab' => $idSebab,
+            'no_rekomendasi' => $this->rekomendasiModel->counter($idSebab),
             'jenis_rekomendasi_options' => $jenis_rekomendasi_options,
             'validation' => \Config\Services::validation()
         ];
@@ -148,6 +149,8 @@ class Rekomendasi extends BaseController
     public function save()
     {
         $idSebab = $this->request->getVar('id_sebab');
+        $_POST['no_rekomendasi'] = $this->rekomendasiModel->counter($idSebab);
+
         if (!$this->validate([
             'no_rekomendasi' => [
                 'rules' => 'required|is_unique[rekomendasi.no_rekomendasi]',
@@ -258,7 +261,7 @@ class Rekomendasi extends BaseController
 
                 $data = [
                     'id' => $id,
-                    'no_rekomendasi' => $this->request->getVar('no_rekomendasi'),
+                    // 'no_rekomendasi' => $this->request->getVar('no_rekomendasi'),
                     'id_jenis_rekomendasi' => $this->request->getVar('id_jenis_rekomendasi'),
                     'memo_rekomendasi' => $this->request->getVar('memo_rekomendasi'),
                     'nilai_rekomendasi' => $this->request->getVar('nilai_rekomendasi'),

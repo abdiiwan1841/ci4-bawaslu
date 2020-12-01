@@ -170,4 +170,21 @@ class LaporanModel extends Model
             return $e->getMessage();
         }
     }
+
+    public function counter()
+    {
+        try {
+            $sql = "SELECT
+                    COUNT(a.id)+1 AS counter
+                    FROM laporan a";
+            $query = $this->query($sql);
+            $data = $query->getRow();
+            if (isset($data)) {
+                return $data->counter;
+            }
+            return '';
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

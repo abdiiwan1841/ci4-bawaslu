@@ -19,6 +19,7 @@ class TindaklanjutModel extends Model
     protected $useSoftDeletes = false;
     protected $allowedFields = [
         'id',
+        'no_tindak_lanjut',
         'nilai_rekomendasi',
         'nilai_tindak_lanjut',
         'nilai_terverifikasi',
@@ -43,6 +44,7 @@ class TindaklanjutModel extends Model
     {
         $this->select('
         id,
+        no_tindak_lanjut,
         nilai_rekomendasi,
         nilai_tindak_lanjut,
         nilai_terverifikasi,
@@ -65,6 +67,7 @@ class TindaklanjutModel extends Model
     {
         $this->select('
         id,
+        no_tindak_lanjut,
         nilai_rekomendasi,
         nilai_tindak_lanjut,
         nilai_terverifikasi,
@@ -84,23 +87,58 @@ class TindaklanjutModel extends Model
         return array();
     }
 
-    public function showButtonSesuai($idRekomendasi)
+    public function showButton($idRekomendasi)
+    {
+        try {
+            $sql = "SELECT 
+                    COUNT(a.id) AS jumlah_tl
+                    FROM tindak_lanjut a
+                    WHERE a.deleted_at IS NULL 
+                    AND a.id_rekomendasi=?
+                    AND a.deleted_at IS NULL";
+            $query = $this->query($sql, [$idRekomendasi]);
+            $data = $query->getRow();
+            if (isset($data)) {
+                return $data;
+            }
+            return array();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getTotalNilaiTerverifikasi($idRekomendasi)
+    {
+        try {
+            $sql = "SELECT 
+            IFNULL(SUM(nilai_terverifikasi),0) AS total
+            FROM tindak_lanjut 
+            WHERE id_rekomendasi=?";
+            $query = $this->query($sql, [$idRekomendasi]);
+            $data = $query->getRow();
+            if (isset($data)) {
+                return $data->total;
+            }
+            return 0;
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getSisaNilaiRekomendasi($idRekomendasi)
     {
         try {
             $sql = "SELECT
-                    COUNT(a.status) AS status_terima,
-                    (
-                        SELECT 
-                        COUNT(b.id) 
-                        FROM tindak_lanjut b 
-                        WHERE b.deleted_at IS NULL 
-                        AND b.id_rekomendasi=?
-                    ) AS jumlah_tl
+                        IFNULL(b.nilai_rekomendasi,0) AS nilai_rekomendasi,
+                        IFNULL(SUM(a.nilai_tindak_lanjut),0) AS total_nilai_tindak_lanjut,
+                        IFNULL(SUM(a.nilai_terverifikasi),0) AS total_nilai_terverifikasi,
+                        (IFNULL(b.nilai_rekomendasi,0)-IFNULL(SUM(a.nilai_terverifikasi),0)) AS sisa_nilai_rekomendasi
                     FROM tindak_lanjut a 
-                    WHERE a.status='TERIMA' 
-                    AND a.id_rekomendasi=?
-                    AND a.deleted_at IS NULL";
-            $query = $this->query($sql, [$idRekomendasi, $idRekomendasi]);
+                    JOIN rekomendasi b ON b.id=a.id_rekomendasi
+                    WHERE a.deleted_at IS NULL 
+                    AND b.deleted_at IS NULL
+                    AND a.id_rekomendasi=?";
+            $query = $this->query($sql, [$idRekomendasi]);
             $data = $query->getRow();
             if (isset($data)) {
                 return $data;

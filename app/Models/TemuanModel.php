@@ -119,4 +119,23 @@ class TemuanModel extends Model
             return $e->getMessage();
         }
     }
+
+    public function counter($idLaporan)
+    {
+        try {
+            $sql = "SELECT
+            CONCAT(b.no_laporan,'.',COUNT(a.id)+1) AS counter
+            FROM temuan a 
+            JOIN laporan b ON b.id=a.id_laporan
+            WHERE a.id_laporan=?";
+            $query = $this->query($sql, [$idLaporan]);
+            $data = $query->getRow();
+            if (isset($data)) {
+                return $data->counter;
+            }
+            return '';
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

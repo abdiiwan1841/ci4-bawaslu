@@ -33,7 +33,7 @@
                             <form action="<?= base_url('sebab/save'); ?>" method="POST" enctype="multipart/form-data" class="form-horizontal no-margin">
 
                                 <?= csrf_field(); ?>
-                                <?= input_text($field_name = 'no_sebab', $label = 'No. Sebab', $value = '', $required = true, $readonly = false, $disabled = false); ?>
+                                <?= input_text($field_name = 'no_sebab', $label = 'No. Sebab', $value = $no_sebab, $required = true, $readonly = true, $disabled = false); ?>
                                 <?= input_textarea($field_name = 'memo_sebab', $label = 'Memo Sebab', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_hidden($field_name = 'id_temuan', $value = $id_temuan); ?>
                                 <div class="form-actions no-margin">
