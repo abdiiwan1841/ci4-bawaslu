@@ -86,7 +86,12 @@
                             window.location.href = "<?= base_url('/laporan/create'); ?>";
                         }
                     }
-                <?php endif; ?>
+                <?php endif; ?>, {
+                    text: 'Report PDF',
+                    action: function(e, dt, node, config) {
+                        window.location.href = "<?= base_url('/laporan/report'); ?>";
+                    }
+                }
             ],
             processing: true,
             serverSide: true,
