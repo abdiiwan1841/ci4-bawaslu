@@ -8,6 +8,8 @@
 namespace App\Controllers;
 
 use App\Models\LaporanModel;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Fpdf\Fpdf;
 
 class Laporan extends BaseController
@@ -491,7 +493,7 @@ class Laporan extends BaseController
         echo json_encode($response);
     }
 
-    public function report()
+    public function report1()
     {
 
         // $data = $this->orderModel->getDataById($id);
@@ -665,5 +667,174 @@ class Laporan extends BaseController
         // S: return the document as a string.
 
 
+    }
+
+    public function report($idSatuanKerja)
+    {
+
+        $data = $this->laporanModel->getReport($idSatuanKerja);
+
+        // dd($data);
+
+        // panggil class Sreadsheet baru
+        $spreadsheet = new Spreadsheet();
+        // Buat custom header pada file excel
+
+        $spreadsheet->getActiveSheet()->mergeCells('D1:F1');
+        $spreadsheet->getActiveSheet()->mergeCells('G1:I1');
+        $spreadsheet->getActiveSheet()->mergeCells('J1:K1');
+        $spreadsheet->getActiveSheet()->mergeCells('L1:M1');
+        $spreadsheet->getActiveSheet()->mergeCells('N1:O1');
+        $spreadsheet->getActiveSheet()->mergeCells('P1:Q1');
+        $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'No.')
+            ->setCellValue('B1', 'Nomor Laporan')
+            ->setCellValue('C1', 'Judul Laporan')
+            ->setCellValue('D1', 'Temuan Pemeriksaan')
+            // ->setCellValue('E1', 'Jml (Temuan Pemeriksaan)')
+            // ->setCellValue('F1', 'Nilai (Temuan Pemeriksaan)')
+            ->setCellValue('G1', 'Rekomendasi')
+            // ->setCellValue('H1', 'Jml (Rekomendasi)')
+            // ->setCellValue('I1', 'Nilai (Rekomendasi)')
+            ->setCellValue('J1', 'Sesuai dengan Rekomendasi')
+            // ->setCellValue('K1', 'Nilai  (Sesuai dengan Rekomendasi)')
+            ->setCellValue('L1', 'Belum Sesuai dan Dalam Proses Tindak Lanjut')
+            // ->setCellValue('M1', 'Nilai (Belum Sesuai dan Dalam Proses Tindak Lanjut)')
+            ->setCellValue('N1', 'Belum Ditindaklanjuti')
+            // ->setCellValue('O1', 'Nilai (Belum Ditindaklanjuti)')
+            ->setCellValue('P1', 'Tidak Dapat Ditindaklanjuti dengan alasan yang Sah')
+            // ->setCellValue('Q1', 'Nilai (Tidak Dapat Ditindaklanjuti dengan alasan yang Sah)')
+            ->setCellValue('R1', 'Kesimpulan')
+            ->setCellValue('S1', 'Nilai Penyerahan Aset atau Penyetoran Uang ke Kas Negara (Rp)');
+
+        $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('A2', 'No.')
+            ->setCellValue('B2', 'Nomor Laporan')
+            ->setCellValue('C2', 'Judul Laporan')
+
+            ->setCellValue('D2', 'Uraian')
+            ->setCellValue('E2', 'Jml')
+            ->setCellValue('F2', 'Nilai')
+
+            ->setCellValue('G2', 'Uraian')
+            ->setCellValue('H2', 'Jml')
+            ->setCellValue('I2', 'Nilai')
+
+            ->setCellValue('J2', 'Jml')
+            ->setCellValue('K2', 'Nilai')
+
+            ->setCellValue('L2', 'Jml')
+            ->setCellValue('M2', 'Nilai')
+
+            ->setCellValue('N2', 'Jml')
+            ->setCellValue('O2', 'Nilai')
+
+            ->setCellValue('P2', 'Jml')
+            ->setCellValue('Q2', 'Nilai')
+
+            ->setCellValue('R2', 'Kesimpulan')
+            ->setCellValue('S2', 'Nilai Penyerahan Aset atau Penyetoran Uang ke Kas Negara (Rp)');
+
+        // $spreadsheet->setActiveSheetIndex(0)
+        //     ->setCellValue('A2', 'No.')
+        //     ->setCellValue('B2', 'Nomor Laporan')
+        //     ->setCellValue('C2', 'Judul Laporan')
+        //     ->setCellValue('D2', 'Uraian (Temuan Pemeriksaan)')
+        //     ->setCellValue('E2', 'Jml (Temuan Pemeriksaan)')
+        //     ->setCellValue('F2', 'Nilai (Temuan Pemeriksaan)')
+        //     ->setCellValue('G2', 'Uraian (Rekomendasi)')
+        //     ->setCellValue('H2', 'Jml (Rekomendasi)')
+        //     ->setCellValue('I2', 'Nilai (Rekomendasi)')
+        //     ->setCellValue('J2', 'Jml (Sesuai dengan Rekomendasi)')
+        //     ->setCellValue('K2', 'Nilai  (Sesuai dengan Rekomendasi)')
+        //     ->setCellValue('L2', 'Jml (Belum Sesuai dan Dalam Proses Tindak Lanjut)')
+        //     ->setCellValue('M2', 'Nilai (Belum Sesuai dan Dalam Proses Tindak Lanjut)')
+        //     ->setCellValue('N2', 'Jml (Belum Ditindaklanjuti)')
+        //     ->setCellValue('O2', 'Nilai (Belum Ditindaklanjuti)')
+        //     ->setCellValue('P2', 'Jml (Tidak Dapat Ditindaklanjuti dengan alasan yang Sah)')
+        //     ->setCellValue('Q2', 'Nilai (Tidak Dapat Ditindaklanjuti dengan alasan yang Sah)')
+        //     ->setCellValue('R2', 'Kesimpulan')
+        //     ->setCellValue('S2', 'Nilai Penyerahan Aset atau Penyetoran Uang ke Kas Negara (Rp)');
+
+        $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('A3', '1')
+            ->setCellValue('B3', '2')
+            ->setCellValue('C3', '3')
+            ->setCellValue('D3', '4')
+            ->setCellValue('E3', '5')
+            ->setCellValue('F3', '6')
+            ->setCellValue('G3', '7')
+            ->setCellValue('H3', '8')
+            ->setCellValue('I3', '9')
+            ->setCellValue('J3', '10')
+            ->setCellValue('K3', '11')
+            ->setCellValue('L3', '12')
+            ->setCellValue('M3', '13')
+            ->setCellValue('N3', '14')
+            ->setCellValue('O3', '15')
+            ->setCellValue('P3', '16')
+            ->setCellValue('Q3', '17')
+            ->setCellValue('R3', '18')
+            ->setCellValue('S3', '19');
+
+        // define kolom dan nomor
+        $kolom = 4;
+        $nomor = 1;
+        // tambahkan data transaction ke dalam file excel
+        foreach ($data as $r) {
+
+            $spreadsheet->setActiveSheetIndex(0)
+                ->setCellValue('A' . $kolom, $nomor)
+                ->setCellValue('B' . $kolom, $r->no_laporan)
+                ->setCellValue('C' . $kolom, $r->nama_laporan)
+                ->setCellValue('D' . $kolom, $r->memo_temuan)
+                ->setCellValue('E' . $kolom, $r->jumlah_temuan)
+                ->setCellValue('F' . $kolom, $r->nilai_temuan)
+                ->setCellValue('G' . $kolom, $r->memo_rekomendasi)
+                ->setCellValue('H' . $kolom, $r->jumlah_rekomendasi)
+                ->setCellValue('I' . $kolom, $r->nilai_rekomendasi)
+                ->setCellValue('J' . $kolom, $r->jumlah_sesuai_rekomendasi)
+                ->setCellValue('K' . $kolom, $r->nilai_sesuai_rekomendasi)
+                ->setCellValue('L' . $kolom, $r->jumlah_belum_sesuai_rekomendasi)
+                ->setCellValue('M' . $kolom, $r->nilai_yang_belum_sesuai_rekomendasi_dan_dalam_proses_tindak_lanjut)
+                ->setCellValue('N' . $kolom, $r->jumlah_belum_ditindaklanjuti)
+                ->setCellValue('O' . $kolom, $r->nilai_belum_ditindaklanjuti)
+                ->setCellValue('P' . $kolom, $r->jumlah_tidak_dapat_ditindaklanjuti)
+                ->setCellValue('Q' . $kolom, $r->nilai_tidak_dapat_ditindaklanjuti)
+                ->setCellValue('R' . $kolom, '')
+                ->setCellValue('S' . $kolom, '');
+            $kolom++;
+            $nomor++;
+        }
+
+
+        $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('L')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('M')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('N')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('O')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('P')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('Q')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('R')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('S')->setAutoSize(true);
+
+        // download spreadsheet dalam bentuk excel .xlsx
+        $writer = new Xlsx($spreadsheet);
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="MATRIKS_PEMANTAUAN_TINDAK_LANJUT_' . date('Y-m-d-H-i') . '.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $writer->save('php://output');
     }
 }

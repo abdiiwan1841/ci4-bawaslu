@@ -40,7 +40,7 @@
                     <table id="datatables" class="table table-condensed table-bordered no-margin">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>No.</th>
                                 <th>No Laporan</th>
                                 <th>Tanggal Laporan</th>
                                 <th>Nama Laporan</th>
@@ -87,9 +87,9 @@
                         }
                     }
                 <?php endif; ?>, {
-                    text: 'Report PDF',
+                    text: 'Report Excel',
                     action: function(e, dt, node, config) {
-                        window.location.href = "<?= base_url('/laporan/report'); ?>";
+                        window.location.href = "<?= base_url('/laporan/report/' . session()->get('id_satuan_kerja')); ?>";
                     }
                 }
             ],

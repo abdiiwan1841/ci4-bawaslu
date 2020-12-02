@@ -118,6 +118,8 @@ class Temuan extends BaseController
             'jenis_temuan_options' => $jenis_temuan_options,
             'validation' => \Config\Services::validation()
         ];
+
+        // dd($data);
         return view('temuan/create', $data);
     }
 

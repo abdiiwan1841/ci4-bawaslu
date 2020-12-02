@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v9.63 
-MySQL - 5.5.5-10.2.8-MariaDB : Database - bawaslu
+MySQL - 5.5.5-10.4.10-MariaDB : Database - bawaslu
 *********************************************************************
 */
 
@@ -84,7 +84,7 @@ CREATE TABLE `bukti` (
   `id` varchar(50) NOT NULL,
   `no_bukti` varchar(50) DEFAULT NULL,
   `nama_bukti` varchar(100) DEFAULT NULL,
-  `nilai_bukti` int(11) DEFAULT NULL,
+  `nilai_bukti` bigint(20) DEFAULT NULL,
   `lampiran` varchar(255) DEFAULT NULL,
   `id_tindak_lanjut` varchar(50) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -95,8 +95,6 @@ CREATE TABLE `bukti` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `bukti` */
-
-insert  into `bukti`(`id`,`no_bukti`,`nama_bukti`,`nilai_bukti`,`lampiran`,`id_tindak_lanjut`,`created_at`,`updated_at`,`deleted_at`) values ('4bfbd2a4-cbc9-cd05-0d71-0f05a2ee6983','1.1.1.4.1.1','test',500000,'1606854530_cac2dd442d3c0030df34.jpg','f90257d7-71ab-36f2-b213-b878b0f3a83c','2020-12-02 03:26:56','2020-12-02 03:29:00',NULL),('6537be53-ca15-82fb-6ca3-2161c8dbd94f','B001','Bukti ke 1',500000,'1606846625_a454958c04a1415b5e5a.jpg','ce315b36-fe8e-b424-b258-8ab4579d3560','2020-12-02 01:17:05','2020-12-02 01:17:05',NULL);
 
 /*Table structure for table `eselon` */
 
@@ -327,8 +325,8 @@ CREATE TABLE `laporan` (
   `pimpinan_satuan_kerja` varchar(100) DEFAULT NULL,
   `nama_satuan_kerja` varchar(100) DEFAULT NULL,
   `tahun_anggaran` year(4) DEFAULT NULL,
-  `nilai_anggaran` int(11) DEFAULT NULL,
-  `realisasi_anggaran` int(11) DEFAULT NULL,
+  `nilai_anggaran` bigint(20) DEFAULT NULL,
+  `realisasi_anggaran` bigint(20) DEFAULT NULL,
   `audit_anggaran` varchar(100) DEFAULT NULL,
   `jenis_anggaran` varchar(100) DEFAULT NULL,
   `id_auditor` varchar(50) DEFAULT NULL,
@@ -343,7 +341,7 @@ CREATE TABLE `laporan` (
 
 /*Data for the table `laporan` */
 
-insert  into `laporan`(`id`,`no_laporan`,`tanggal_laporan`,`nama_laporan`,`no_surat_tugas`,`tanggal_surat_tugas`,`unit_pelaksana`,`nip_pimpinan`,`pimpinan_satuan_kerja`,`nama_satuan_kerja`,`tahun_anggaran`,`nilai_anggaran`,`realisasi_anggaran`,`audit_anggaran`,`jenis_anggaran`,`id_auditor`,`id_satuan_kerja`,`created_at`,`updated_at`,`deleted_at`) values ('4463a6f9-a405-8e45-6913-93c8977eaa53','4','2020-12-02','','','2020-12-02','','','','',0000,0,0,'','','7b283bee-199e-7f08-b5e6-82d9f819d47b','a4acf9a8-a709-ac81-e513-2ad247d0e638','2020-12-02 02:07:16','2020-12-02 02:07:16',NULL),('83027acf-71b9-d748-0331-9468e5da7c67','3','2020-12-02','','','2020-12-02','','','','',0000,0,0,'','','7b283bee-199e-7f08-b5e6-82d9f819d47b','a4acf9a8-a709-ac81-e513-2ad247d0e638','2020-12-02 02:06:56','2020-12-02 02:06:56',NULL),('b80aa572-930f-50ec-db8c-4ec7101fd0bd','1','2019-11-10','Laporan Hasil pemeriksaan BPK','19391/ST/BPK/2018','2020-11-21','BPK','13917931748108410740','Suryo','BPK',2019,2147483647,2147483647,'Januari - Desember','APBN','04cc7b92-5e4d-7caa-a7d8-0224fd2e8bc3','a4acf9a8-a709-ac81-e513-2ad247d0e638','2020-11-14 19:53:36','2020-11-21 17:44:21',NULL),('d966ed98-b236-800f-544f-1459592cccc3','2','2020-12-02','','','2020-12-02','','','','',0000,0,0,'','','7b283bee-199e-7f08-b5e6-82d9f819d47b','a4acf9a8-a709-ac81-e513-2ad247d0e638','2020-12-02 02:05:14','2020-12-02 02:05:14',NULL);
+insert  into `laporan`(`id`,`no_laporan`,`tanggal_laporan`,`nama_laporan`,`no_surat_tugas`,`tanggal_surat_tugas`,`unit_pelaksana`,`nip_pimpinan`,`pimpinan_satuan_kerja`,`nama_satuan_kerja`,`tahun_anggaran`,`nilai_anggaran`,`realisasi_anggaran`,`audit_anggaran`,`jenis_anggaran`,`id_auditor`,`id_satuan_kerja`,`created_at`,`updated_at`,`deleted_at`) values ('1afbbe56-732f-62bf-7681-09a2d092112e','2','2020-12-02','Laporan KPK','4321','2020-12-02','BPK','10110738','Tarkiman','BPK Bandung',2020,5000000000,4000000000,'Januari - Desember','APBN','7b283bee-199e-7f08-b5e6-82d9f819d47b','a4acf9a8-a709-ac81-e513-2ad247d0e638','2020-12-02 15:49:20','2020-12-02 15:56:41',NULL),('9d39ed35-1900-96e7-bbb8-fe4e20d7c138','1','2020-12-02','Laporan BPK','1234','2020-12-02','BPK','10110738','Tarkiman','BPK Bandung',2020,2000000000,1900000000,'Januari - Desember','APBN','7b283bee-199e-7f08-b5e6-82d9f819d47b','a4acf9a8-a709-ac81-e513-2ad247d0e638','2020-12-02 10:21:17','2020-12-02 15:56:50',NULL);
 
 /*Table structure for table `pegawai` */
 
@@ -428,7 +426,7 @@ CREATE TABLE `rekomendasi` (
   `no_rekomendasi` varchar(50) DEFAULT NULL,
   `id_jenis_rekomendasi` varchar(50) DEFAULT NULL,
   `memo_rekomendasi` text DEFAULT NULL,
-  `nilai_rekomendasi` int(11) DEFAULT NULL,
+  `nilai_rekomendasi` bigint(20) DEFAULT NULL,
   `nama_penanggung_jawab` varchar(100) DEFAULT NULL,
   `id_sebab` varchar(50) DEFAULT NULL,
   `status` varchar(20) DEFAULT 'BELUM_TL',
@@ -443,7 +441,7 @@ CREATE TABLE `rekomendasi` (
 
 /*Data for the table `rekomendasi` */
 
-insert  into `rekomendasi`(`id`,`no_rekomendasi`,`id_jenis_rekomendasi`,`memo_rekomendasi`,`nilai_rekomendasi`,`nama_penanggung_jawab`,`id_sebab`,`status`,`alasan_tidak_di_tl`,`lampiran_tidak_di_tl`,`created_at`,`updated_at`,`deleted_at`) values ('43f011b3-89bf-5597-4aa5-6600663f22d8','1.1.1.3','5057ea49-f00f-114a-2293-d24033f8bfc4','dsfsdfsd',5000000,'Tarkiman','a9a3a463-1e11-71cf-3f93-94a41335c8d5','BELUM_TL',NULL,NULL,'2020-12-02 02:53:05','2020-12-02 02:54:35',NULL),('4a439e62-6d42-bc8a-40d7-ec129011aab7','1.1.1.2','5d03cebc-5848-9c5e-b02c-2f395103d5a6','test rekomendasi 2',5000000,'Tarkiman','a9a3a463-1e11-71cf-3f93-94a41335c8d5','SESUAI',NULL,NULL,'2020-12-02 01:25:59','2020-12-02 01:46:21',NULL),('7196cbec-3346-679c-83c2-0bff8731553a','1.1.1.4','9cd562f8-09d5-c9b2-dd3f-b581fc5c3023','gfdgd',1000000,'Tarkiman','a9a3a463-1e11-71cf-3f93-94a41335c8d5','BELUM_SESUAI',NULL,NULL,'2020-12-02 02:53:18','2020-12-02 03:15:29',NULL),('91efdb73-1b85-1a6d-f679-fa565782dd6e','1.1.1.1','5d03cebc-5848-9c5e-b02c-2f395103d5a6','test memo rekomendasi',100000000,'Tarkiman','a9a3a463-1e11-71cf-3f93-94a41335c8d5','SESUAI',NULL,NULL,'2020-12-01 23:06:47','2020-12-02 01:25:11',NULL),('a79dda3a-3b07-9dcb-5052-539433123e8d','1.1.3.1','5d6b7327-16db-9727-5787-2555f6a1818c','fghfhfgh',1000000,'Tarkiman','ee59992f-cc91-5b7b-3448-d62ea0fd9446','BELUM_TL',NULL,NULL,'2020-12-02 02:55:11','2020-12-02 02:55:11',NULL);
+insert  into `rekomendasi`(`id`,`no_rekomendasi`,`id_jenis_rekomendasi`,`memo_rekomendasi`,`nilai_rekomendasi`,`nama_penanggung_jawab`,`id_sebab`,`status`,`alasan_tidak_di_tl`,`lampiran_tidak_di_tl`,`created_at`,`updated_at`,`deleted_at`) values ('63d1b7dd-5691-5790-4e7c-7c6bbfa76eed','1.1.1.1','a3b57297-a892-a296-4cfa-a23f7a669c62','test rekomendasi',500000000,'Test Penangung Jawab','d9fa7e5e-f103-2bfa-a450-d17c014b092e','BELUM_SESUAI',NULL,NULL,'2020-12-02 15:40:23','2020-12-02 15:41:33',NULL),('b2ca2699-799f-eac6-03aa-1423cb19fade','2.1.1.1','5057ea49-f00f-114a-2293-d24033f8bfc4','test memo rekomendasi',5000000000,'Tarkiman','8a18e19a-e003-7044-aeba-a72d16163cfd','BELUM_SESUAI',NULL,NULL,'2020-12-02 15:52:10','2020-12-02 15:57:47',NULL);
 
 /*Table structure for table `satuan_kerja` */
 
@@ -489,7 +487,7 @@ CREATE TABLE `sebab` (
 
 /*Data for the table `sebab` */
 
-insert  into `sebab`(`id`,`no_sebab`,`memo_sebab`,`id_temuan`,`created_at`,`updated_at`,`deleted_at`) values ('4c878e9f-76a8-585c-e8e2-6a0144334dd3','1.1.2','test','cfe5bfc0-89d7-3e82-f084-1e67a0fc158a','2020-12-02 02:43:23','2020-12-02 02:46:15',NULL),('a9a3a463-1e11-71cf-3f93-94a41335c8d5','1.1.1','test memo sebab','cfe5bfc0-89d7-3e82-f084-1e67a0fc158a','2020-12-01 23:06:06','2020-12-01 23:06:06',NULL),('ee59992f-cc91-5b7b-3448-d62ea0fd9446','1.1.3','test2','cfe5bfc0-89d7-3e82-f084-1e67a0fc158a','2020-12-02 02:44:30','2020-12-02 02:44:30',NULL);
+insert  into `sebab`(`id`,`no_sebab`,`memo_sebab`,`id_temuan`,`created_at`,`updated_at`,`deleted_at`) values ('8a18e19a-e003-7044-aeba-a72d16163cfd','2.1.1','test simple sebab','91efa7ec-96f2-ba3e-e986-99275c30f785','2020-12-02 15:51:34','2020-12-02 15:51:34',NULL),('d9fa7e5e-f103-2bfa-a450-d17c014b092e','1.1.1','Sebab tanpa sebab','7afa9253-4262-f167-9961-d61ceaa7df92','2020-12-02 15:39:37','2020-12-02 15:39:37',NULL);
 
 /*Table structure for table `temuan` */
 
@@ -502,7 +500,7 @@ CREATE TABLE `temuan` (
   `id_jenis_temuan1` varchar(50) DEFAULT NULL,
   `id_jenis_temuan2` varchar(50) DEFAULT NULL,
   `id_jenis_temuan3` varchar(50) DEFAULT NULL,
-  `nilai_temuan` int(11) DEFAULT NULL,
+  `nilai_temuan` bigint(20) DEFAULT NULL,
   `id_laporan` varchar(50) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -513,7 +511,7 @@ CREATE TABLE `temuan` (
 
 /*Data for the table `temuan` */
 
-insert  into `temuan`(`id`,`no_temuan`,`memo_temuan`,`id_jenis_temuan1`,`id_jenis_temuan2`,`id_jenis_temuan3`,`nilai_temuan`,`id_laporan`,`created_at`,`updated_at`,`deleted_at`) values ('70b9b2c2-83d2-0408-e1fc-f5d27b7e37a8','1.2','fjhngjh','a197d8db-2947-b63e-2ac5-5e8b6e02a35a','bf622615-bc23-7a8f-7123-598b0394e574','ebd2a4a7-2678-518d-06e9-97771c9f5eb4',1000000,'b80aa572-930f-50ec-db8c-4ec7101fd0bd','2020-12-02 02:40:03','2020-12-02 02:40:03',NULL),('cfe5bfc0-89d7-3e82-f084-1e67a0fc158a','1.1','test memo','a197d8db-2947-b63e-2ac5-5e8b6e02a35a','2a56ac2e-1305-663f-3ddb-7e5d02dfbfc4','e8527668-1231-248f-f108-23b60b92ecba',100000000,'b80aa572-930f-50ec-db8c-4ec7101fd0bd','2020-12-01 23:05:48','2020-12-02 02:39:38',NULL);
+insert  into `temuan`(`id`,`no_temuan`,`memo_temuan`,`id_jenis_temuan1`,`id_jenis_temuan2`,`id_jenis_temuan3`,`nilai_temuan`,`id_laporan`,`created_at`,`updated_at`,`deleted_at`) values ('7afa9253-4262-f167-9961-d61ceaa7df92','1.1','Piutang','a197d8db-2947-b63e-2ac5-5e8b6e02a35a','2a56ac2e-1305-663f-3ddb-7e5d02dfbfc4','66d8c78c-8c95-9693-0f2f-9134576d20aa',100000000,'9d39ed35-1900-96e7-bbb8-fe4e20d7c138','2020-12-02 10:23:42','2020-12-02 10:23:42',NULL),('91efa7ec-96f2-ba3e-e986-99275c30f785','2.1','test memo temuan 2','7998677f-0868-63f8-db47-df7bc35a8ef5','5ec69461-1989-1316-db17-4985daaf4524','5c77846c-36ab-cba5-618c-17f16cda8664',2000000000,'1afbbe56-732f-62bf-7681-09a2d092112e','2020-12-02 15:50:54','2020-12-02 15:50:54',NULL);
 
 /*Table structure for table `tindak_lanjut` */
 
@@ -522,10 +520,10 @@ DROP TABLE IF EXISTS `tindak_lanjut`;
 CREATE TABLE `tindak_lanjut` (
   `id` varchar(50) NOT NULL,
   `no_tindak_lanjut` varchar(50) DEFAULT NULL,
-  `nilai_rekomendasi` int(11) DEFAULT NULL,
-  `nilai_tindak_lanjut` int(11) DEFAULT NULL,
-  `nilai_terverifikasi` int(11) DEFAULT NULL,
-  `nilai_sisa_rekomendasi` int(11) DEFAULT NULL,
+  `nilai_rekomendasi` bigint(20) DEFAULT NULL,
+  `nilai_tindak_lanjut` bigint(20) DEFAULT NULL,
+  `nilai_terverifikasi` bigint(20) DEFAULT NULL,
+  `nilai_sisa_rekomendasi` bigint(20) DEFAULT NULL,
   `id_rekomendasi` varchar(50) DEFAULT NULL,
   `remark_auditor` text DEFAULT NULL,
   `remark_auditee` text DEFAULT NULL,
@@ -540,7 +538,7 @@ CREATE TABLE `tindak_lanjut` (
 
 /*Data for the table `tindak_lanjut` */
 
-insert  into `tindak_lanjut`(`id`,`no_tindak_lanjut`,`nilai_rekomendasi`,`nilai_tindak_lanjut`,`nilai_terverifikasi`,`nilai_sisa_rekomendasi`,`id_rekomendasi`,`remark_auditor`,`remark_auditee`,`status`,`read_status`,`created_at`,`updated_at`,`deleted_at`) values ('1d7b982c-fb48-f45a-347b-ea644e9f1f4b',NULL,100000000,90000000,80000000,10000000,'91efdb73-1b85-1a6d-f679-fa565782dd6e','test verifikasi TL','test buat TL baru',NULL,0,'2020-12-01 23:13:01','2020-12-02 00:24:12',NULL),('613092b1-26c3-0069-bf28-7cb0837f6880','1.1.1.2.3',5000000,1000000,500000,4000000,'4a439e62-6d42-bc8a-40d7-ec129011aab7','test','test',NULL,0,'2020-12-02 01:39:51','2020-12-02 01:45:44',NULL),('8a68fcd2-fddb-a8bc-b4ff-6583ebf5470f','1.1.1.2.2',5000000,4000000,4000000,1000000,'4a439e62-6d42-bc8a-40d7-ec129011aab7','test','test TL',NULL,0,'2020-12-02 01:38:17','2020-12-02 01:45:28',NULL),('ce315b36-fe8e-b424-b258-8ab4579d3560',NULL,100000000,20000000,20000000,0,'91efdb73-1b85-1a6d-f679-fa565782dd6e','ok, sudah clear','test pelunasan',NULL,0,'2020-12-02 01:11:40','2020-12-02 01:12:32',NULL),('e0bfab24-157f-1887-d122-84a3a8be9bcf','1.1.1.2.1',5000000,1000000,500000,4000000,'4a439e62-6d42-bc8a-40d7-ec129011aab7','test lunas','test update status',NULL,0,'2020-12-02 01:44:39','2020-12-02 01:46:00',NULL),('f90257d7-71ab-36f2-b213-b878b0f3a83c','1.1.1.4.1',1000000,900000,NULL,100000,'7196cbec-3346-679c-83c2-0bff8731553a',NULL,'test',NULL,0,'2020-12-02 03:15:29','2020-12-02 03:15:29',NULL);
+insert  into `tindak_lanjut`(`id`,`no_tindak_lanjut`,`nilai_rekomendasi`,`nilai_tindak_lanjut`,`nilai_terverifikasi`,`nilai_sisa_rekomendasi`,`id_rekomendasi`,`remark_auditor`,`remark_auditee`,`status`,`read_status`,`created_at`,`updated_at`,`deleted_at`) values ('26fad41d-ed66-7f97-911f-eba63a39b35e','2.1.1.1.1',5000000000,5000000000,4500000000,0,'b2ca2699-799f-eac6-03aa-1423cb19fade','test remark','test lunas',NULL,0,'2020-12-02 15:57:47','2020-12-02 15:58:49',NULL),('27835af3-24cd-00a1-f931-4db8175c3afd','2.1.1.1.2',5000000000,500000000,NULL,0,'b2ca2699-799f-eac6-03aa-1423cb19fade',NULL,'test remark auditee',NULL,0,'2020-12-02 15:59:19','2020-12-02 15:59:19',NULL),('3a0dd3c0-4e62-23d9-7bb3-871c2fbe5544','1.1.1.1.1',500000000,300000000,250000000,200000000,'63d1b7dd-5691-5790-4e7c-7c6bbfa76eed','test remark auditor ','test buat TL baru',NULL,0,'2020-12-02 15:41:33','2020-12-02 15:46:43',NULL);
 
 /*Table structure for table `user_groups` */
 
