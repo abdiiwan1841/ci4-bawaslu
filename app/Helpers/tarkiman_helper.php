@@ -105,6 +105,8 @@ function input_text($field_name = '', $label = '', $value = '', $required = fals
 
     $value = (old($field_name)) ? old($field_name) : $value;
 
+    $value = is_null($value) ? '' : $value;
+
     $hashError = $validation->hasError($field_name) ? 'error' : '';
     $hashRequired = ($required) ? '<font color="red"> *</font>' : '';
 
@@ -133,6 +135,8 @@ function input_number($field_name = '', $label = '', $value = '', $required = fa
     $validation = \Config\Services::validation();
 
     $value = (old($field_name)) ? old($field_name) : $value;
+
+    $value = is_null($value) ? '' : $value;
 
     $hashError = $validation->hasError($field_name) ? 'error' : '';
     $hashRequired = ($required) ? '<font color="red"> *</font>' : '';
