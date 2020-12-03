@@ -514,7 +514,7 @@ class Laporan extends BaseController
                     'realisasi_anggaran' => $this->request->getVar('realisasi_anggaran'),
                     'audit_anggaran' => $this->request->getVar('audit_anggaran'),
                     'jenis_anggaran' => $this->request->getVar('jenis_anggaran'),
-                    'ketua_tim' => session()->get('id_user')
+                    'ketua_tim' => $this->request->getVar('ketua_tim')
                 ];
 
                 /*Update data ke table laporan berdasarkan ID */

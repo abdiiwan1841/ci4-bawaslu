@@ -126,8 +126,8 @@ class TemuanModel extends Model
             $sql = "SELECT
             CONCAT(b.no_laporan,'.',COUNT(a.id)+1) AS counter
             FROM temuan a 
-            JOIN laporan b ON b.id=a.id_laporan
-            WHERE a.id_laporan=?";
+            RIGHT JOIN laporan b ON b.id=a.id_laporan
+            WHERE b.id=?";
             $query = $this->query($sql, [$idLaporan]);
             $data = $query->getRow();
             if (isset($data)) {

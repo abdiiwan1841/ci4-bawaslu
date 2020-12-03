@@ -34,7 +34,7 @@ class LaporanAuditeeModel extends Model
         'realisasi_anggaran',
         'audit_anggaran',
         'jenis_anggaran',
-        'id_auditor',
+        'ketua_tim',
         'id_satuan_kerja'
     ];
 
@@ -65,7 +65,7 @@ class LaporanAuditeeModel extends Model
         realisasi_anggaran,
         audit_anggaran,
         jenis_anggaran,
-        id_auditor,
+        ketua_tim,
         id_satuan_kerja');
         $this->orderBy('nama_laporan', 'ASC');
         $query = $this->get();
@@ -94,7 +94,7 @@ class LaporanAuditeeModel extends Model
         realisasi_anggaran,
         audit_anggaran,
         jenis_anggaran,
-        id_auditor,
+        ketua_tim,
         id_satuan_kerja');
         $this->orderBy('nama_laporan', 'ASC');
         $this->where('id', $id);
@@ -373,8 +373,8 @@ class LaporanAuditeeModel extends Model
             $sql = "SELECT
             CONCAT(b.no_rekomendasi,'.',COUNT(a.id)+1) AS counter
             FROM tindak_lanjut a 
-            JOIN rekomendasi b ON b.id=a.id_rekomendasi
-            WHERE a.id_rekomendasi=?";
+            RIGHT JOIN rekomendasi b ON b.id=a.id_rekomendasi
+            WHERE b.id=?";
             $query = $this->query($sql, [$idRekomendasi]);
             $data = $query->getRow();
             if (isset($data)) {
@@ -392,8 +392,8 @@ class LaporanAuditeeModel extends Model
             $sql = "SELECT
             CONCAT(b.no_tindak_lanjut,'.',COUNT(a.id)+1) AS counter
             FROM bukti a 
-            JOIN tindak_lanjut b ON b.id=a.id_tindak_lanjut
-            WHERE a.id_tindak_lanjut=?";
+            RIGHT JOIN tindak_lanjut b ON b.id=a.id_tindak_lanjut
+            WHERE b.id=?";
             $query = $this->query($sql, [$idTindakLanjut]);
             $data = $query->getRow();
             if (isset($data)) {

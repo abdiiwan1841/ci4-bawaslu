@@ -134,8 +134,8 @@ class RekomendasiModel extends Model
             $sql = "SELECT
             CONCAT(b.no_sebab,'.',COUNT(a.id)+1) AS counter
             FROM rekomendasi a 
-            JOIN sebab b ON b.id=a.id_sebab
-            WHERE a.id_sebab=?";
+            RIGHT JOIN sebab b ON b.id=a.id_sebab
+            WHERE b.id=?";
             $query = $this->query($sql, [$idSebab]);
             $data = $query->getRow();
             if (isset($data)) {
@@ -145,5 +145,29 @@ class RekomendasiModel extends Model
         } catch (\Exception $e) {
             return $e->getMessage();
         }
+    }
+
+    public function getSelected($idRekomendasi)
+    {
+        if (isset($idRekomendasi)) {
+
+            $sql = "SELECT 
+            a.id,
+            a.nama_penanggung_jawab
+            FROM penanggung_jawab a 
+            WHERE a.id_rekomendasi=?";
+
+            $query = $this->query($sql, [$idRekomendasi]);
+
+            $data = $query->getResult();
+            $result = [];
+            if (isset($data)) {
+                foreach ($data as $r) {
+                    array_push($result, $r->nama_penanggung_jawab);
+                }
+                return $result;
+            }
+        }
+        return array();
     }
 }

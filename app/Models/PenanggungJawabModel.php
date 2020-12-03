@@ -9,19 +9,18 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class SebabModel extends Model
+class PenanggungJawabModel extends Model
 {
 
-    protected $table      = 'sebab';
+    protected $table      = 'penanggung_jawab';
     protected $primaryKey = 'id';
 
     protected $returnType     = 'object';
     protected $useSoftDeletes = false;
     protected $allowedFields = [
         'id',
-        'no_sebab',
-        'memo_sebab',
-        'id_temuan'
+        'id_rekomendasi',
+        'nama_penanggung_jawab'
     ];
 
     protected $useTimestamps = true;
@@ -37,10 +36,9 @@ class SebabModel extends Model
     {
         $this->select('
         id,
-        no_sebab,
-        memo_sebab,
-        id_temuan');
-        $this->orderBy('no_sebab', 'ASC');
+        id_rekomendasi,
+        nama_penanggung_jawab');
+        $this->orderBy('nama_penanggung_jawab', 'ASC');
         $query = $this->get();
         $data = $query->getResult();
         if (isset($data)) {
@@ -53,10 +51,9 @@ class SebabModel extends Model
     {
         $this->select('
         id,
-        no_sebab,
-        memo_sebab,
-        id_temuan');
-        $this->orderBy('no_sebab', 'ASC');
+        id_rekomendasi,
+        nama_penanggung_jawab');
+        $this->orderBy('nama_penanggung_jawab', 'ASC');
         $this->where('id', $id);
         $query = $this->get();
         $data = $query->getRow();
@@ -64,24 +61,5 @@ class SebabModel extends Model
             return $data;
         }
         return array();
-    }
-
-    public function counter($idTemuan)
-    {
-        try {
-            $sql = "SELECT
-            CONCAT(b.no_temuan,'.',COUNT(a.id)+1) AS counter
-            FROM sebab a 
-            RIGHT JOIN temuan b ON b.id=a.id_temuan
-            WHERE b.id=?";
-            $query = $this->query($sql, [$idTemuan]);
-            $data = $query->getRow();
-            if (isset($data)) {
-                return $data->counter;
-            }
-            return '';
-        } catch (\Exception $e) {
-            return $e->getMessage();
-        }
     }
 }

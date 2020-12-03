@@ -8,15 +8,17 @@
 namespace App\Controllers;
 
 use App\Models\RekomendasiModel;
+use App\Models\PenanggungJawabModel;
 
 class Rekomendasi extends BaseController
 {
 
-    protected $rekomendasiModel;
+    protected $penanggungJawabModel;
 
     public function __construct()
     {
         $this->rekomendasiModel = new RekomendasiModel();
+        $this->penanggungJawabModel = new PenanggungJawabModel();
     }
 
     public function index($idSebab)
@@ -180,15 +182,25 @@ class Rekomendasi extends BaseController
 
             $db->transStart();
 
+            $idRekomendasi = get_uuid();
+
             $this->rekomendasiModel->insert([
-                'id' => get_uuid(),
+                'id' => $idRekomendasi,
                 'no_rekomendasi' => $this->request->getVar('no_rekomendasi'),
                 'id_jenis_rekomendasi' => $this->request->getVar('id_jenis_rekomendasi'),
                 'memo_rekomendasi' => $this->request->getVar('memo_rekomendasi'),
                 'nilai_rekomendasi' => $this->request->getVar('nilai_rekomendasi'),
-                'nama_penanggung_jawab' => $this->request->getVar('nama_penanggung_jawab'),
                 'id_sebab' => $this->request->getVar('id_sebab')
             ]);
+
+            foreach ($this->request->getVar('nama_penanggung_jawab[]') as $r) {
+                $penanggungJawab[] = array(
+                    'id' => get_uuid(),
+                    'id_rekomendasi' => $idRekomendasi,
+                    'nama_penanggung_jawab' => $r
+                );
+            }
+            $this->penanggungJawabModel->insertBatch($penanggungJawab);
 
             $db->transComplete();
             if ($db->transStatus() === FALSE) {
@@ -213,10 +225,18 @@ class Rekomendasi extends BaseController
             $jenis_rekomendasi_options[$r->id] = $r->nama;
         }
 
+        $optionsTags = $this->rekomendasiModel->getSelected($id);
+        $options = [];
+        foreach ($optionsTags as $r) {
+            $options[$r] = $r;
+        }
+
         $data = [
             'title' => 'Edit Rekomendasi',
             'active' => 'rekomendasi',
             'data' => $this->rekomendasiModel->getDataById($id),
+            'options_selected' => $optionsTags,
+            'options_tags' => $options,
             'jenis_rekomendasi_options' => $jenis_rekomendasi_options,
             'validation' => \Config\Services::validation()
         ];
@@ -226,6 +246,8 @@ class Rekomendasi extends BaseController
 
     public function update($id)
     {
+
+        // dd($_POST);
 
         $idSebab = $this->request->getVar('id_sebab');
 
@@ -265,12 +287,24 @@ class Rekomendasi extends BaseController
                     'id_jenis_rekomendasi' => $this->request->getVar('id_jenis_rekomendasi'),
                     'memo_rekomendasi' => $this->request->getVar('memo_rekomendasi'),
                     'nilai_rekomendasi' => $this->request->getVar('nilai_rekomendasi'),
-                    'nama_penanggung_jawab' => $this->request->getVar('nama_penanggung_jawab'),
                     'id_sebab' => $this->request->getVar('id_sebab')
                 ];
 
                 /*Update data ke table Positions berdasarkan ID */
                 $this->rekomendasiModel->save($data);
+
+                /*Delete data lama di table Penanggung Jawab berdasarkan ID_LAPORAN */
+                $this->penanggungJawabModel->where('id_rekomendasi', $id);
+                $this->penanggungJawabModel->delete();
+
+                foreach ($this->request->getVar('nama_penanggung_jawab[]') as $r) {
+                    $penanggungJawab[] = array(
+                        'id' => get_uuid(),
+                        'id_rekomendasi' => $id,
+                        'nama_penanggung_jawab' => $r
+                    );
+                }
+                $this->penanggungJawabModel->insertBatch($penanggungJawab);
 
                 $db->transComplete();
                 if ($db->transStatus() === FALSE) {

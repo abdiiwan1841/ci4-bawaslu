@@ -60,7 +60,7 @@
                                 <?= input_multiselect('anggota_tim[]', 'Anggota TIM', $options, $selected = array(), $required = true, $readonly = false); ?>
                                 <div class="form-actions no-margin">
                                     <button type="submit" class="btn btn-primary">Submit</button>
-                                    <button type="button" class="btn" onclick="window.history.back();">Cancel</button>
+                                    <a href="<?= base_url('laporan/list/' . session()->get('id_satuan_kerja')) ?>" class="btn" onclick="window.history.back();">Cancel</a>
                                 </div>
                             </form>
                         </div>
