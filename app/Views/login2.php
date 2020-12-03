@@ -146,7 +146,7 @@
                         <div class="col-md-7">
                             <div class="content-text" style="background-color: #00000080;padding: 20px;">
                                 <h1>Selamat Datang</h1>
-                                <p>Sistem Informasi Pemantauan Tindak Lanjut (SIPTL) adalah aplikasi yang disediakan oleh BAWASLU dalam rangka mendukung pelaksanaan Tugas dan Wewenang BAWASLU sesuai dengan Undang-undang yang berlaku.</p>
+                                <p>Sistem Informasi Pemantauan Tindak Lanjut Temuan (SITINJU) adalah aplikasi yang disediakan oleh BAWASLU dalam rangka mendukung pelaksanaan Tugas dan Wewenang BAWASLU sesuai dengan Undang-undang yang berlaku.</p>
                             </div>
                         </div>
                         <div class="col-md-5">

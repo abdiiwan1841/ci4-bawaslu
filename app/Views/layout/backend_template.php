@@ -38,7 +38,7 @@
 <body>
     <header>
         <a href="<?= base_url('/'); ?>" class="logo"><img src="<?= '/images/icon.png'; ?>" style="width: 30px;" class="img-logo" alt=""></a>
-        <span style="color: #fff;font-size: 18px;padding-left: 5px;">BAWASLU - SISTEM INFORMASI PEMANTAUAN TINDAK LANJUT</span>
+        <span style="color: #fff;font-size: 18px;padding-left: 5px;">BAWASLU - SISTEM INFORMASI PEMANTAUAN TINDAK LANJUT TEMUAN (SITINJU)</span>
         <div id="mini-nav">
             <ul class="hidden-phone">
                 <li>
