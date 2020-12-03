@@ -8,6 +8,7 @@
 namespace App\Controllers;
 
 use App\Models\LaporanModel;
+use App\Models\TimModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Fpdf\Fpdf;
@@ -16,11 +17,12 @@ class Laporan extends BaseController
 {
 
     protected $laporanModel;
-    protected $sessionTrackingModel;
+    protected $timModel;
 
     public function __construct()
     {
         $this->laporanModel = new LaporanModel();
+        $this->timModel = new TimModel();
     }
 
     public function index()
@@ -110,7 +112,7 @@ class Laporan extends BaseController
                 a.realisasi_anggaran,
                 a.audit_anggaran,
                 a.jenis_anggaran,
-                a.id_auditor,
+                a.ketua_tim,
                 a.id_satuan_kerja
                 FROM laporan a 
                 WHERE
@@ -186,9 +188,17 @@ class Laporan extends BaseController
     public function create()
     {
 
+        $options = array();
+
+        $auditor = $this->laporanModel->getAuditor();
+        foreach ($auditor as $r) {
+            $options[$r->id] = $r->nama;
+        }
+
         $data = [
             'title' => 'Buat Laporan Baru',
             'active' => 'Laporan',
+            'options' => $options,
             'no_laporan' => $this->laporanModel->counter(),
             'validation' => \Config\Services::validation()
         ];
@@ -286,6 +296,18 @@ class Laporan extends BaseController
                 'errors' => [
                     // 'required' => '{field} harus diisi.'
                 ]
+            ],
+            'ketua_tim' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'anggota_tim' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
             ]
         ])) {
             return redirect()->to('/laporan/create')->withInput();
@@ -296,8 +318,10 @@ class Laporan extends BaseController
 
             $db->transStart();
 
+            $idLaporan = get_uuid();
+
             $this->laporanModel->insert([
-                'id' => get_uuid(),
+                'id' => $idLaporan,
                 'no_laporan' => $this->request->getVar('no_laporan'),
                 'tanggal_laporan' => $this->request->getVar('tanggal_laporan'),
                 'nama_laporan' => $this->request->getVar('nama_laporan'),
@@ -312,9 +336,18 @@ class Laporan extends BaseController
                 'realisasi_anggaran' => $this->request->getVar('realisasi_anggaran'),
                 'audit_anggaran' => $this->request->getVar('audit_anggaran'),
                 'jenis_anggaran' => $this->request->getVar('jenis_anggaran'),
-                'id_auditor' => session()->get('id_user'),
+                'ketua_tim' => $this->request->getVar('ketua_tim'),
                 'id_satuan_kerja' => session()->get('id_satuan_kerja')
             ]);
+
+            foreach ($this->request->getVar('anggota_tim[]') as $r) {
+                $tim[] = array(
+                    'id' => get_uuid(),
+                    'id_laporan' => $idLaporan,
+                    'id_auditor' => $r
+                );
+            }
+            $this->timModel->insertBatch($tim);
 
             $db->transComplete();
             if ($db->transStatus() === FALSE) {
@@ -332,9 +365,18 @@ class Laporan extends BaseController
 
     public function edit($id)
     {
+        $options = array();
+
+        $auditor = $this->laporanModel->getAuditor();
+        foreach ($auditor as $r) {
+            $options[$r->id] = $r->nama;
+        }
+
         $data = [
             'title' => 'Edit Laporan',
             'active' => 'Laporan',
+            'options' => $options,
+            'options_selected' => $this->timModel->getSelected($id),
             'data' => $this->laporanModel->getDataById($id),
             'validation' => \Config\Services::validation()
         ];
@@ -432,6 +474,18 @@ class Laporan extends BaseController
                 'errors' => [
                     // 'required' => '{field} harus diisi.'
                 ]
+            ],
+            'ketua_tim' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
+            ],
+            'anggota_tim' => [
+                'rules' => 'required',
+                'errors' => [
+                    // 'required' => '{field} harus diisi.'
+                ]
             ]
         ];
 
@@ -460,11 +514,25 @@ class Laporan extends BaseController
                     'realisasi_anggaran' => $this->request->getVar('realisasi_anggaran'),
                     'audit_anggaran' => $this->request->getVar('audit_anggaran'),
                     'jenis_anggaran' => $this->request->getVar('jenis_anggaran'),
-                    'id_auditor' => session()->get('id_user')
+                    'ketua_tim' => session()->get('id_user')
                 ];
 
-                /*Update data ke table Positions berdasarkan ID */
+                /*Update data ke table laporan berdasarkan ID */
                 $this->laporanModel->save($data);
+
+                /*Delete data lama di table TIM berdasarkan ID_LAPORAN */
+                $this->timModel->where('id_laporan', $id);
+                $this->timModel->delete();
+
+                /*Insert data baru ke table TIM berdasarkan ID_LAPORAN */
+                foreach ($this->request->getVar('anggota_tim[]') as $r) {
+                    $tim[] = array(
+                        'id' => get_uuid(),
+                        'id_laporan' => $id,
+                        'id_auditor' => $r
+                    );
+                }
+                $this->timModel->insertBatch($tim);
 
                 $db->transComplete();
                 if ($db->transStatus() === FALSE) {
@@ -807,6 +875,8 @@ class Laporan extends BaseController
             $nomor++;
         }
 
+        $spreadsheet->getActiveSheet()->getStyle('A1:S1')->getAlignment()->setHorizontal('center');
+        $spreadsheet->getActiveSheet()->getStyle('A2:S2')->getAlignment()->setHorizontal('center');
 
         $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
         $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
@@ -834,7 +904,7 @@ class Laporan extends BaseController
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="MATRIKS_PEMANTAUAN_TINDAK_LANJUT_' . date('Y-m-d-H-i') . '.xlsx"');
         header('Cache-Control: max-age=0');
-
         $writer->save('php://output');
+        exit();
     }
 }

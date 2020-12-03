@@ -34,7 +34,7 @@ class LaporanModel extends Model
         'realisasi_anggaran',
         'audit_anggaran',
         'jenis_anggaran',
-        'id_auditor',
+        'ketua_tim',
         'id_satuan_kerja'
     ];
 
@@ -65,7 +65,7 @@ class LaporanModel extends Model
         realisasi_anggaran,
         audit_anggaran,
         jenis_anggaran,
-        id_auditor,
+        ketua_tim,
         id_satuan_kerja');
         $this->orderBy('nama_laporan', 'ASC');
         $query = $this->get();
@@ -94,7 +94,7 @@ class LaporanModel extends Model
         realisasi_anggaran,
         audit_anggaran,
         jenis_anggaran,
-        id_auditor,
+        ketua_tim,
         id_satuan_kerja');
         $this->orderBy('nama_laporan', 'ASC');
         $this->where('id', $id);
@@ -197,18 +197,18 @@ class LaporanModel extends Model
             a.no_laporan,
             a.nama_laporan,
             b.memo_temuan,
-            b.id AS jumlah_temuan,
+            '1' AS jumlah_temuan,
             b.nilai_temuan,
             d.memo_rekomendasi,
-            d.id AS jumlah_rekomendasi,
+            '1' AS jumlah_rekomendasi,
             d.nilai_rekomendasi,
-            '' AS jumlah_sesuai_rekomendasi,
+            '1' AS jumlah_sesuai_rekomendasi,
             (
                 SELECT SUM(e.nilai_terverifikasi)
                 FROM tindak_lanjut e 
                 WHERE e.id_rekomendasi=d.id
             ) AS nilai_sesuai_rekomendasi,
-            '' AS jumlah_belum_sesuai_rekomendasi,
+            '1' AS jumlah_belum_sesuai_rekomendasi,
             (
                 (
                     SELECT SUM(f.nilai_tindak_lanjut)
@@ -222,20 +222,21 @@ class LaporanModel extends Model
                     WHERE g.id_rekomendasi=d.id
                 )
             ) AS nilai_yang_belum_sesuai_rekomendasi_dan_dalam_proses_tindak_lanjut,
-            '' AS jumlah_belum_ditindaklanjuti,
+            '1' AS jumlah_belum_ditindaklanjuti,
             (
                 d.nilai_rekomendasi
                 -
                 (
-                    SELECT SUM(h.nilai_tindak_lanjut)
+                    SELECT SUM(h.nilai_terverifikasi)
                     FROM tindak_lanjut h 
                     WHERE h.id_rekomendasi=d.id
                 )
             ) AS nilai_belum_ditindaklanjuti,
-            '' AS jumlah_tidak_dapat_ditindaklanjuti,
+            '1' AS jumlah_tidak_dapat_ditindaklanjuti,
             (
                 IF(d.status='TIDAK_DAPAT_DI_TL',d.nilai_rekomendasi,0)
-            ) AS nilai_tidak_dapat_ditindaklanjuti
+            ) AS nilai_tidak_dapat_ditindaklanjuti,
+            d.nilai_rekomendasi
         FROM laporan a 
         JOIN temuan b ON b.id_laporan=a.id 
         JOIN sebab c ON c.id_temuan=b.id 
@@ -244,6 +245,26 @@ class LaporanModel extends Model
 
 
             $query = $this->query($sql, [$idSatuanKerja]);
+            $data = $query->getResult();
+            if (isset($data)) {
+                return $data;
+            }
+            return array();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getAuditor()
+    {
+        try {
+            $sql = "SELECT 
+                    a.id,
+                    a.nama
+                    FROM `pegawai` a 
+                    WHERE a.`type`='AUDITOR' 
+                    ORDER BY a.nama ASC";
+            $query = $this->query($sql);
             $data = $query->getResult();
             if (isset($data)) {
                 return $data;

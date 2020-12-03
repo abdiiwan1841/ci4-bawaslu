@@ -101,7 +101,7 @@
                     targets: 15
                 },
                 {
-                    width: '100px',
+                    width: '150px',
                     targets: 15
                 }
             ],

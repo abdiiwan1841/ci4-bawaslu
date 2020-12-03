@@ -1,7 +1,7 @@
 <?= $this->extend('layout/backend_template'); ?>
 
 <?= $this->section('backend_content'); ?>
-
+<link href="<?= '/assets/css/select2.css'; ?>" rel="stylesheet">
 <div class="row-fluid">
     <div class="span12">
         <div class="widget">
@@ -38,7 +38,16 @@
                                 <?= input_text($field_name = 'nama_laporan', $label = 'Nama Laporan', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'no_surat_tugas', $label = 'No. Surat Tugas', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_date($field_name = 'tanggal_surat_tugas', $label = 'Tanggal Surat Tugas', $value = '', $required = true, $readonly = false, $disabled = false); ?>
-                                <?= input_text($field_name = 'unit_pelaksana', $label = 'Unit Pelaksana', $value = '', $required = true, $readonly = false, $disabled = false); ?>
+                                <?php
+                                $optionsUnitPelaksana = [
+                                    'BPK' => 'BPK',
+                                    'BPKP' => 'BPKP',
+                                    'IRWIL1' => 'IRWIL1',
+                                    'IRWIL2' => 'IRWIL2',
+                                    'IRWIL3' => 'IRWIL3'
+                                ];
+                                ?>
+                                <?= input_select($field_name = 'unit_pelaksana', $label = 'Unit Pelaksana', $optionsUnitPelaksana, $selected = '', $required = true, $disabled = ''); ?>
                                 <?= input_text($field_name = 'nip_pimpinan', $label = 'NIP Pimpinan', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'pimpinan_satuan_kerja', $label = 'Pimpinan Satuan Kerja', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'nama_satuan_kerja', $label = 'Nama Satuan Kerja', $value = '', $required = true, $readonly = false, $disabled = false); ?>
@@ -47,6 +56,8 @@
                                 <?= input_number($field_name = 'realisasi_anggaran', $label = 'Realisasi Anggaran', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'audit_anggaran', $label = 'Audit Anggaran', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'jenis_anggaran', $label = 'Jenis Anggaran', $value = '', $required = true, $readonly = false, $disabled = false); ?>
+                                <?= input_select($field_name = 'ketua_tim', $label = 'Ketua TIM', $options, $value = '', $required = true, $readonly = false, $disabled = false); ?>
+                                <?= input_multiselect('anggota_tim[]', 'Anggota TIM', $options, $selected = array(), $required = true, $readonly = false); ?>
                                 <div class="form-actions no-margin">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                     <button type="button" class="btn" onclick="window.history.back();">Cancel</button>
@@ -59,5 +70,10 @@
         </div>
     </div>
 </div>
+
+<script src="<?= '/assets/js/select2.js'; ?>"></script>
+<script type="text/javascript">
+    $(".select2-container").select2();
+</script>
 
 <?= $this->endSection(); ?>

@@ -1,7 +1,7 @@
 <?= $this->extend('layout/backend_template'); ?>
 
 <?= $this->section('backend_content'); ?>
-
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 <div class="row-fluid">
     <div class="span12">
         <div class="widget">
@@ -36,8 +36,8 @@
                                 <?= input_text($field_name = 'no_rekomendasi', $label = 'No. Rekomendasi', $value = $no_rekomendasi, $required = true, $readonly = true, $disabled = false); ?>
                                 <?= input_select($field_name = 'id_jenis_rekomendasi', $label = 'Jenis Rekomendasi', $jenis_rekomendasi_options, $selected = '', $required = true, $disabled = ''); ?>
                                 <?= input_textarea($field_name = 'memo_rekomendasi', $label = 'Memo Rekomendasi', $value = '', $required = true, $readonly = false, $disabled = false); ?>
-                                <?= input_number($field_name = 'nilai_rekomendasi', $label = 'Nilai Rekomendasi', $value = '', $required = true, $readonly = false, $disabled = false); ?>
-                                <?= input_text($field_name = 'nama_penanggung_jawab', $label = 'Nama Penanggung Jawab', $value = '', $required = true, $readonly = false, $disabled = false); ?>
+                                <?= input_number($field_name = 'nilai_rekomendasi', $label = 'Nilai Rekomendasi', $value = '', $required = false, $readonly = false, $disabled = false); ?>
+                                <?= input_multiselect('nama_penanggung_jawab[]', 'Nama Penanggung Jawab', $options = [], $selected = [], $required = true, $readonly = false); ?>
                                 <?= input_hidden($field_name = 'id_sebab', $value = $id_sebab); ?>
                                 <div class="form-actions no-margin">
                                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -51,5 +51,15 @@
         </div>
     </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<script type="text/javascript">
+    $(".select2-container").select2({
+        tags: true,
+        tokenSeparators: [',', ' ']
+    });
+</script>
+<!-- 
+    https://github.com/select2/select2/releases/tag/4.0.13
+    https://select2.org/getting-started/installation
+ -->
 <?= $this->endSection(); ?>
