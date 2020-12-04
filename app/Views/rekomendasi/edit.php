@@ -58,7 +58,7 @@
 <script type="text/javascript">
     $(".select2-container").select2({
         tags: true,
-        tokenSeparators: [',', ' ']
+        tokenSeparators: [',']
     });
 </script>
 

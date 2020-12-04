@@ -1,9 +1,6 @@
 <?= $this->extend('layout/backend_template'); ?>
 
 <?= $this->section('backend_content'); ?>
-<?php
-// dd($validation);
-?>
 <div class="row-fluid">
     <div class="span6">
         <div class="widget">
@@ -30,12 +27,6 @@
                     <?= input_text($field_name = 'nip', $label = 'NIP', $value = $data->nip, $required = true, $readonly = false, $disabled = false); ?>
                     <?= input_text($field_name = 'nama', $label = 'Nama', $value = $data->nama, $required = true, $readonly = false, $disabled = false); ?>
 
-                    <h5>Satuan Kerja</h5>
-                    <hr>
-
-                    <?= input_select($field_name = 'eselon1', $label = 'Eselon 1', $eselon1_options, $selected = '', $required = true, $disabled = ''); ?>
-                    <?= input_select($field_name = 'eselon2', $label = 'Eselon 2', [], $selected = '', $required = false, $disabled = ''); ?>
-                    <?= input_select($field_name = 'eselon3', $label = 'Eselon 3', [], $selected = '', $required = false, $disabled = ''); ?>
                     <h5>Informasi Akun</h5>
                     <hr>
 

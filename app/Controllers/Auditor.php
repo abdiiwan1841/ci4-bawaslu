@@ -94,17 +94,9 @@ class Auditor extends BaseController
             $groups_options[$r->id] = $r->name;
         }
 
-        $eselon1_options = array();
-
-        $eselon1 = $this->pegawaiModel->getEselon1();
-        foreach ($eselon1 as $r) {
-            $eselon1_options[$r->id] = $r->nama;
-        }
-
         $data = [
             'title' => 'Create New Auditor',
             'active' => 'auditor',
-            'eselon1_options' => $eselon1_options,
             'groups_options' => $groups_options,
             'validation' => \Config\Services::validation()
         ];
@@ -236,17 +228,9 @@ class Auditor extends BaseController
             $groups_options[$r->id] = $r->name;
         }
 
-        $eselon1_options = array();
-
-        $eselon1 = $this->pegawaiModel->getEselon1();
-        foreach ($eselon1 as $r) {
-            $eselon1_options[$r->id] = $r->nama;
-        }
-
         $data = [
             'title' => 'Edit Auditor',
             'active' => 'auditor',
-            'eselon1_options' => $eselon1_options,
             'groups_options' => $groups_options,
             'data' => $this->pegawaiModel->getDataById($id),
             'validation' => \Config\Services::validation()
@@ -268,18 +252,6 @@ class Auditor extends BaseController
                 ]
             ],
             'nama' => [
-                'rules' => 'required',
-                'errors' => [
-                    // 'required' => '{field} harus diisi.'
-                ]
-            ],
-            'jabatan' => [
-                'rules' => 'required',
-                'errors' => [
-                    // 'required' => '{field} harus diisi.'
-                ]
-            ],
-            'provinsi' => [
                 'rules' => 'required',
                 'errors' => [
                     // 'required' => '{field} harus diisi.'
@@ -359,27 +331,19 @@ class Auditor extends BaseController
 
                 $db->transStart();
 
-                $idSatuanKerja = ($this->request->getVar('kabupaten')) ? $this->request->getVar('kabupaten') : $this->request->getVar('provinsi');
-
                 $this->pegawaiModel->save([
                     'id' => $id,
                     'nip' => $this->request->getVar('nip'),
-                    'nama' => $this->request->getVar('nama'),
-                    'jabatan' => $this->request->getVar('jabatan'),
-                    'id_provinsi' => $this->request->getVar('provinsi'),
-                    'id_kabupaten' => $this->request->getVar('kabupaten'),
-                    'id_satuan_kerja' => $idSatuanKerja
+                    'nama' => $this->request->getVar('nama')
                 ]);
 
                 /*Update data ke table USER berdasarkan ID */
                 $this->userModel->save($data);
 
-
                 $db->transComplete();
                 if ($db->transStatus() === FALSE) {
                     return redirect()->to('/auditor/edit/' . $id)->withInput();
                 }
-
 
                 session()->setFlashData('messages', 'Data was successfully updated' . $exceptionMessages);
             } catch (\Exception $e) {

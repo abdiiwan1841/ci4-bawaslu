@@ -52,7 +52,7 @@ class Rekomendasi extends BaseController
                  b.deskripsi AS jenis_rekomendasi,
                  a.memo_rekomendasi,
                  a.nilai_rekomendasi,
-                 a.nama_penanggung_jawab,
+                 (SELECT GROUP_CONCAT(c.nama_penanggung_jawab SEPARATOR ', ') FROM penanggung_jawab c WHERE c.id_rekomendasi=a.id) AS nama_penanggung_jawab,
                  a.id_sebab,
                  a.status 
                 FROM rekomendasi a
