@@ -63,25 +63,28 @@ class RekomendasiModel extends Model
 
     public function getDataById($id)
     {
-        $this->select('
-        id,
-        no_rekomendasi,
-        id_jenis_rekomendasi,
-        memo_rekomendasi,
-        nilai_rekomendasi,
-        nama_penanggung_jawab,
-        id_sebab,
-        status,
-        alasan_tidak_di_tl,
-        lampiran_tidak_di_tl');
-        $this->orderBy('no_rekomendasi', 'ASC');
-        $this->where('id', $id);
-        $query = $this->get();
-        $data = $query->getRow();
-        if (isset($data)) {
-            return $data;
+        try {
+            $sql = "SELECT a.id,
+            a.no_rekomendasi,
+            a.id_jenis_rekomendasi,
+            a.memo_rekomendasi,
+            a.nilai_rekomendasi,
+            (SELECT GROUP_CONCAT(c.nama_penanggung_jawab SEPARATOR ', ') FROM penanggung_jawab c WHERE c.id_rekomendasi=a.id) AS nama_penanggung_jawab,
+            a.id_sebab,
+            a.status,
+            a.alasan_tidak_di_tl,
+            a.lampiran_tidak_di_tl 
+            FROM rekomendasi a 
+            WHERE a.id=?";
+            $query = $this->query($sql, [$id]);
+            $data = $query->getRow();
+            if (isset($data)) {
+                return $data;
+            }
+            return array();
+        } catch (\Exception $e) {
+            return $e->getMessage();
         }
-        return array();
     }
 
     public function getJenisRekomendasi()

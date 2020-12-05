@@ -22,7 +22,7 @@ class Tindaklanjut extends BaseController
     public function index($idRekomendasi)
     {
 
-        // session()->set('id_wilayah', $idWilayah);
+        // session()->set('id_satuan_kerja', $idWilayah);
         // session()->set('id_laporan', $idLaporan);
         // session()->set('id_temuan', $idTemuan);
         // session()->set('id_sebab', $idSebab);
@@ -243,7 +243,61 @@ class Tindaklanjut extends BaseController
         }
     }
 
-    public function tolak($id)
+    // public function tolak($id)
+    // {
+    //     try {
+    //         $db      = \Config\Database::connect();
+
+    //         $db->transStart();
+
+    //         $data = [
+    //             'id' => $id,
+    //             'status' => 'TOLAK'
+    //         ];
+    //         $this->tindaklanjutModel->save($data);
+
+    //         $db->transComplete();
+    //         if ($db->transStatus() === FALSE) {
+    //             return redirect()->to('/tindaklanjut/index/' . session()->get('id_rekomendasi'))->withInput();
+    //         } else {
+
+    //             session()->setFlashData('messages', 'Data berhasil di updated');
+    //         }
+    //     } catch (\Exception $e) {
+    //         return redirect()->to('/tindaklanjut/index/' . session()->get('id_rekomendasi'))->withInput()->with('messages', $e->getMessage());
+    //     }
+
+    //     return redirect()->to('/tindaklanjut/index/' . session()->get('id_rekomendasi'));
+    // }
+
+    // public function terima($id)
+    // {
+    //     try {
+    //         $db      = \Config\Database::connect();
+
+    //         $db->transStart();
+
+    //         $data = [
+    //             'id' => $id,
+    //             'status' => 'TERIMA'
+    //         ];
+    //         $this->tindaklanjutModel->save($data);
+
+    //         $db->transComplete();
+    //         if ($db->transStatus() === FALSE) {
+    //             return redirect()->to('/tindaklanjut/index/' . session()->get('id_rekomendasi'))->withInput();
+    //         } else {
+
+    //             session()->setFlashData('messages', 'Data berhasil di updated');
+    //         }
+    //     } catch (\Exception $e) {
+    //         return redirect()->to('/tindaklanjut/index/' . session()->get('id_rekomendasi'))->withInput()->with('messages', $e->getMessage());
+    //     }
+
+    //     return redirect()->to('/tindaklanjut/index/' . session()->get('id_rekomendasi'));
+    // }
+
+    public function readed($id)
     {
         try {
             $db      = \Config\Database::connect();
@@ -252,53 +306,32 @@ class Tindaklanjut extends BaseController
 
             $data = [
                 'id' => $id,
-                'status' => 'TOLAK'
+                'read_status' => '1'
             ];
             $this->tindaklanjutModel->save($data);
 
             $db->transComplete();
             if ($db->transStatus() === FALSE) {
-                return redirect()->to('/tindaklanjut/index/' . session()->get('id_rekomendasi'))->withInput();
             } else {
-
-                session()->setFlashData('messages', 'Data berhasil di updated');
             }
         } catch (\Exception $e) {
-            return redirect()->to('/tindaklanjut/index/' . session()->get('id_rekomendasi'))->withInput()->with('messages', $e->getMessage());
+            return $e->getMessage();
         }
-
-        return redirect()->to('/tindaklanjut/index/' . session()->get('id_rekomendasi'));
-    }
-
-    public function terima($id)
-    {
-        try {
-            $db      = \Config\Database::connect();
-
-            $db->transStart();
-
-            $data = [
-                'id' => $id,
-                'status' => 'TERIMA'
-            ];
-            $this->tindaklanjutModel->save($data);
-
-            $db->transComplete();
-            if ($db->transStatus() === FALSE) {
-                return redirect()->to('/tindaklanjut/index/' . session()->get('id_rekomendasi'))->withInput();
-            } else {
-
-                session()->setFlashData('messages', 'Data berhasil di updated');
-            }
-        } catch (\Exception $e) {
-            return redirect()->to('/tindaklanjut/index/' . session()->get('id_rekomendasi'))->withInput()->with('messages', $e->getMessage());
-        }
-
-        return redirect()->to('/tindaklanjut/index/' . session()->get('id_rekomendasi'));
     }
 
     public function verifikasi($idTindakLanjut)
     {
+        if ($_POST) {
+            session()->set('id_satuan_kerja', $this->request->getVar('id_satuan_kerja'));
+            session()->set('id_laporan', $this->request->getVar('id_laporan'));
+            session()->set('id_temuan', $this->request->getVar('id_temuan'));
+            session()->set('id_sebab', $this->request->getVar('id_sebab'));
+            session()->set('id_rekomendasi', $this->request->getVar('id_rekomendasi'));
+            session()->set('id_tindak_lanjut', $this->request->getVar('id_tindak_lanjut'));
+        }
+
+        $this->readed($idTindakLanjut);
+
         $r = $this->tindaklanjutModel->getDataById($idTindakLanjut);
 
         $data = [

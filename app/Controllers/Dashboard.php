@@ -34,25 +34,82 @@ class Dashboard extends BaseController
             "
             (
                 SELECT
+                f.`nama` AS satuan_kerja,
+                e.`no_laporan`,
+                e.`nama_laporan`,
+                d.`memo_temuan`,
+                b.`no_rekomendasi`,
+                b.`memo_rekomendasi`,
                 a.id,
-                CONCAT(a.product_name,' - ',a.color_name) AS product_name,
-                b.safety_stock,
-                COUNT(a.id) AS recent_stock
-                FROM stock a
-                JOIN product_colors b ON b.id=a.id_product_color
-                WHERE a.deleted_at IS NULL
+                a.`no_tindak_lanjut`,
+                a.nilai_rekomendasi,
+                a.status,
+                a.read_status,
+                a.created_at,
+                a.id AS id_tindak_lanjut,
+                b.id AS id_rekomendasi,
+                c.id AS id_sebab,
+                d.id AS id_temuan,
+                e.id AS id_laporan,
+                f.id AS id_satuan_kerja
+                FROM tindak_lanjut a 
+                JOIN rekomendasi b ON b.`id`=a.`id_rekomendasi`
+                JOIN sebab c ON c.`id`=b.`id_sebab` 
+                JOIN temuan d ON d.`id`=c.`id_temuan`
+                JOIN laporan e ON e.id=d.`id_laporan` 
+                JOIN eselon f ON f.`id`=e.`id_satuan_kerja`
+                WHERE a.deleted_at IS NULL 
                 AND b.deleted_at IS NULL
-                AND a.location='IN'
-                GROUP BY b.id 
-                HAVING (COUNT(a.id)< b.safety_stock)
+                AND c.deleted_at IS NULL
+                AND d.deleted_at IS NULL
+                AND e.deleted_at IS NULL
+                AND f.deleted_at IS NULL
+                AND a.read_status=0
+                ORDER BY a.created_at DESC
             ) temp
             ";
 
         $columns = array(
-            array('db' => 'id', 'dt' => 0),
-            array('db' => 'product_name', 'dt' => 1),
-            array('db' => 'safety_stock', 'dt' => 2),
-            array('db' => 'recent_stock', 'dt' => 3)
+            array('db' => 'created_at', 'dt' => 0),
+            array('db' => 'satuan_kerja', 'dt' => 1),
+            array('db' => 'nama_laporan', 'dt' => 2),
+            array('db' => 'memo_temuan', 'dt' => 3),
+            array('db' => 'memo_rekomendasi', 'dt' => 4),
+            array(
+                'db'        => 'nilai_rekomendasi',
+                'dt'        => 5,
+                'formatter' => function ($i, $row) {
+                    $html = format_number($i);
+                    return $html;
+                }
+            ),
+            array(
+                'db'        => 'id',
+                'dt'        => 6,
+                'formatter' => function ($i, $row) {
+                    $html = '
+                    <center>
+                    <form action="' . base_url('tindaklanjut/verifikasi/' . $i) . '" method="post" class="d-inline">
+                        ' . csrf_field() . '
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="id_satuan_kerja" value="' . $row['id_satuan_kerja'] . '">
+                        <input type="hidden" name="id_laporan" value="' . $row['id_laporan'] . '">
+                        <input type="hidden" name="id_temuan" value="' . $row['id_temuan'] . '">
+                        <input type="hidden" name="id_sebab" value="' . $row['id_sebab'] . '">
+                        <input type="hidden" name="id_rekomendasi" value="' . $row['id_rekomendasi'] . '">
+                        <input type="hidden" name="id_tindak_lanjut" value="' . $row['id_tindak_lanjut'] . '">
+                        <button type="submit" class="btn btn-success btn-small">Verifikasi</button>
+                    </form>
+                    </center>';
+                    return $html;
+                }
+            ),
+            array('db' => 'id_satuan_kerja', 'dt' => 'id_satuan_kerja'),
+            array('db' => 'id_laporan', 'dt' => 'id_laporan'),
+            array('db' => 'id_temuan', 'dt' => 'id_temuan'),
+            array('db' => 'id_sebab', 'dt' => 'id_sebab'),
+            array('db' => 'id_rekomendasi', 'dt' => 'id_rekomendasi'),
+            array('db' => 'id_tindak_lanjut', 'dt' => 'id_tindak_lanjut')
         );
 
         $primaryKey = 'id';
@@ -62,23 +119,9 @@ class Dashboard extends BaseController
         tarkiman_datatables($table, $columns, $condition, $primaryKey);
     }
 
-    function singleMovingAverage(array $data, $range)
+    function getDataPieChart()
     {
-        $sum = array_sum(array_slice($data, 0, $range));
-
-        $result = array($range - 1 => $sum / $range);
-
-        for ($i = $range, $n = count($data); $i != $n; ++$i) {
-            $result[$i] = $result[$i - 1] + ($data[$i] - $data[$i - $range]) / $range;
-        }
-
-        return $result;
-    }
-
-    function getDataPieChartStock()
-    {
-        $location = $this->request->getVar('stock_type');
-        $result = $this->dashboardModel->getDetailStock($location);
+        $result = $this->dashboardModel->getSummaryStatusTLPieChart();
 
         $colors = [];
         $series = [];
@@ -92,115 +135,5 @@ class Dashboard extends BaseController
         $data['series'] = $series;
 
         echo json_encode($data);
-    }
-
-    function getDataSales()
-    {
-        $idProductColor = $this->request->getVar('id_product_color');
-        $result = $this->dashboardModel->getDetailSales($idProductColor);
-        // dd($result);
-
-        $series = [];
-        $data = [];
-        $sma = [];
-        $productName = '';
-        $colorCode = '';
-        foreach ($result as $r) {
-            array_push($series, $r->bulan);
-            array_push($data, $r->total);
-            $productName = $r->product_name;
-            $colorCode = $r->color_code;
-        }
-
-        /*FORCAST */
-        if (sizeof($data) > 3) {
-            $tmp = array(null, null, null);
-            $tmp[0] = $data[0];
-            $tmp[1] = $data[0];
-            $tmp[2] = ($data[0] + $data[1]) / 2;
-            $res = $this->singleMovingAverage($data, 3);
-            $sma = array_merge($tmp, $res);
-            array_push($series, 'forecast');
-        }
-        /*FORCAST */
-
-        $response['series'] = $series;
-        $response['data'] = $data;
-        $response['forecast'] = $sma;
-        $response['product_name'] = $productName;
-        $response['color_code'] = $colorCode;
-
-        echo json_encode($response);
-    }
-
-    public function datatables_stock()
-    {
-        $table =
-            "
-            (
-                SELECT
-                COUNT(a.id) AS total,
-                a.id,
-                a.stock_code,
-                a.barcode,
-                a.location,
-                a.price,
-                a.buy_price,
-                a.sell_price,
-                a.id_product_color,
-                a.id_color,
-                a.qty_yard,
-                a.id_product,
-                a.color_code,
-                a.color_name,
-                a.product_name,
-                CONCAT(a.product_name,' - ',a.color_name) AS `name`,
-                a.product_code,
-                a.id_order,
-                a.id_order_detail,
-                a.order_number,
-                a.order_date,
-                a.id_transfer,
-                a.id_transfer_detail,
-                a.transfer_number,
-                a.transfer_date
-                FROM stock a 
-                WHERE location='OUT'
-                GROUP BY a.id_product_color
-            ) temp
-            ";
-
-        $columns = array(
-            array('db' => 'id', 'dt' => 0),
-            array('db' => 'name', 'dt' => 1),
-            array(
-                'db'        => 'color_code',
-                'dt'        => 2,
-                'formatter' => function ($i, $row) {
-                    $html = '<center><div style="background:' . $i . ';width: auto;border-radius: 5px;border-style: groove;">&nbsp;</div></center>';
-                    $html = ($i) ? $html : '';
-                    return $html;
-                }
-            ),
-            array('db' => 'total', 'dt' => 3),
-            array(
-                'db'        => 'id_product_color',
-                'dt'        => 4,
-                'formatter' => function ($i, $row) {
-                    $i = "'" . $i . "'";
-                    $html = '
-                    <center>
-                        <button name="" onclick="forecast(' . $i . ')" value="' . $i . '" title="View Forecast" class="badge badge-info">View Forecast</button>
-                    </center>';
-                    return $html;
-                }
-            ),
-        );
-
-        $primaryKey = 'id';
-
-        $condition = null;
-
-        tarkiman_datatables($table, $columns, $condition, $primaryKey);
     }
 }

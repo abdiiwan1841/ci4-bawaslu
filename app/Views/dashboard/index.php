@@ -30,7 +30,7 @@
 <link rel="stylesheet" type="text/css" href="<?= '/assets/css/fullcalendar/fullcalendar.css' ?>">
 <link rel="stylesheet" type="text/css" href="<?= '/assets/fullcalendar/fullcalendar.print.css' ?>">
 
-<div class="row-fluid">
+<!-- <div class="row-fluid">
     <div class="span12">
         <div class="widget">
             <div class="widget-header">
@@ -67,7 +67,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- <div class="row-fluid">
     <div class="span12">
@@ -108,24 +108,11 @@
 
 <div class="row-fluid">
 
-    <div class="span4">
+    <div class="span8">
         <div class="widget">
             <div class="widget-header">
                 <div class="title">
-                    <span class="fs1" aria-hidden="true" data-icon="&#xe0b3;"></span> Leave Calendar
-                </div>
-            </div>
-            <div class="widget-body">
-                <div id="calendar" style=""></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="span4">
-        <div class="widget">
-            <div class="widget-header">
-                <div class="title">
-                    <span class="fs1" aria-hidden="true" data-icon="&#xe023;"></span> Inbox
+                    <span class="fs1" aria-hidden="true" data-icon="&#xe023;"></span> Tindak Lanjut Baru
                 </div>
             </div>
             <div class="widget-body">
@@ -133,40 +120,16 @@
                     <table id="datatables" class="table table-condensed table-bordered no-margin">
                         <thead>
                             <tr>
-                                <th>
-                                    Request Type
-                                </th>
-                                <th>
-                                    Empoyee Name
-                                </th>
-                                <th>
-                                    Action
-                                </th>
+                                <th>Tanggal TL</th>
+                                <th>Satuan Kerja</th>
+                                <th>Laporan</th>
+                                <th>Memo Temuan</th>
+                                <th>Memo Rekomendasi</th>
+                                <th>Nilai Rekomendasi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="success">
-                                <td>
-                                    Leave
-                                </td>
-                                <td>
-                                    Tarkiman
-                                </td>
-                                <td style="text-align: center;">
-                                    <span class="label label-success">Approval</span>
-                                </td>
-                            </tr>
-                            <tr class="success">
-                                <td>
-                                    Overtime
-                                </td>
-                                <td>
-                                    Fulan
-                                </td>
-                                <td style="text-align: center;">
-                                    <span class="label label-success">Approval</span>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                     <div class="clearfix"></div>
@@ -179,11 +142,35 @@
         <div class="widget">
             <div class="widget-header">
                 <div class="title">
-                    <span class="fs1" aria-hidden="true" data-icon="&#xe0b3;"></span> Absence Summary
+                    <span class="fs1" aria-hidden="true" data-icon="&#xe0b3;"></span> Summary Tindak Lanjut
                 </div>
             </div>
             <div class="widget-body">
-                <div id="absence" style="height:515px;"></div>
+                <ul class="stats-overview">
+                    <!-- <li>
+                        <span class="name"> Tndak Lanjut
+                        </span>
+                        <span class="value text-success">
+                            500
+                        </span>
+                    </li>
+                    <li>
+                        <span class="name"> Tidak Sesuai
+                        </span>
+                        <span class="value text-info">
+                            300
+                        </span>
+                    </li>
+                    <li>
+                        <span class="name">
+                            Sudah Sesuai
+                        </span>
+                        <span class="value text-error">
+                            200
+                        </span>
+                    </li> -->
+                </ul>
+                <div id="tindakLanjutPieChart" style="height:515px;"></div>
             </div>
         </div>
     </div>
@@ -193,168 +180,186 @@
 <script type="text/javascript" src="<?= '/assets/datatables/js/jquery.dataTables.min.js' ?>"></script>
 <script type="text/javascript" src="<?= '/assets/datatables/js/dataTables.responsive.min.js' ?>"></script>
 <script type="text/javascript" src="<?= '/assets/datatables/js/responsive.bootstrap.min.js' ?>"></script>
-<script type="text/javascript" src="<?= '/assets/js/fullcalendar/fullcalendar.min.js' ?>"></script>
-
 <script type="text/javascript">
     $(document).ready(function() {
 
-        var table = $('#datatables').DataTable();
+        var table = $('#datatables').DataTable({
+            paging: true,
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            columnDefs: [{
+                responsivePriority: 1,
+                targets: 3
+            }],
+            order: [
+                [1, "asc"]
+            ],
+            search: {
+                "caseInsensitive": false
+            },
+            ajax: "<?= base_url('dashboard/datatables'); ?>",
+            fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                var info = table.page.info();
+                var page = info.page;
+                var length = info.length;
+                var index = (page * length + (iDisplayIndex + 1));
+                // $('td:first', nRow).html(index);
+                $('tr:eq(0) th').css("text-align", "center");
+                $('td:eq(5)', nRow).css("text-align", "right");
+                $('td:eq(6)', nRow).css("text-align", "center");
+                return nRow;
+            },
+        });
 
     });
+</script>
 
-    // Calendar
+<script type="text/javascript">
     $(document).ready(function() {
-
-        var date = new Date();
-        var d = date.getDate();
-        var m = date.getMonth();
-        var y = date.getFullYear();
-
-        var calendar = $('#calendar').fullCalendar({
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            selectable: true,
-            selectHelper: true,
-            select: function(start, end, allDay) {
-                var title = prompt('Event Title:');
-                if (title) {
-                    calendar.fullCalendar('renderEvent', {
-                            title: title,
-                            start: start,
-                            end: end,
-                            allDay: allDay
-                        },
-                        true // make the event "stick"
-                    );
-                }
-                calendar.fullCalendar('unselect');
-            },
-            editable: true,
-            events: [{
-                    title: 'All Day Event',
-                    start: new Date(y, m, 1)
-                },
-                {
-                    title: 'Long Event',
-                    start: new Date(y, m, d - 5),
-                    end: new Date(y, m, d - 2)
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: new Date(y, m, d - 3, 16, 0),
-                    allDay: false
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: new Date(y, m, d + 4, 16, 0),
-                    allDay: false
-                },
-                {
-                    title: 'Meeting',
-                    start: new Date(y, m, d, 10, 30),
-                    allDay: false
-                },
-                {
-                    title: 'Lunch',
-                    start: new Date(y, m, d, 12, 0),
-                    end: new Date(y, m, d, 14, 0),
-                    allDay: false
-                },
-                {
-                    title: 'Birthday Party',
-                    start: new Date(y, m, d + 1, 19, 0),
-                    end: new Date(y, m, d + 1, 22, 30),
-                    allDay: false
-                },
-                {
-                    title: 'Click for Google',
-                    start: new Date(y, m, 28),
-                    end: new Date(y, m, 29),
-                    url: 'http://google.com/'
-                }
-            ]
+        $.ajax({
+            url: "<?= '/dashboard/getDataPieChart' ?>",
+            // data: {
+            //     'stock_type': stock_type
+            // },
+            type: "POST",
+            dataType: 'json',
+            cache: false,
+            success: function(res) {
+                console.log(res);
+                callStock(res);
+            }
         });
+
     });
 </script>
 
 <script>
-    var stockCart = echarts.init(document.getElementById('absence'));
+    var stockCart = echarts.init(document.getElementById('tindakLanjutPieChart'));
 
-    var res = {
-        "colors": ["#6f7390", "#6ac280", "#ff6600", "#ab7136", "#a8a9b8"],
-        "series": [{
-            "value": "4",
-            "name": "Mangkir",
-            "color_code": "#6f7390"
-        }, {
-            "value": "141",
-            "name": "Hadir",
-            "color_code": "#6ac280"
-        }, {
-            "value": "11",
-            "name": "Cuti",
-            "color_code": "#ff6600"
-        }, {
-            "value": "3",
-            "name": "Sakit",
-            "color_code": "#ab7136"
-        }, {
-            "value": "1",
-            "name": "Ijin",
-            "color_code": "#a8a9b8"
-        }]
-    };
+    function callStock(res) {
 
-
-    var itemStyle = {
-        normal: {
-            opacity: 0.7,
-            borderWidth: 0.5,
-            borderColor: '#000',
-            shadowBlur: 10,
-            shadowColor: 'rgba(120, 36, 50, 0.5)',
-            shadowOffsetY: 5
-        }
-    };
-
-    option2 = {
-        backgroundColor: '#fff',
-        title: {
-            text: 'ABSENCE SUMMARY',
-            subtext: 'TARKIMAN',
-            left: 'center',
-            textStyle: {
-                color: '#000'
+        var itemStyle = {
+            normal: {
+                opacity: 0.7,
+                borderWidth: 0.5,
+                borderColor: '#000',
+                shadowBlur: 10,
+                shadowColor: 'rgba(120, 36, 50, 0.5)',
+                shadowOffsetY: 5
             }
-        },
-        tooltip: {
-            trigger: 'item',
-            formatter: '{a} <br/>{b} : {c} ({d}%)'
-        },
-        series: [{
-            name: 'Stock Product',
-            type: 'pie',
-            radius: '55%',
-            center: ['50%', '60%'],
-            color: res.colors,
-            data: res.series,
-            emphasis: {
-                itemStyle: {
-                    shadowBlur: 10,
-                    shadowOffsetX: 0,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+        };
+
+        option2 = {
+            backgroundColor: '#fff',
+            title: {
+                text: '',
+                subtext: 'SUMMARY TINDAK LANJUT',
+                left: 'center',
+                textStyle: {
+                    color: '#000'
                 }
             },
-            itemStyle: itemStyle
-        }]
-    };
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            // legend: {
+            //     orient: 'vertical',
+            //     left: 'left',
+            //     data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+            // },
+            series: [{
+                name: 'Status Tindak Lanjut',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '60%'],
+                color: res.colors,
+                data: res.series,
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                },
+                itemStyle: itemStyle
+            }]
+        };
 
-    stockCart.setOption(option2);
+        stockCart.setOption(option2);
+    }
+
+    // var res = {
+    //     "colors": ["#6f7390", "#6ac280", "#ff6600", "#ab7136", "#a8a9b8"],
+    //     "series": [{
+    //         "value": "4",
+    //         "name": "Mangkir",
+    //         "color_code": "#6f7390"
+    //     }, {
+    //         "value": "141",
+    //         "name": "Hadir",
+    //         "color_code": "#6ac280"
+    //     }, {
+    //         "value": "11",
+    //         "name": "Cuti",
+    //         "color_code": "#ff6600"
+    //     }, {
+    //         "value": "3",
+    //         "name": "Sakit",
+    //         "color_code": "#ab7136"
+    //     }, {
+    //         "value": "1",
+    //         "name": "Ijin",
+    //         "color_code": "#a8a9b8"
+    //     }]
+    // };
+
+
+    // var itemStyle = {
+    //     normal: {
+    //         opacity: 0.7,
+    //         borderWidth: 0.5,
+    //         borderColor: '#000',
+    //         shadowBlur: 10,
+    //         shadowColor: 'rgba(120, 36, 50, 0.5)',
+    //         shadowOffsetY: 5
+    //     }
+    // };
+
+    // option2 = {
+    //     backgroundColor: '#fff',
+    //     title: {
+    //         text: 'ABSENCE SUMMARY',
+    //         subtext: 'TARKIMAN',
+    //         left: 'center',
+    //         textStyle: {
+    //             color: '#000'
+    //         }
+    //     },
+    //     tooltip: {
+    //         trigger: 'item',
+    //         formatter: '{a} <br/>{b} : {c} ({d}%)'
+    //     },
+    //     series: [{
+    //         name: 'Stock Product',
+    //         type: 'pie',
+    //         radius: '55%',
+    //         center: ['50%', '60%'],
+    //         color: res.colors,
+    //         data: res.series,
+    //         emphasis: {
+    //             itemStyle: {
+    //                 shadowBlur: 10,
+    //                 shadowOffsetX: 0,
+    //                 shadowColor: 'rgba(0, 0, 0, 0.5)'
+    //             }
+    //         },
+    //         itemStyle: itemStyle
+    //     }]
+    // };
+
+    // stockCart.setOption(option2);
 </script>
 
 

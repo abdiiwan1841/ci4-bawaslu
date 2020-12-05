@@ -193,7 +193,8 @@ class LaporanModel extends Model
     {
 
         try {
-            $sql = "SELECT
+            $sql = "SELECT 
+            f.nama AS satuan_kerja,
             a.no_laporan,
             a.nama_laporan,
             b.memo_temuan,
@@ -236,18 +237,26 @@ class LaporanModel extends Model
             (
                 IF(d.status='TIDAK_DAPAT_DI_TL',d.nilai_rekomendasi,0)
             ) AS nilai_tidak_dapat_ditindaklanjuti,
-            d.nilai_rekomendasi
+            d.nilai_rekomendasi,
+            d.id AS id_rekomendasi,
+            c.id AS id_sebab,
+            b.id AS id_temuan,
+            a.id AS id_laporan
         FROM laporan a 
         JOIN temuan b ON b.id_laporan=a.id 
         JOIN sebab c ON c.id_temuan=b.id 
         JOIN rekomendasi d ON d.id_sebab=c.id 
+        JOIN eselon f ON f.id=a.id_satuan_kerja
         WHERE a.id_satuan_kerja=?";
 
 
             $query = $this->query($sql, [$idSatuanKerja]);
             $data = $query->getResult();
+            $result = [];
             if (isset($data)) {
-                return $data;
+                $result['data'] = $data;
+                $result['satuan_kerja'] = $this->getNamaSatuanKerja($idSatuanKerja);
+                return $result;
             }
             return array();
         } catch (\Exception $e) {
@@ -270,6 +279,24 @@ class LaporanModel extends Model
                 return $data;
             }
             return array();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getNamaSatuanKerja($idSatuanKerja)
+    {
+        try {
+            $sql = "SELECT
+                    a.nama
+                    FROM `eselon` a 
+                    WHERE a.id=?";
+            $query = $this->query($sql, [$idSatuanKerja]);
+            $data = $query->getRow();
+            if (isset($data)) {
+                return $data->nama;
+            }
+            return "";
         } catch (\Exception $e) {
             return $e->getMessage();
         }

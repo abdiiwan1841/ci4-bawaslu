@@ -104,14 +104,28 @@
                                                 <td><?= $data->jenis_rekomendasi; ?></td>
                                             </tr>
                                             <tr>
-                                                <td>Memo Rekomendasi</td>
-                                                <td>:</td>
+                                                <td valign="top">Memo Rekomendasi</td>
+                                                <td valign="top">:</td>
                                                 <td><?= $data->memo_rekomendasi; ?></td>
                                             </tr>
                                             <tr>
                                                 <td>Nilai Rekomendasi</td>
                                                 <td>:</td>
                                                 <td><?= format_number($data->nilai_rekomendasi, true); ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top">Penanggung Jawab</td>
+                                                <td valign="top">:</td>
+                                                <td>
+                                                    <?php if ($data->nama_penanggung_jawab != "") : ?>
+                                                        <ul>
+                                                            <?php $pj = explode(",", $data->nama_penanggung_jawab); ?>
+                                                            <?php foreach ($pj as $j) : ?>
+                                                                <?= '<li>' . $j . '</li>'; ?>
+                                                            <?php endforeach; ?>
+                                                        </ul>
+                                                    <?php endif; ?>
+                                                </td>
                                             </tr>
                                         </table>
                                     </blockquote>
