@@ -29,6 +29,7 @@ class Laporan extends BaseController
     public function index()
     {
 
+        session()->set('ketua_tim', '');
         session()->set('id_satuan_kerja', '');
         session()->set('id_laporan', '');
         session()->set('id_temuan', '');
@@ -54,6 +55,7 @@ class Laporan extends BaseController
 
     public function list()
     {
+        session()->set('ketua_tim', '');
         if ($this->request->getVar('eselon1') != '' || session()->get('id_satuan_kerja') != '') {
 
             $eselon1 = $this->request->getVar('eselon1');
@@ -114,8 +116,17 @@ class Laporan extends BaseController
                 a.audit_anggaran,
                 a.jenis_anggaran,
                 a.ketua_tim,
+                b.nama AS nama_ketua_tim,
+                (
+                    SELECT 
+                    GROUP_CONCAT(d.nama SEPARATOR ', ') 
+                    FROM tim c 
+                    JOIN pegawai d ON d.id=c.id_auditor 
+                    WHERE c.id_laporan=a.id
+                ) AS anggota_tim,
                 a.id_satuan_kerja
                 FROM laporan a 
+                LEFT JOIN pegawai b ON b.id=a.ketua_tim 
                 WHERE
                 a.id_satuan_kerja='" . session()->get('id_satuan_kerja') . "'
                 AND a.deleted_at IS NULL
@@ -160,23 +171,22 @@ class Laporan extends BaseController
                 }
             ),
             array('db' => 'jenis_anggaran', 'dt' => 14),
+            array('db' => 'nama_ketua_tim', 'dt' => 15),
+            array('db' => 'anggota_tim', 'dt' => 16),
             array(
                 'db'        => 'id',
-                'dt'        => 15,
+                'dt'        => 17,
                 'formatter' => function ($i, $row) {
-
-                    $html = '
-                    <center>
-                    <a href="' . base_url('laporan/edit/' . $i) . '" class="btn btn-primary btn-small" data-original-title="Edit">
-                    Edit
-                    </a>
-                    <a href="' . base_url('temuan/index/' . $i) . '" class="btn btn-success btn-small" data-original-title="Edit">
-                    Temuan
-                    </a>
+                    $html = '<center>';
+                    if ($row['18'] == session()->get('id_pegawai')) {
+                        $html .= '<a href="' . base_url('laporan/edit/' . $i) . '" class="btn btn-primary btn-small" data-original-title="Edit">Edit</a>';
+                    }
+                    $html .= '<a href="' . base_url('temuan/index/' . $i) . '" class="btn btn-success btn-small" data-original-title="Edit">Temuan</a>
                     </center>';
                     return $html;
                 }
             ),
+            array('db' => 'ketua_tim', 'dt' => 18),
         );
 
         $primaryKey = 'id';

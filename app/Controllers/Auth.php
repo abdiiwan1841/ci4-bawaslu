@@ -72,9 +72,11 @@ class Auth extends BaseController
                 /*CUSTOM PROJECT BAWASLU */
                 $employee = $this->authModel->getDataByIdUser($data->id);
                 if ($employee) {
+                    session()->set('id_pegawai', $employee->id);
                     session()->set('id_satuan_kerja', $employee->id_satuan_kerja);
                     session()->set('nama_satuan_kerja', $employee->nama_satuan_kerja);
                 } else {
+                    session()->set('id_pegawai', '');
                     session()->set('id_satuan_kerja', '');
                     session()->set('nama_satuan_kerja', '');
                 }

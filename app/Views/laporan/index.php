@@ -55,6 +55,8 @@
                                 <th>Realisasi Anggaran</th>
                                 <th>Audit Anggaran</th>
                                 <th>Jenis Anggaran</th>
+                                <th>Ketua TIM</th>
+                                <th>Anggota TIM</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -97,11 +99,11 @@
             responsive: true,
             columnDefs: [{
                     responsivePriority: 1,
-                    targets: 15
+                    targets: 17
                 },
                 {
                     width: '150px',
-                    targets: 15
+                    targets: 17
                 }
             ],
             order: [
@@ -121,7 +123,7 @@
                 $('td:eq(11)', nRow).css("text-align", "right");
                 $('td:eq(12)', nRow).css("text-align", "right");
                 $('td:eq(13)', nRow).css("text-align", "right");
-                $('td:eq(15)', nRow).css("text-align", "center");
+                $('td:eq(17)', nRow).css("text-align", "center");
                 return nRow;
             },
         });

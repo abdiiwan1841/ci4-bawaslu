@@ -62,10 +62,10 @@ class DashboardModel extends Model
                     ELSE b.status 
                     END AS `name`,
                     CASE b.status 
-                    WHEN 'BELUM_SESUAI' THEN '#deda50' 
+                    WHEN 'BELUM_SESUAI' THEN '#1693ff' 
                     WHEN 'SESUAI' THEN '#88bd91'
-                    WHEN 'BELUM_TL' THEN '#c5c5c2' 
-                    WHEN 'TIDAK_DAPAT_DI_TL' THEN '#ff6565'
+                    WHEN 'BELUM_TL' THEN '#273746' 
+                    WHEN 'TIDAK_DAPAT_DI_TL' THEN '#ff0000'
                     ELSE b.status 
                     END AS `color_code`,
                     COUNT(b.status) AS `value`

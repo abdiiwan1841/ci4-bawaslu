@@ -138,4 +138,22 @@ class TemuanModel extends Model
             return $e->getMessage();
         }
     }
+
+    public function getKetuaTim($idLaporan = '')
+    {
+        try {
+            $sql = "SELECT
+                    a.ketua_tim
+                    FROM laporan a 
+                    WHERE a.id=?";
+            $query = $this->query($sql, [$idLaporan]);
+            $data = $query->getRow();
+            if (isset($data)) {
+                return $data->ketua_tim;
+            }
+            return '';
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

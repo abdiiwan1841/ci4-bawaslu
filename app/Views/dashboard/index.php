@@ -146,30 +146,6 @@
                 </div>
             </div>
             <div class="widget-body">
-                <ul class="stats-overview">
-                    <!-- <li>
-                        <span class="name"> Tndak Lanjut
-                        </span>
-                        <span class="value text-success">
-                            500
-                        </span>
-                    </li>
-                    <li>
-                        <span class="name"> Tidak Sesuai
-                        </span>
-                        <span class="value text-info">
-                            300
-                        </span>
-                    </li>
-                    <li>
-                        <span class="name">
-                            Sudah Sesuai
-                        </span>
-                        <span class="value text-error">
-                            200
-                        </span>
-                    </li> -->
-                </ul>
                 <div id="tindakLanjutPieChart" style="height:515px;"></div>
             </div>
         </div>
@@ -253,8 +229,8 @@
         option2 = {
             backgroundColor: '#fff',
             title: {
-                text: '',
-                subtext: 'SUMMARY TINDAK LANJUT',
+                text: 'SUMMARY TINDAK LANJUT',
+                subtext: 'BAWASLU - SITINJU',
                 left: 'center',
                 textStyle: {
                     color: '#000'
@@ -264,11 +240,12 @@
                 trigger: 'item',
                 formatter: '{a} <br/>{b} : {c} ({d}%)'
             },
-            // legend: {
-            //     orient: 'vertical',
-            //     left: 'left',
-            //     data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
-            // },
+            legend: {
+                // orient: 'vertical',
+                // left: 'left',
+                bottom: 10,
+                data: ['Sesuai', 'Belum Sesuai', 'Belum ditindaklanjuti', 'Tidak Dapat ditindaklanjuti']
+            },
             series: [{
                 name: 'Status Tindak Lanjut',
                 type: 'pie',

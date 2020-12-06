@@ -22,7 +22,7 @@ class Temuan extends BaseController
     public function index($idLaporan)
     {
 
-        // session()->set('id_wilayah', $idWilayah);
+        session()->set('ketua_tim', $this->temuanModel->getKetuaTim($idLaporan));
         session()->set('id_laporan', $idLaporan);
         session()->set('id_temuan', '');
         session()->set('id_sebab', '');
@@ -35,6 +35,7 @@ class Temuan extends BaseController
             'active' => 'temuan',
             'id_laporan' => $idLaporan
         ];
+
         return view('temuan/index', $data);
     }
 
@@ -52,9 +53,9 @@ class Temuan extends BaseController
                  a.id_jenis_temuan3,
                  b.deskripsi AS jenis_tunjangan,
                  a.nilai_temuan,
-                 a.id_laporan 
+                 a.id_laporan
                 FROM temuan a 
-                LEFT JOIN jenis_temuan b ON b.id=a.id_jenis_temuan3
+                LEFT JOIN jenis_temuan b ON b.id=a.id_jenis_temuan3 
                 WHERE a.deleted_at IS NULL 
                 AND b.deleted_at IS NULL
                 AND a.id_laporan='" . $idLaporan . "'
@@ -79,18 +80,19 @@ class Temuan extends BaseController
                 'db'        => 'id',
                 'dt'        => 5,
                 'formatter' => function ($i, $row) {
-                    $html = '
-                    <center>
-                    <a href="' . base_url('temuan/edit/' . $i) . '" class="btn btn-primary btn-small" data-original-title="Edit">
-                    Edit
-                    </a>
+
+                    $html = '<center>';
+                    if (session()->get('ketua_tim') == session()->get('id_pegawai')) {
+                        $html .= '<a href="' . base_url('temuan/edit/' . $i) . '" class="btn btn-primary btn-small" data-original-title="Edit">Edit</a>';
+                    }
+                    $html .= '
                     <a href="' . base_url('sebab/index/' . $i) . '" class="btn btn-danger btn-small" data-original-title="Edit">
                     Sebab
                     </a>
                     </center>';
                     return $html;
                 }
-            ),
+            )
         );
 
         $primaryKey = 'id';

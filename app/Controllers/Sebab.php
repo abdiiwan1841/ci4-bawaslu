@@ -46,8 +46,9 @@ class Sebab extends BaseController
                  a.id,
                  a.no_sebab,
                  a.memo_sebab,
-                 a.id_temuan 
-                FROM sebab a
+                 a.id_temuan
+                FROM sebab a 
+                JOIN temuan b ON b.id=a.id_temuan 
                 WHERE a.deleted_at IS NULL 
                 AND a.id_temuan='" . $idTemuan . "'
                 ORDER BY a.no_sebab ASC
@@ -62,18 +63,15 @@ class Sebab extends BaseController
                 'db'        => 'id',
                 'dt'        => 3,
                 'formatter' => function ($i, $row) {
-                    $html = '
-                    <center>
-                    <a href="' . base_url('sebab/edit/' . $i) . '" class="btn btn-primary btn-small" data-original-title="Edit">
-                    Edit
-                    </a>                    
-                    <a href="' . base_url('rekomendasi/index/' . $i) . '" class="btn btn-success btn-small" data-original-title="Edit">
-                    Rekomendasi
-                    </a>
-                    </center>';
+
+                    $html = '<center>';
+                    if (session()->get('ketua_tim') == session()->get('id_pegawai')) {
+                        $html .= '<a href="' . base_url('sebab/edit/' . $i) . '" class="btn btn-primary btn-small" data-original-title="Edit">Edit</a>';
+                    }
+                    $html .= '<a href="' . base_url('rekomendasi/index/' . $i) . '" class="btn btn-success btn-small" data-original-title="Edit">Rekomendasi</a></center>';
                     return $html;
                 }
-            ),
+            )
         );
 
         $primaryKey = 'id';

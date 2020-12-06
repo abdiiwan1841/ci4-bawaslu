@@ -75,11 +75,11 @@
                             <tbody>
                         </table>
                         <div class="form-actions no-margin">
-                            <?php if ($summary->sisa_nilai_rekomendasi == 0) : ?>
+                            <?php if (($summary->sisa_nilai_rekomendasi == 0) && (session()->get('ketua_tim') == session()->get('id_pegawai'))) : ?>
                                 <a href="<?= base_url('rekomendasi/updateStatusRekomendasiSesuai/' . session()->get('id_rekomendasi')); ?>" onclick="return confirm('Yakin TL sudah sesuai rekomendasi ini ?');" class="btn btn-success">TL Sudah Sesuai Rekomendasi</a>
                             <?php endif; ?>
 
-                            <?php if ($show_button_tidak_dapat_di_tl) : ?>
+                            <?php if ($show_button_tidak_dapat_di_tl && (session()->get('ketua_tim') == session()->get('id_pegawai'))) : ?>
                                 <a href="<?= base_url('rekomendasi/tidakDapatDiTL/' . session()->get('id_rekomendasi')); ?>" class="btn btn-danger">Tindak Dapat di TL</a>
                             <?php endif; ?>
                         </div>
@@ -109,7 +109,7 @@
             paging: true,
             dom: 'Bfrtip',
             buttons: [
-                <?php if (in_array('tindaklanjut/create', session()->get('user_permissions'))) : ?>
+                <?php if (in_array('tindaklanjut/create', session()->get('user_permissions')) && session()->get('ketua_tim') == session()->get('id_pegawai')) : ?>
                     // {
                     //         text: 'Create New',
                     //         action: function(e, dt, node, config) {

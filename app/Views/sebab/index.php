@@ -69,7 +69,7 @@
             paging: true,
             dom: 'Bfrtip',
             buttons: [
-                <?php if (in_array('sebab/create', session()->get('user_permissions'))) : ?> {
+                <?php if (in_array('sebab/create', session()->get('user_permissions')) && session()->get('ketua_tim') == session()->get('id_pegawai')) : ?> {
                         text: 'Create New',
                         action: function(e, dt, node, config) {
                             window.location.href = "<?= base_url('/sebab/create/' . $id_temuan); ?>";

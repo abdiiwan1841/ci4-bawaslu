@@ -54,9 +54,9 @@ class Rekomendasi extends BaseController
                  a.nilai_rekomendasi,
                  (SELECT GROUP_CONCAT(c.nama_penanggung_jawab SEPARATOR ', ') FROM penanggung_jawab c WHERE c.id_rekomendasi=a.id) AS nama_penanggung_jawab,
                  a.id_sebab,
-                 a.status 
+                 a.status
                 FROM rekomendasi a
-                LEFT JOIN jenis_rekomendasi b ON b.id=a.id_jenis_rekomendasi
+                LEFT JOIN jenis_rekomendasi b ON b.id=a.id_jenis_rekomendasi 
                 WHERE a.deleted_at IS NULL 
                 AND b.deleted_at IS NULL
                 AND a.id_sebab='" . $idSebab . "'
@@ -98,11 +98,10 @@ class Rekomendasi extends BaseController
                 'db'        => 'id',
                 'dt'        => 7,
                 'formatter' => function ($i, $row) {
-                    $html = '
-                    <center>
-                    <a href="' . base_url('rekomendasi/edit/' . $i) . '" class="btn btn-primary btn-small" data-original-title="">
-                    Edit
-                    </a>';
+                    $html = '<center>';
+                    if (session()->get('ketua_tim') == session()->get('id_pegawai')) {
+                        $html .= '<a href="' . base_url('rekomendasi/edit/' . $i) . '" class="btn btn-primary btn-small" data-original-title="">Edit</a>';
+                    }
                     if ($row['status'] == 'TIDAK_DAPAT_DI_TL') {
                         $html .= ' <a href="' . base_url('rekomendasi/detailAlasanTidakDiTL/' . $i) . '" class="btn btn-danger btn-small" data-original-title="">
                     Detail Tidak di TL

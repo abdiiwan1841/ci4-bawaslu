@@ -97,14 +97,11 @@ class Tindaklanjut extends BaseController
                 'dt'        => 6,
                 'formatter' => function ($i, $row) {
                     $html = '
-                    <center>
-                    <a href="' . base_url('tindaklanjut/verifikasi/' . $i) . '" class="btn btn-success btn-small" data-original-title="Verifikasi">
-                    Verifikasi
-                    </a>
-                    <a href="' . base_url('bukti/index/' . $i) . '" class="btn btn-primary btn-small" data-original-title="Edit">
-                    Bukti
-                    </a>
-                    </center>';
+                    <center>';
+                    if (session()->get('ketua_tim') == session()->get('id_pegawai')) {
+                        $html .= '<a href="' . base_url('tindaklanjut/verifikasi/' . $i) . '" class="btn btn-success btn-small" data-original-title="Verifikasi">Verifikasi</a>';
+                    }
+                    $html .= '<a href="' . base_url('bukti/index/' . $i) . '" class="btn btn-primary btn-small" data-original-title="Edit">Bukti</a></center>';
                     return $html;
                 }
             ),

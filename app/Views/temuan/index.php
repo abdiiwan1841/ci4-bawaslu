@@ -71,7 +71,7 @@
             paging: true,
             dom: 'Bfrtip',
             buttons: [
-                <?php if (in_array('temuan/create', session()->get('user_permissions'))) : ?> {
+                <?php if (in_array('temuan/create', session()->get('user_permissions')) && session()->get('ketua_tim') == session()->get('id_pegawai')) : ?> {
                         text: 'Create New',
                         action: function(e, dt, node, config) {
                             window.location.href = "<?= base_url('/temuan/create/' . $id_laporan); ?>";
