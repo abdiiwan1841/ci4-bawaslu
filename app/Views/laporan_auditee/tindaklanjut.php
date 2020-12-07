@@ -145,7 +145,7 @@
                     </div>
                 <?php endif; ?>
 
-                <?php if (true) : ?>
+                <?php if ($data->status != 'SESUAI') : ?>
                     <a href="<?= base_url('laporanauditee/createtindaklanjut/' . $data->id) ?>" class="btn btn-info">Tambah Data</a>
                 <?php endif; ?>
                 <a href="<?= base_url('laporanauditee/detail/' . $data->id_laporan) ?>" class="btn btn-default">Kembali</a>
@@ -177,7 +177,7 @@
                                 <td style="text-align:left;"><?= $r->remark_auditee; ?></td>
                                 <td style="text-align:left;"><?= $r->remark_auditor; ?></td>
                                 <td style="text-align:center;">
-                                    <?php if ($r->nilai_terverifikasi == 0 || $r->nilai_terverifikasi == '') : ?>
+                                    <?php if (($r->nilai_terverifikasi == 0 || $r->nilai_terverifikasi == '')) : ?>
                                         <a href="<?= base_url('laporanauditee/edittindaklanjut/' . $r->id); ?>" class="btn btn-default">Edit</a>
                                     <?php endif; ?>
                                     <a href="<?= base_url('laporanauditee/bukti/' . $r->id); ?>" class="btn btn-success">Bukti</a>

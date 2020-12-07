@@ -75,7 +75,7 @@
                             <tbody>
                         </table>
                         <div class="form-actions no-margin">
-                            <?php if (($summary->sisa_nilai_rekomendasi == 0) && (session()->get('ketua_tim') == session()->get('id_pegawai'))) : ?>
+                            <?php if (($summary->sisa_nilai_rekomendasi == 0) && (session()->get('ketua_tim') == session()->get('id_pegawai')) && ($summary->status != 'SESUAI')) : ?>
                                 <a href="<?= base_url('rekomendasi/updateStatusRekomendasiSesuai/' . session()->get('id_rekomendasi')); ?>" onclick="return confirm('Yakin TL sudah sesuai rekomendasi ini ?');" class="btn btn-success">TL Sudah Sesuai Rekomendasi</a>
                             <?php endif; ?>
 

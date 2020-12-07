@@ -177,8 +177,9 @@
 
                 <h5>List Bukti</h5>
                 <hr />
-
-                <a href="<?= base_url('laporanauditee/createbukti/' . $data->id) ?>" class="btn btn-info">Tambah Bukti</a>
+                <?php if ($data->nilai_terverifikasi == 0 || $data->nilai_terverifikasi == '') : ?>
+                    <a href="<?= base_url('laporanauditee/createbukti/' . $data->id) ?>" class="btn btn-info">Tambah Bukti</a>
+                <?php endif; ?>
                 <a href="<?= base_url('laporanauditee/tindaklanjut/' . $data->id_rekomendasi) ?>" class="btn btn-default">Kembali</a>
                 <div class="clearfix" style="margin-bottom: 5px;"></div>
                 <table class="table table-condensed table-striped table-bordered table-hover no-margin">
@@ -213,7 +214,9 @@
                                     <?php endif; ?>
                                 </td>
                                 <td style="text-align:center;">
-                                    <a href="<?= base_url('laporanauditee/editbukti/' . $r->id); ?>" class="btn btn-default">Edit</a>
+                                    <?php if ($data->nilai_terverifikasi == 0 || $data->nilai_terverifikasi == '') : ?>
+                                        <a href="<?= base_url('laporanauditee/editbukti/' . $r->id); ?>" class="btn btn-default">Edit</a>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

@@ -100,7 +100,9 @@ class Rekomendasi extends BaseController
                 'formatter' => function ($i, $row) {
                     $html = '<center>';
                     if (session()->get('ketua_tim') == session()->get('id_pegawai')) {
-                        $html .= '<a href="' . base_url('rekomendasi/edit/' . $i) . '" class="btn btn-primary btn-small" data-original-title="">Edit</a>';
+                        if ($row[6] != 'SESUAI') {
+                            $html .= '<a href="' . base_url('rekomendasi/edit/' . $i) . '" class="btn btn-primary btn-small" data-original-title="">Edit</a>';
+                        }
                     }
                     if ($row['status'] == 'TIDAK_DAPAT_DI_TL') {
                         $html .= ' <a href="' . base_url('rekomendasi/detailAlasanTidakDiTL/' . $i) . '" class="btn btn-danger btn-small" data-original-title="">

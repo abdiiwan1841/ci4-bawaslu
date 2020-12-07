@@ -61,10 +61,11 @@ class Tindaklanjut extends BaseController
                 a.id_rekomendasi,
                 a.remark_auditor,
                 a.remark_auditee,
-                a.status,
+                b.status,
                 a.read_status,
                 a.created_at
-                FROM tindak_lanjut a
+                FROM tindak_lanjut a 
+                JOIN rekomendasi b ON b.id=a.id_rekomendasi
                 WHERE a.deleted_at IS NULL 
                 AND a.id_rekomendasi='" . $idRekomendasi . "'
                 ORDER BY a.nilai_rekomendasi ASC
@@ -99,12 +100,15 @@ class Tindaklanjut extends BaseController
                     $html = '
                     <center>';
                     if (session()->get('ketua_tim') == session()->get('id_pegawai')) {
-                        $html .= '<a href="' . base_url('tindaklanjut/verifikasi/' . $i) . '" class="btn btn-success btn-small" data-original-title="Verifikasi">Verifikasi</a>';
+                        if ($row[7] != 'SESUAI') {
+                            $html .= '<a href="' . base_url('tindaklanjut/verifikasi/' . $i) . '" class="btn btn-success btn-small" data-original-title="Verifikasi">Verifikasi</a>';
+                        }
                     }
                     $html .= '<a href="' . base_url('bukti/index/' . $i) . '" class="btn btn-primary btn-small" data-original-title="Edit">Bukti</a></center>';
                     return $html;
                 }
             ),
+            array('db' => 'status', 'dt' => 7),
         );
 
         $primaryKey = 'id';

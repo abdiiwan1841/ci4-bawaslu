@@ -132,7 +132,8 @@ class TindaklanjutModel extends Model
                         IFNULL(b.nilai_rekomendasi,0) AS nilai_rekomendasi,
                         IFNULL(SUM(a.nilai_tindak_lanjut),0) AS total_nilai_tindak_lanjut,
                         IFNULL(SUM(a.nilai_terverifikasi),0) AS total_nilai_terverifikasi,
-                        (IFNULL(b.nilai_rekomendasi,0)-IFNULL(SUM(a.nilai_terverifikasi),0)) AS sisa_nilai_rekomendasi
+                        (IFNULL(b.nilai_rekomendasi,0)-IFNULL(SUM(a.nilai_terverifikasi),0)) AS sisa_nilai_rekomendasi,
+                        b.status
                     FROM tindak_lanjut a 
                     JOIN rekomendasi b ON b.id=a.id_rekomendasi
                     WHERE a.deleted_at IS NULL 
