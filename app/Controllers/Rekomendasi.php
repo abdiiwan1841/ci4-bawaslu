@@ -352,10 +352,18 @@ class Rekomendasi extends BaseController
     public function tidakDapatDiTL($idRekomendasi)
     {
 
+        $jenis_rekomendasi_options = [];
+
+        $jenisRekomendasi = $this->rekomendasiModel->getJenisRekomendasi();
+        foreach ($jenisRekomendasi as $r) {
+            $jenis_rekomendasi_options[$r->id] = $r->nama;
+        }
+
         $data = [
             'title' => 'Form Keterangan Tidak Dapat Di TL',
             'active' => 'rekomendasi',
             'data' => $this->rekomendasiModel->getDataById($idRekomendasi),
+            'jenis_rekomendasi_options' => $jenis_rekomendasi_options,
             'id_sebab' => session()->get('id_sebab'),
             'id_rekomendasi' => $idRekomendasi,
             'validation' => \Config\Services::validation()
