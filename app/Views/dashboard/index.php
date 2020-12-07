@@ -166,7 +166,7 @@
             responsive: true,
             columnDefs: [{
                 responsivePriority: 1,
-                targets: 3
+                targets: 6
             }],
             order: [
                 [1, "asc"]
