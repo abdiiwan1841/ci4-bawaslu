@@ -361,6 +361,7 @@ function input_select($field_name, $label, $options, $selected = '', $required =
         'name'      => $field_name,
         'id'        => $field_name,
         'placeholder' => 'Please Input ' . $label,
+        // 'class'     => 'input-xlarge chosen-select',
         'class'     => 'input-xlarge',
     ];
 
@@ -387,11 +388,14 @@ function input_multiselect($field_name, $label, $options = array(), $selected = 
 
     //$selected = (old($field_name)) ? old($field_name) : $selected;
 
+    // REFF : https://harvesthq.github.io/chosen/?utm_campaign=cdnjs_library&utm_medium=cdnjs_link&utm_source=cdnjs
+
     $data = [
         'name'      => $field_name,
         'id'        => $field_name,
         'placeholder' => 'Please Select ' . $label,
-        'class'     => 'select2-container input-block-level',
+        // 'class'     => 'select2-container input-block-level',
+        'class'     => 'chosen-select input-block-level',
         'multiple'     => 'true'
     ];
 

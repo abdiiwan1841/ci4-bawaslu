@@ -1,7 +1,6 @@
 <?= $this->extend('layout/backend_template'); ?>
 
 <?= $this->section('backend_content'); ?>
-
 <div class="row-fluid">
     <div class="span6">
         <div class="widget">
@@ -45,5 +44,4 @@
         </div>
     </div>
 </div>
-
 <?= $this->endSection(); ?>

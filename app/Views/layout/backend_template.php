@@ -17,6 +17,7 @@
     <script type="text/javascript" src="<?= '/assets/jquery/js/jquery-1.12.4.js' ?>"></script>
     <script type="text/javascript" src="<?= '/assets/jquery/js/jquery-ui.js' ?>"></script>
     <link rel="stylesheet" href="<?= '/assets/jquery/css/jquery-ui.css' ?>">
+    <link rel="stylesheet" type="text/css" href="<?= '/assets/chosen/chosen.min.css'; ?>">
 
     <!-- Notifikasi -->
     <link rel="stylesheet" type="text/css" href="<?= '/assets/tarkiman/tarkiman.min.css' ?>" />
@@ -111,6 +112,7 @@
             </div>
         </div><!-- dashboard-container -->
     </div><!-- container-fluid -->
+    <script src="<?= '/assets/chosen/chosen.jquery.min.js'; ?>"></script>
     <script src="<?= '/assets/tarkiman/tarkiman.min.js' ?>"></script>
 
     <!-- Custom Js -->
@@ -121,6 +123,10 @@
             $(".date_picker").datepicker({
                 dateFormat: 'yy-mm-dd'
             }).datepicker('setDate', new Date());
+
+            $(".chosen-select").chosen({
+                allow_single_deselect: true
+            });
         });
     </script>
 
