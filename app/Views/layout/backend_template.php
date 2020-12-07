@@ -42,7 +42,7 @@
         <span style="color: #fff;font-size: 18px;padding-left: 5px;">BAWASLU - SISTEM INFORMASI PEMANTAUAN TINDAK LANJUT TEMUAN (SITINJU)</span>
         <div id="mini-nav">
             <ul class="hidden-phone">
-                <li>
+                <!-- <li>
                     <a href="#documentation" data-toggle="modal" data-original-title="">
                         About
                     </a>
@@ -59,7 +59,7 @@
                         </div>
 
                     </div>
-                </li>
+                </li> -->
                 <li>
                     <a href="<?= base_url('/profile') ?>"><span class="fs1" aria-hidden="true" data-icon="&#xe090;"></span></a>
                 </li>
