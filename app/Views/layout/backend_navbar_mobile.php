@@ -38,56 +38,51 @@
                         </li>
                     <?php endif; ?>
                     <?php if (
-                        in_array('stock', session()->get('user_permissions')) ||
-                        in_array('stock/in', session()->get('user_permissions')) ||
-                        in_array('stock/out', session()->get('user_permissions')) ||
-                        in_array('stock/tamim', session()->get('user_permissions')) ||
-                        in_array('stock/returin', session()->get('user_permissions')) ||
-                        in_array('stock/returout', session()->get('user_permissions'))
+                        in_array('laporan', session()->get('user_permissions')) ||
+                        in_array('laporanauditee', session()->get('user_permissions'))
                     ) : ?>
 
-                        <?php if (in_array('stock/in', session()->get('user_permissions'))) : ?>
+                        <?php if (in_array('laporan', session()->get('user_permissions'))) : ?>
                             <li>
-                                <a href="<?= base_url('/stock/in'); ?>">Stock In</a>
+                                <a href="<?= base_url('/laporan'); ?>">Laporan</a>
                             </li>
                         <?php endif; ?>
-                        <?php if (in_array('stock/tamim', session()->get('user_permissions'))) : ?>
+                        <?php if (in_array('laporanauditee', session()->get('user_permissions'))) : ?>
                             <li>
-                                <a href="<?= base_url('/stock/tamim'); ?>">Stock Tamim</a>
-                            </li>
-                        <?php endif; ?>
-                        <?php if (in_array('stock/out', session()->get('user_permissions'))) : ?>
-                            <li>
-                                <a href="<?= base_url('/stock/out'); ?>">Stock Out</a>
-                            </li>
-                        <?php endif; ?>
-                        <?php if (in_array('stock/returin', session()->get('user_permissions'))) : ?>
-                            <li>
-                                <a href="<?= base_url('/stock/returin'); ?>">Retur In</a>
-                            </li>
-                        <?php endif; ?>
-                        <?php if (in_array('stock/returout', session()->get('user_permissions'))) : ?>
-                            <li>
-                                <a href="<?= base_url('/stock/returout'); ?>">Retur Out</a>
-                            </li>
-                        <?php endif; ?>
-                        <?php if (in_array('stock', session()->get('user_permissions'))) : ?>
-                            <li>
-                                <a href="<?= base_url('/stock'); ?>">All Stock</a>
+                                <a href="<?= base_url('/laporanauditee'); ?>">Laporan Auditee</a>
                             </li>
                         <?php endif; ?>
                     <?php endif; ?>
                     <?php if (
-                        in_array('product', session()->get('user_permissions')) ||
-                        in_array('color', session()->get('user_permissions')) ||
-                        in_array('unit', session()->get('user_permissions')) ||
-                        in_array('category', session()->get('user_permissions')) ||
-                        in_array('supplier', session()->get('user_permissions'))
+                        in_array('auditor', session()->get('user_permissions')) ||
+                        in_array('auditee', session()->get('user_permissions')) ||
+                        in_array('eselon', session()->get('user_permissions')) ||
+                        in_array('jenistemuan', session()->get('user_permissions')) ||
+                        in_array('jenisrekomendasi', session()->get('user_permissions'))
                     ) : ?>
-
-                        <?php if (in_array('product', session()->get('user_permissions'))) : ?>
+                        <?php if (in_array('auditor', session()->get('user_permissions'))) : ?>
                             <li>
-                                <a href="<?= base_url('/product'); ?>">Products</a>
+                                <a href="<?= base_url('/auditor'); ?>">Auditor</a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (in_array('auditee', session()->get('user_permissions'))) : ?>
+                            <li>
+                                <a href="<?= base_url('/auditee'); ?>">Auditee</a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (in_array('eselon', session()->get('user_permissions'))) : ?>
+                            <li>
+                                <a href="<?= base_url('/eselon'); ?>">Eselon</a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (in_array('jenistemuan', session()->get('user_permissions'))) : ?>
+                            <li>
+                                <a href="<?= base_url('/jenistemuan'); ?>">Jenis Temuan</a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (in_array('jenisrekomendasi', session()->get('user_permissions'))) : ?>
+                            <li>
+                                <a href="<?= base_url('/jenisrekomendasi'); ?>">Jenis Rekomendasi</a>
                             </li>
                         <?php endif; ?>
                     <?php endif; ?>
@@ -100,6 +95,10 @@
                         <?php endif; ?>
 
                     <?php endif; ?>
+                    <li>
+                        <a href="<?= base_url('/logout'); ?>">Logout</a>
+                    </li>
+
 
                 </ul>
             </div>

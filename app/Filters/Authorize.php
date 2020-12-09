@@ -28,7 +28,7 @@ class Authorize implements FilterInterface
 
         /**-----------------**/
 
-        $bypass = true;
+        $bypass = false;
         /**
          * jika $bypass di TRUE maka AUTHORIZE / USER PERMISSIONS di NON AKTIFKAN, semua user boleh melakukan apapun TETAPI harus TETAP LOGIN DULU
          */

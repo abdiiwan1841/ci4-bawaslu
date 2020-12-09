@@ -177,7 +177,7 @@
                                 <td style="text-align:left;"><?= $r->remark_auditee; ?></td>
                                 <td style="text-align:left;"><?= $r->remark_auditor; ?></td>
                                 <td style="text-align:center;">
-                                    <?php if (($r->nilai_terverifikasi == 0 || $r->nilai_terverifikasi == '')) : ?>
+                                    <?php if (($r->nilai_terverifikasi == '') && ($data->status != 'LUNAS')) : ?>
                                         <a href="<?= base_url('laporanauditee/edittindaklanjut/' . $r->id); ?>" class="btn btn-default">Edit</a>
                                     <?php endif; ?>
                                     <a href="<?= base_url('laporanauditee/bukti/' . $r->id); ?>" class="btn btn-success">Bukti</a>
@@ -188,7 +188,7 @@
                         <?php endforeach; ?>
                         <?php if ($no == 1) : ?>
                             <tr>
-                                <td colspan="6" style="text-align:center;">Belum ada tindak lanjut</td>
+                                <td colspan="8" style="text-align:center;">Belum ada tindak lanjut</td>
                             </tr>
                         <?php endif; ?>
                     </tbody>
