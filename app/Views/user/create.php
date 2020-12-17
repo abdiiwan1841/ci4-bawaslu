@@ -30,7 +30,7 @@
 
                     <?= input_text($field_name = 'email', $label = 'Email', $value = '', $required = true, $readonly = false, $disabled = false); ?>
 
-                    <?= input_image($field_name = 'image', $label = 'Image Profile', $file_name = 'default.png', $required = false); ?>
+                    <?= input_image($field_name = 'image', $label = 'Image Profile', $file_name = 'default.png', $required = false, $readonly = false, $path = 'uploads'); ?>
 
                     <?= input_select($field_name = 'groups[]', $label = 'Groups', $groups_options, $selected = '', $required = true, $disabled = ''); ?>
 

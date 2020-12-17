@@ -36,7 +36,7 @@
 
                     <?= input_text($field_name = 'email', $label = 'Email', $value = '', $required = true, $readonly = false, $disabled = false); ?>
 
-                    <?= input_image($field_name = 'image', $label = 'Image Profile', $file_name = 'default.png', $required = false); ?>
+                    <?= input_image($field_name = 'image', $label = 'Image Profile', $file_name = 'default.png', $required = false, $readonly = false, $path = 'uploads'); ?>
 
                     <div class="form-actions no-margin">
                         <button type="submit" class="btn btn-primary">Submit</button>

@@ -89,7 +89,7 @@ class Dashboard extends BaseController
                 'formatter' => function ($i, $row) {
                     $html = '
                     <center>
-                    <form action="' . base_url('tindaklanjut/verifikasi/' . $i) . '" method="post" class="d-inline">
+                    <form action="' . base_url('tindaklanjut/index/' . $row['id_rekomendasi']) . '" method="post" class="d-inline">
                         ' . csrf_field() . '
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="id_satuan_kerja" value="' . $row['id_satuan_kerja'] . '">

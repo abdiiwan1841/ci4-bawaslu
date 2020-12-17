@@ -106,6 +106,8 @@ class Auditor extends BaseController
     public function save()
     {
 
+        $exceptionMessages = '';
+
         if (!$this->validate([
             'nip' => [
                 'rules' => 'required',
@@ -177,7 +179,11 @@ class Auditor extends BaseController
                 $namaFile = $file->getRandomName();
 
                 //pindahkan file ke folder IMAGES
-                $file->move('images', $namaFile); //kalau di buar random nama file dijadikan parameter
+                try {
+                    $file->move(FCPATH . 'uploads', $namaFile); //kalau di buar random nama file dijadikan parameter
+                } catch (\Exception $e) {
+                    $exceptionMessages = '<br/>' . $e->getMessage();
+                }
             }
 
             $this->pegawaiModel->insert([
@@ -301,15 +307,18 @@ class Auditor extends BaseController
                 $namaFile = $file->getRandomName();
 
                 //pindahkan file ke folder IMAGES
-                $file->move('images', $namaFile); //kalau di buar random nama file dijadikan parameter
-                session()->set('image', $namaFile);
+                try {
+                    $file->move(FCPATH . 'uploads', $namaFile); //kalau di buar random nama file dijadikan parameter
+                } catch (\Exception $e) {
+                    $exceptionMessages = '<br/>' . $e->getMessage();
+                }
+
                 //hapus file lama jika bukan file default
                 if ($this->request->getVar('old_image') != 'default.png') {
                     try {
-                        unlink('images/' . $this->request->getVar('old_image'));
+                        unlink('uploads/' . $this->request->getVar('old_image'));
                     } catch (\Exception $e) {
                         $exceptionMessages = '<br/>' . $e->getMessage();
-                        //return redirect()->to('/user/edit/' . $id)->withInput()->with('messages', $e->getMessage());
                     }
                 }
             }

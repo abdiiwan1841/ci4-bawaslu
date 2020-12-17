@@ -8,11 +8,13 @@
 namespace App\Controllers;
 
 use App\Models\TindaklanjutModel;
+use App\Models\TemuanModel;
 
 class Tindaklanjut extends BaseController
 {
 
     protected $tindaklanjutModel;
+    protected $temuanModel;
 
     public function __construct()
     {
@@ -21,6 +23,17 @@ class Tindaklanjut extends BaseController
 
     public function index($idRekomendasi)
     {
+
+        if ($_POST) {
+            $this->temuanModel = new TemuanModel();
+            session()->set('ketua_tim', $this->temuanModel->getKetuaTim($this->request->getVar('id_laporan')));
+            session()->set('id_satuan_kerja', $this->request->getVar('id_satuan_kerja'));
+            session()->set('id_laporan', $this->request->getVar('id_laporan'));
+            session()->set('id_temuan', $this->request->getVar('id_temuan'));
+            session()->set('id_sebab', $this->request->getVar('id_sebab'));
+            session()->set('id_rekomendasi', $this->request->getVar('id_rekomendasi'));
+            session()->set('id_tindak_lanjut', $this->request->getVar('id_tindak_lanjut'));
+        }
 
         // session()->set('id_satuan_kerja', $idWilayah);
         // session()->set('id_laporan', $idLaporan);
@@ -322,14 +335,6 @@ class Tindaklanjut extends BaseController
 
     public function verifikasi($idTindakLanjut)
     {
-        if ($_POST) {
-            session()->set('id_satuan_kerja', $this->request->getVar('id_satuan_kerja'));
-            session()->set('id_laporan', $this->request->getVar('id_laporan'));
-            session()->set('id_temuan', $this->request->getVar('id_temuan'));
-            session()->set('id_sebab', $this->request->getVar('id_sebab'));
-            session()->set('id_rekomendasi', $this->request->getVar('id_rekomendasi'));
-            session()->set('id_tindak_lanjut', $this->request->getVar('id_tindak_lanjut'));
-        }
 
         $this->readed($idTindakLanjut);
 

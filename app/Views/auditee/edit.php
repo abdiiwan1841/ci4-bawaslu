@@ -47,7 +47,7 @@
 
                     <?= input_text($field_name = 'email', $label = 'Email', $value = $data->email, $required = true, $readonly = false, $disabled = false); ?>
 
-                    <?= input_image($field_name = 'image', $label = 'Image Profile', $file_name = $data->image, $required = false); ?>
+                    <?= input_image($field_name = 'image', $label = 'Image Profile', $file_name = $data->image, $required = false, $readonly = false, $path = 'uploads'); ?>
 
 
                     <div class="form-actions no-margin">
@@ -74,7 +74,7 @@
 
             $("select#eselon2 option").remove();
             $.ajax({
-                url: "<?= base_url('laporan/ajaxGetEselon2/'); ?>" + "/" + idEselon1,
+                url: "<?= base_url('auditee/ajaxGetEselon2/'); ?>" + "/" + idEselon1,
                 async: false,
                 type: "GET",
                 dataType: 'json',
@@ -96,7 +96,7 @@
 
             $("select#eselon3 option").remove();
             $.ajax({
-                url: "<?= base_url('laporan/ajaxGetEselon3/'); ?>" + "/" + idEselon2,
+                url: "<?= base_url('auditee/ajaxGetEselon3/'); ?>" + "/" + idEselon2,
                 async: false,
                 type: "GET",
                 dataType: 'json',

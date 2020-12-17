@@ -101,6 +101,9 @@ class User extends BaseController
 
 	public function save()
 	{
+
+		$exceptionMessages = '';
+
 		if (!$this->validate([
 			'name' => [
 				'rules' => 'required',
@@ -172,7 +175,11 @@ class User extends BaseController
 				$namaFile = $file->getRandomName();
 
 				//pindahkan file ke folder IMAGES
-				$file->move('images', $namaFile); //kalau di buar random nama file dijadikan parameter
+				try {
+					$file->move(FCPATH . 'uploads', $namaFile); //kalau di buar random nama file dijadikan parameter
+				} catch (\Exception $e) {
+					$exceptionMessages = '<br/>' . $e->getMessage();
+				}
 			}
 
 			$this->userModel->insert([
@@ -287,12 +294,16 @@ class User extends BaseController
 				$namaFile = $file->getRandomName();
 
 				//pindahkan file ke folder IMAGES
-				$file->move('images', $namaFile); //kalau di buar random nama file dijadikan parameter
-				session()->set('image', $namaFile);
+				try {
+					$file->move(FCPATH . 'uploads', $namaFile); //kalau di buar random nama file dijadikan parameter
+				} catch (\Exception $e) {
+					$exceptionMessages = '<br/>' . $e->getMessage();
+				}
+
 				//hapus file lama jika bukan file default
 				if ($this->request->getVar('old_image') != 'default.png') {
 					try {
-						unlink('images/' . $this->request->getVar('old_image'));
+						unlink('uploads/' . $this->request->getVar('old_image'));
 					} catch (\Exception $e) {
 						$exceptionMessages = '<br/>' . $e->getMessage();
 						//return redirect()->to('/user/edit/' . $id)->withInput()->with('messages', $e->getMessage());
@@ -490,11 +501,10 @@ class User extends BaseController
 				session()->set('image', $namaFile);
 				//hapus file lama jika bukan file default
 				if ($this->request->getVar('old_image') != 'default.png') {
-					// unlink(FCPATH . 'images/' . $this->request->getVar('old_image'));
 					try {
 						unlink(FCPATH . 'uploads/' . $this->request->getVar('old_image'));
 					} catch (\Exception $e) {
-						return redirect()->to('/profile')->withInput()->with('messages_error', $e->getMessage());
+						//return redirect()->to('/profile')->withInput()->with('messages_error', $e->getMessage());
 					}
 				}
 			}

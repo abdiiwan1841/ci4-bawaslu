@@ -47,13 +47,13 @@
                                 ];
                                 ?>
                                 <?= input_select($field_name = 'unit_pelaksana', $label = 'Unit Pelaksana', $optionsUnitPelaksana, $selected = $data->unit_pelaksana, $required = true, $disabled = ''); ?>
-                                <?= input_text($field_name = 'nip_pimpinan', $label = 'NIP Pimpinan', $value = $data->nip_pimpinan, $required = true, $readonly = false, $disabled = false); ?>
+                                <?= input_text($field_name = 'nip_pimpinan', $label = 'NIP Pimpinan Satker', $value = $data->nip_pimpinan, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'pimpinan_satuan_kerja', $label = 'Pimpinan Satuan Kerja', $value = $data->pimpinan_satuan_kerja, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'nama_satuan_kerja', $label = 'Nama Satuan Kerja', $value = $data->nama_satuan_kerja, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'tahun_anggaran', $label = 'Tahun Anggaran', $value = $data->tahun_anggaran, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_number($field_name = 'nilai_anggaran', $label = 'Nilai Anggaran', $value = $data->nilai_anggaran, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_number($field_name = 'realisasi_anggaran', $label = 'Realisasi Anggaran', $value = $data->realisasi_anggaran, $required = true, $readonly = false, $disabled = false); ?>
-                                <?= input_text($field_name = 'audit_anggaran', $label = 'Periode Audit', $value = $data->audit_anggaran, $required = true, $readonly = false, $disabled = false); ?>
+                                <?= input_number($field_name = 'audit_anggaran', $label = 'Anggaran yang diaudit', $value = $data->audit_anggaran, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'jenis_anggaran', $label = 'Jenis Anggaran', $value = $data->jenis_anggaran, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_select($field_name = 'ketua_tim', $label = 'Ketua TIM', $options, $value = $data->ketua_tim, $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_multiselect('anggota_tim[]', 'Anggota TIM', $options, $selected = $options_selected, $required = true, $readonly = false); ?>
@@ -72,5 +72,18 @@
 <script src="<?= '/assets/js/select2.js'; ?>"></script>
 <script type="text/javascript">
     $(".select2-container").select2();
+
+    $(document).ready(function() {
+        $("#nip_pimpinan").keypress(function(e) {
+            if (
+                e.which != 8 &&
+                e.which != 0 &&
+                (e.which < 48 || e.which > 57) &&
+                e.which != 46
+            ) {
+                return false;
+            }
+        });
+    });
 </script>
 <?= $this->endSection(); ?>

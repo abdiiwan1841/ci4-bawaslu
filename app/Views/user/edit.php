@@ -31,7 +31,7 @@
 
                     <?= input_text($field_name = 'email', $label = 'Email', $value = $data->email, $required = true, $readonly = false, $disabled = false); ?>
 
-                    <?= input_image($field_name = 'image', $label = 'Image Profile', $file_name = $data->image, $required = false, $readonly = false); ?>
+                    <?= input_image($field_name = 'image', $label = 'Image Profile', $file_name = $data->image, $required = false, $readonly = false, $path = 'uploads'); ?>
 
                     <?= input_select($field_name = 'groups[]', $label = 'Groups', $groups_options, $selected = $data->id_group, $required = true, $disabled = false); ?>
 
