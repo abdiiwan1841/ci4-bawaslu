@@ -395,7 +395,7 @@ class User extends BaseController
 				if ($users->image != 'default.png') {
 					//hapus gambar
 					try {
-						unlink('images/' . $users->image);
+						unlink(FCPATH . 'uploads/' . $users->image);
 					} catch (\Exception $e) {
 						$exceptionMessages = '<br/>' . $e->getMessage();
 						//return redirect()->to('/user/edit/' . $id)->withInput()->with('messages', $e->getMessage());
@@ -427,6 +427,8 @@ class User extends BaseController
 
 	public function profile_update()
 	{
+
+		// dd(FCPATH . 'images');
 		$id = session()->get('id_user');
 
 		$validation = [
@@ -480,11 +482,20 @@ class User extends BaseController
 				$namaFile = $file->getRandomName();
 
 				//pindahkan file ke folder IMAGES
-				$file->move(WRITEPATH . 'images', $namaFile); //kalau di buar random nama file dijadikan parameter
+				try {
+					$file->move(FCPATH . 'uploads', $namaFile); //kalau di buar random nama file dijadikan parameter
+				} catch (\Exception $e) {
+					return redirect()->to('/profile')->withInput()->with('messages_error', $e->getMessage());
+				}
 				session()->set('image', $namaFile);
 				//hapus file lama jika bukan file default
 				if ($this->request->getVar('old_image') != 'default.png') {
 					// unlink(FCPATH . 'images/' . $this->request->getVar('old_image'));
+					try {
+						unlink(FCPATH . 'uploads/' . $this->request->getVar('old_image'));
+					} catch (\Exception $e) {
+						return redirect()->to('/profile')->withInput()->with('messages_error', $e->getMessage());
+					}
 				}
 			}
 

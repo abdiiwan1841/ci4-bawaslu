@@ -15,7 +15,7 @@
                     <form action="<?= base_url('profile/update') ?>" method="post" class="form-horizontal no-margin" enctype="multipart/form-data">
                         <div class="span2">
                             <div class="thumbnail">
-                                <img alt="300x200" src="<?= 'images/' . $data->image; ?>" class="img-thumbnail img-preview">
+                                <img alt="300x200" src="<?= 'uploads/' . $data->image; ?>" class="img-thumbnail img-preview">
                                 <div class="caption">
                                     <a href="#" data-type="text" data-pk="1" data-original-title="Edit your Nick Name" class="editable editable-click inputText" style="margin-bottom: 10px;">
                                         <?= session()->get('name'); ?>

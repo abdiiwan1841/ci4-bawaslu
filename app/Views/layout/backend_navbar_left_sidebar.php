@@ -33,7 +33,7 @@
 <div class="left-sidebar hidden-tablet hidden-phone">
     <div class="user-details">
         <div class="user-img">
-            <img src="<?= '/images/' . session()->get('image'); ?>" class="avatar" alt="Avatar">
+            <img src="<?= '/uploads/' . session()->get('image'); ?>" class="avatar" alt="Avatar">
         </div>
         <div class="welcome-text">
             <span><?= session()->get('group_name'); ?></span>

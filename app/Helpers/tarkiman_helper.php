@@ -394,8 +394,8 @@ function input_multiselect($field_name, $label, $options = array(), $selected = 
         'name'      => $field_name,
         'id'        => $field_name,
         'placeholder' => 'Please Select ' . $label,
-        // 'class'     => 'select2-container input-block-level',
-        'class'     => 'chosen-select input-block-level',
+        'class'     => 'select2-container input-block-level',
+        // 'class'     => 'chosen-select input-block-level',
         'multiple'     => 'true'
     ];
 
