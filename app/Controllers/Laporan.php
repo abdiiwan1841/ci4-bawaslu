@@ -166,7 +166,7 @@ class Laporan extends BaseController
                 'db'        => 'audit_anggaran',
                 'dt'        => 13,
                 'formatter' => function ($i, $row) {
-                    $html = $i;
+                    $html = format_number($i);
                     return $html;
                 }
             ),
@@ -219,7 +219,7 @@ class Laporan extends BaseController
     public function save()
     {
 
-        $_POST['no_laporan'] = $this->laporanModel->counter();
+        // $_POST['no_laporan'] = $this->laporanModel->counter();
 
         if (!$this->validate([
             'no_laporan' => [
