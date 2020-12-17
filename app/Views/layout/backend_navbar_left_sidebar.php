@@ -52,7 +52,7 @@
                             <span class="fs1" aria-hidden="true" data-icon="&#xe0a0;"></span>&nbsp; Home
                         </span>
                     </div>
-                    <div class="accordion-body in collapse" id="collapseTwo" style="height: auto;">
+                    <div class="accordion-body in collapse" id="collapseOne" style="height: auto;">
                         <div class="accordion-inner">
                             <ul class="inbox">
                                 <?php if (in_array('dashboard', session()->get('user_permissions'))) : ?>
@@ -113,7 +113,7 @@
                             <span class="fs1" aria-hidden="true" data-icon="&#xe020;"></span>&nbsp; Master Data
                         </span>
                     </div>
-                    <div class="accordion-body in collapse" id="collapseTwo" style="height: auto;">
+                    <div class="accordion-body in collapse" id="collapseThree" style="height: auto;">
                         <div class="accordion-inner">
                             <ul class="inbox">
                                 <?php if (in_array('auditor', session()->get('user_permissions'))) : ?>
@@ -153,7 +153,7 @@
                             <span class="fs1" aria-hidden="true" data-icon="&#xe075;"></span>&nbsp; Users Management
                         </span>
                     </div>
-                    <div class="accordion-body in collapse" id="collapseSix" style="height: auto;">
+                    <div class="accordion-body in collapse" id="collapseFour" style="height: auto;">
                         <div class="accordion-inner">
                             <ul class="contents">
                                 <?php if (in_array('user', session()->get('user_permissions'))) : ?>
