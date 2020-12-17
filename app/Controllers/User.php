@@ -480,11 +480,11 @@ class User extends BaseController
 				$namaFile = $file->getRandomName();
 
 				//pindahkan file ke folder IMAGES
-				$file->move('images', $namaFile); //kalau di buar random nama file dijadikan parameter
+				$file->move(WRITEPATH . 'images', $namaFile); //kalau di buar random nama file dijadikan parameter
 				session()->set('image', $namaFile);
 				//hapus file lama jika bukan file default
 				if ($this->request->getVar('old_image') != 'default.png') {
-					unlink('images/' . $this->request->getVar('old_image'));
+					// unlink(FCPATH . 'images/' . $this->request->getVar('old_image'));
 				}
 			}
 
