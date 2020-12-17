@@ -25,13 +25,11 @@ WebUI.click(findTestObject('Login/ButtonLogin'))
 
 WebUI.click(findTestObject('Menu/MenuAuditor'))
 
-WebUI.click(findTestObject('Auditor/ButtonCreateNew'))
+WebUI.click(findTestObject('Auditor/ButtonEdit'))
 
 WebUI.setText(findTestObject('Auditor/From Create/FieldNIP'), '10115167')
 
 WebUI.setText(findTestObject('Auditor/From Create/FieldNama'), 'Suenawati')
-
-WebUI.setText(findTestObject('Auditor/From Create/FieldUsername'), 'suenawati')
 
 WebUI.setText(findTestObject('Auditor/From Create/FieldPassword'), 'suenawati')
 
