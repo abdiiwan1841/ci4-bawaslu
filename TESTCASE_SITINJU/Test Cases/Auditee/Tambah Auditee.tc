@@ -5,4 +5,18 @@
    <tag></tag>
    <comment></comment>
    <testCaseGuid>0522bf3e-ab40-44f9-b7cc-622104270a49</testCaseGuid>
+   <variable>
+      <defaultValue>'D:\\\\MY DATA\\\\BERKAS\\\\RESIZE FOTO\\\\IMG_714.jpg'</defaultValue>
+      <description></description>
+      <id>639b06b2-1044-4ef7-8711-e5914f83b778</id>
+      <masked>false</masked>
+      <name>pathFile</name>
+   </variable>
+   <variable>
+      <defaultValue>''</defaultValue>
+      <description></description>
+      <id>c03b6014-811f-4356-bacd-5a7a863f6ec8</id>
+      <masked>false</masked>
+      <name>variable</name>
+   </variable>
 </TestCaseEntity>

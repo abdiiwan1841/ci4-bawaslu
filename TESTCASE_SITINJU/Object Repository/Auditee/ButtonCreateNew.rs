@@ -7,7 +7,7 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//*[@id=&quot;datatables_wrapper&quot;]/div[1]/a</value>
+         <value>//*[@id=&quot;nama&quot;]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -17,6 +17,6 @@
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>//*[@id=&quot;datatables_wrapper&quot;]/div[1]/a</value>
+      <value>//*[@id=&quot;nama&quot;]</value>
    </webElementProperties>
 </WebElementEntity>

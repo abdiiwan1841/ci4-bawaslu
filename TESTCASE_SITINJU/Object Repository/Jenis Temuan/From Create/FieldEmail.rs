@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>FieldUsername</name>
+   <name>FieldEmail</name>
    <tag></tag>
-   <elementGuidId>f17a1655-2e05-45e9-9a1c-feb0da2984f9</elementGuidId>
+   <elementGuidId>eafaf6a1-8825-495a-934c-c7c762af5e4a</elementGuidId>
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//*[@id=&quot;username&quot;]</value>
+         <value>//*[@id=&quot;email&quot;]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -17,6 +17,6 @@
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>//*[@id=&quot;username&quot;]</value>
+      <value>//*[@id=&quot;email&quot;]</value>
    </webElementProperties>
 </WebElementEntity>

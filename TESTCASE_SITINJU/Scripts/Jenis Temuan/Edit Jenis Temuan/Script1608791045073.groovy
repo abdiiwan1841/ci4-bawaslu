@@ -23,21 +23,15 @@ WebUI.setText(findTestObject('Login/FieldPassword'), 'admin')
 
 WebUI.click(findTestObject('Login/ButtonLogin'))
 
-WebUI.click(findTestObject('Menu/MenuAuditor'))
+WebUI.click(findTestObject('Menu/Menu Jenis Temuan'))
 
-WebUI.click(findTestObject('Auditor/ButtonEdit'))
+WebUI.click(findTestObject('Jenis Temuan/ButtonEdit'))
 
-WebUI.setText(findTestObject('Auditor/From Create/FieldNIP'), '10115167')
+WebUI.setText(findTestObject('Jenis Temuan/From Create/Kode'), '115')
 
-WebUI.setText(findTestObject('Auditor/From Create/FieldNama'), 'Suenawati')
+WebUI.setText(findTestObject('Jenis Temuan/From Create/Deskripsi'), 'Tidak menguntungkan Negara')
 
-WebUI.setText(findTestObject('Auditor/From Create/FieldPassword'), 'suenawati')
+WebUI.selectOptionByValue(findTestObject('Jenis Temuan/From Create/Parent'), 'bdff7538-abbb-1192-4033-5432ed1589b5', false)
 
-WebUI.setText(findTestObject('Auditor/From Create/FieldRepeatPassword'), 'suenawati')
-
-WebUI.setText(findTestObject('Auditor/From Create/FieldEmail'), 'suenawati@gmail.com')
-
-WebUI.uploadFile(findTestObject('Auditee/From Create/FieldUploadFile'), pathFile)
-
-WebUI.click(findTestObject('Auditor/From Create/ButtonSubmit'), FailureHandling.STOP_ON_FAILURE)
+WebUI.click(findTestObject('Jenis Temuan/From Create/ButtonSubmit'), FailureHandling.STOP_ON_FAILURE)
 

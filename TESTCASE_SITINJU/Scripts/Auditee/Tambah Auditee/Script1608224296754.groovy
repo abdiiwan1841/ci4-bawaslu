@@ -39,5 +39,7 @@ WebUI.setText(findTestObject('Auditor/From Create/FieldRepeatPassword'), 'suenaw
 
 WebUI.setText(findTestObject('Auditor/From Create/FieldEmail'), 'suenawati@gmail.com')
 
+WebUI.uploadFile(findTestObject('Auditee/From Create/FieldUploadFile'), pathFile)
+
 WebUI.click(findTestObject('Auditor/From Create/ButtonSubmit'), FailureHandling.STOP_ON_FAILURE)
 

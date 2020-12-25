@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>FieldUsername</name>
+   <name>ButtonSubmit</name>
    <tag></tag>
-   <elementGuidId>f17a1655-2e05-45e9-9a1c-feb0da2984f9</elementGuidId>
+   <elementGuidId>46b98ed2-abae-4e2f-8bde-326b57e8f02d</elementGuidId>
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//*[@id=&quot;username&quot;]</value>
+         <value>/html/body/div[1]/div[2]/div/div[3]/div/div/div[2]/form/div[4]/button[1]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -17,6 +17,6 @@
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>//*[@id=&quot;username&quot;]</value>
+      <value>/html/body/div[1]/div[2]/div/div[3]/div/div/div[2]/form/div[4]/button[1]</value>
    </webElementProperties>
 </WebElementEntity>

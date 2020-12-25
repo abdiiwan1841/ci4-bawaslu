@@ -3,7 +3,7 @@
    <description></description>
    <name>FieldUsername</name>
    <tag></tag>
-   <elementGuidId>f17a1655-2e05-45e9-9a1c-feb0da2984f9</elementGuidId>
+   <elementGuidId>010e91b1-4b8e-46b0-a11d-afe37616b5ce</elementGuidId>
    <selectorCollection>
       <entry>
          <key>BASIC</key>

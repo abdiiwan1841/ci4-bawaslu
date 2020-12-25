@@ -5,4 +5,11 @@
    <tag></tag>
    <comment></comment>
    <testCaseGuid>d18c20bc-d069-4c83-82b7-f061f1774b9d</testCaseGuid>
+   <variable>
+      <defaultValue>'D:\\\\MY DATA\\\\BERKAS\\\\RESIZE FOTO\\\\IMG_7140 - Copy(GC9eMIN0zQk).jpg'</defaultValue>
+      <description></description>
+      <id>145155fb-f0af-4cee-864a-9cb909d4bcd7</id>
+      <masked>false</masked>
+      <name>pathFile</name>
+   </variable>
 </TestCaseEntity>

@@ -23,21 +23,15 @@ WebUI.setText(findTestObject('Login/FieldPassword'), 'admin')
 
 WebUI.click(findTestObject('Login/ButtonLogin'))
 
-WebUI.click(findTestObject('Menu/MenuAuditor'))
+WebUI.click(findTestObject('Menu/MenuEselon'))
 
-WebUI.click(findTestObject('Auditor/ButtonEdit'))
+WebUI.click(findTestObject('Eselon/ButtonEdit'))
 
-WebUI.setText(findTestObject('Auditor/From Create/FieldNIP'), '10115167')
+WebUI.setText(findTestObject('Eselon/From Create/FieldNama'), 'Wati')
 
-WebUI.setText(findTestObject('Auditor/From Create/FieldNama'), 'Suenawati')
+WebUI.setText(findTestObject('Eselon/From Create/Level Eselon'), '3')
 
-WebUI.setText(findTestObject('Auditor/From Create/FieldPassword'), 'suenawati')
+WebUI.setText(findTestObject('Eselon/From Create/ID Parent'), '1010')
 
-WebUI.setText(findTestObject('Auditor/From Create/FieldRepeatPassword'), 'suenawati')
-
-WebUI.setText(findTestObject('Auditor/From Create/FieldEmail'), 'suenawati@gmail.com')
-
-WebUI.uploadFile(findTestObject('Auditee/From Create/FieldUploadFile'), pathFile)
-
-WebUI.click(findTestObject('Auditor/From Create/ButtonSubmit'), FailureHandling.STOP_ON_FAILURE)
+WebUI.click(findTestObject('Eselon/From Create/ButtonSubmit'), FailureHandling.STOP_ON_FAILURE)
 
