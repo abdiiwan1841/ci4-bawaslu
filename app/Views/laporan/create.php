@@ -33,7 +33,7 @@
                             <form action="<?= base_url('laporan/save'); ?>" method="POST" enctype="multipart/form-data" class="form-horizontal no-margin">
 
                                 <?= csrf_field(); ?>
-                                <?= input_text($field_name = 'no_laporan', $label = 'No. Laporan', $value = $no_laporan, $required = true, $readonly = true, $disabled = false); ?>
+                                <?= input_text($field_name = 'no_laporan', $label = 'No. Laporan', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_date($field_name = 'tanggal_laporan', $label = 'Tanggal Laporan', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'nama_laporan', $label = 'Nama Laporan', $value = '', $required = true, $readonly = false, $disabled = false); ?>
                                 <?= input_text($field_name = 'no_surat_tugas', $label = 'No. Surat Tugas', $value = '', $required = true, $readonly = false, $disabled = false); ?>
